@@ -7,16 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F2469C4F29F716150023DAD9 /* DDHAction.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C4E29F716150023DAD9 /* DDHAction.m */; };
+		F2469C5229F717730023DAD9 /* DDHDay.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5129F717730023DAD9 /* DDHDay.m */; };
+		F2469C5629F71B470023DAD9 /* NSUserDefaults+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5529F71B470023DAD9 /* NSUserDefaults+Helper.m */; };
+		F2469C5929F9855C0023DAD9 /* DDHSpoonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5829F9855C0023DAD9 /* DDHSpoonCell.m */; };
+		F2469C5D29F988D30023DAD9 /* DDHActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5C29F988D30023DAD9 /* DDHActionCell.m */; };
 		F25F7D1729F596EA00EF395F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D1629F596EA00EF395F /* AppDelegate.m */; };
 		F25F7D1A29F596EA00EF395F /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D1929F596EA00EF395F /* SceneDelegate.m */; };
 		F25F7D1D29F596EA00EF395F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D1C29F596EA00EF395F /* ViewController.m */; };
-		F25F7D2029F596EA00EF395F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F25F7D1E29F596EA00EF395F /* Main.storyboard */; };
 		F25F7D2229F596EB00EF395F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25F7D2129F596EB00EF395F /* Assets.xcassets */; };
 		F25F7D2529F596EB00EF395F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F25F7D2329F596EB00EF395F /* LaunchScreen.storyboard */; };
 		F25F7D2829F596EB00EF395F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D2729F596EB00EF395F /* main.m */; };
+		F25F7D3029F5992B00EF395F /* DDHDayPlannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D2F29F5992B00EF395F /* DDHDayPlannerViewController.m */; };
+		F25F7D3329F5997800EF395F /* DDHDayPlannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D3229F5997800EF395F /* DDHDayPlannerView.m */; };
+		F25F7D3C29F599DA00EF395F /* DailySpoonsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D3B29F599DA00EF395F /* DailySpoonsTests.m */; };
+		F25F7D4329F59A1700EF395F /* DDHDayPlannerViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D4229F59A1700EF395F /* DDHDayPlannerViewControllerTests.m */; };
+		F25F7D4729F5ABEF00EF395F /* DDHDayPlannerViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F25F7D3D29F599DA00EF395F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F25F7D0A29F596EA00EF395F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F25F7D1129F596EA00EF395F;
+			remoteInfo = DailySpoons;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		F2469C4D29F716150023DAD9 /* DDHAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHAction.h; sourceTree = "<group>"; };
+		F2469C4E29F716150023DAD9 /* DDHAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHAction.m; sourceTree = "<group>"; };
+		F2469C5029F717730023DAD9 /* DDHDay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHDay.h; sourceTree = "<group>"; };
+		F2469C5129F717730023DAD9 /* DDHDay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDay.m; sourceTree = "<group>"; };
+		F2469C5429F71B470023DAD9 /* NSUserDefaults+Helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Helper.h"; sourceTree = "<group>"; };
+		F2469C5529F71B470023DAD9 /* NSUserDefaults+Helper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Helper.m"; sourceTree = "<group>"; };
+		F2469C5729F9855C0023DAD9 /* DDHSpoonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHSpoonCell.h; sourceTree = "<group>"; };
+		F2469C5829F9855C0023DAD9 /* DDHSpoonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHSpoonCell.m; sourceTree = "<group>"; };
+		F2469C5A29F987390023DAD9 /* DDHActionState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHActionState.h; sourceTree = "<group>"; };
+		F2469C5B29F988D30023DAD9 /* DDHActionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHActionCell.h; sourceTree = "<group>"; };
+		F2469C5C29F988D30023DAD9 /* DDHActionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionCell.m; sourceTree = "<group>"; };
 		F25F7D1229F596EA00EF395F /* DailySpoons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailySpoons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F25F7D1529F596EA00EF395F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F25F7D1629F596EA00EF395F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -24,15 +54,30 @@
 		F25F7D1929F596EA00EF395F /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		F25F7D1B29F596EA00EF395F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		F25F7D1C29F596EA00EF395F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		F25F7D1F29F596EA00EF395F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F25F7D2129F596EB00EF395F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F25F7D2429F596EB00EF395F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F25F7D2629F596EB00EF395F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F25F7D2729F596EB00EF395F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F25F7D2E29F5992B00EF395F /* DDHDayPlannerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHDayPlannerViewController.h; sourceTree = "<group>"; };
+		F25F7D2F29F5992B00EF395F /* DDHDayPlannerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDayPlannerViewController.m; sourceTree = "<group>"; };
+		F25F7D3129F5997800EF395F /* DDHDayPlannerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHDayPlannerView.h; sourceTree = "<group>"; };
+		F25F7D3229F5997800EF395F /* DDHDayPlannerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDayPlannerView.m; sourceTree = "<group>"; };
+		F25F7D3929F599DA00EF395F /* DailySpoonsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailySpoonsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25F7D3B29F599DA00EF395F /* DailySpoonsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailySpoonsTests.m; sourceTree = "<group>"; };
+		F25F7D4229F59A1700EF395F /* DDHDayPlannerViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDayPlannerViewControllerTests.m; sourceTree = "<group>"; };
+		F25F7D4429F5A8F900EF395F /* DailySpoons.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailySpoons.xctestplan; sourceTree = "<group>"; };
+		F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDayPlannerViewTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F25F7D0F29F596EA00EF395F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F25F7D3629F599DA00EF395F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -45,7 +90,9 @@
 		F25F7D0929F596EA00EF395F = {
 			isa = PBXGroup;
 			children = (
+				F25F7D4429F5A8F900EF395F /* DailySpoons.xctestplan */,
 				F25F7D1429F596EA00EF395F /* DailySpoons */,
+				F25F7D3A29F599DA00EF395F /* DailySpoonsTests */,
 				F25F7D1329F596EA00EF395F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				F25F7D1229F596EA00EF395F /* DailySpoons.app */,
+				F25F7D3929F599DA00EF395F /* DailySpoonsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,13 +115,53 @@
 				F25F7D1929F596EA00EF395F /* SceneDelegate.m */,
 				F25F7D1B29F596EA00EF395F /* ViewController.h */,
 				F25F7D1C29F596EA00EF395F /* ViewController.m */,
-				F25F7D1E29F596EA00EF395F /* Main.storyboard */,
+				F2469C5429F71B470023DAD9 /* NSUserDefaults+Helper.h */,
+				F2469C5529F71B470023DAD9 /* NSUserDefaults+Helper.m */,
+				F25F7D3429F5997E00EF395F /* DayPlanner */,
 				F25F7D2129F596EB00EF395F /* Assets.xcassets */,
 				F25F7D2329F596EB00EF395F /* LaunchScreen.storyboard */,
 				F25F7D2629F596EB00EF395F /* Info.plist */,
 				F25F7D2729F596EB00EF395F /* main.m */,
 			);
 			path = DailySpoons;
+			sourceTree = "<group>";
+		};
+		F25F7D3429F5997E00EF395F /* DayPlanner */ = {
+			isa = PBXGroup;
+			children = (
+				F25F7D2E29F5992B00EF395F /* DDHDayPlannerViewController.h */,
+				F25F7D2F29F5992B00EF395F /* DDHDayPlannerViewController.m */,
+				F25F7D3129F5997800EF395F /* DDHDayPlannerView.h */,
+				F25F7D3229F5997800EF395F /* DDHDayPlannerView.m */,
+				F2469C5729F9855C0023DAD9 /* DDHSpoonCell.h */,
+				F2469C5829F9855C0023DAD9 /* DDHSpoonCell.m */,
+				F2469C5B29F988D30023DAD9 /* DDHActionCell.h */,
+				F2469C5C29F988D30023DAD9 /* DDHActionCell.m */,
+				F2469C4D29F716150023DAD9 /* DDHAction.h */,
+				F2469C4E29F716150023DAD9 /* DDHAction.m */,
+				F2469C5029F717730023DAD9 /* DDHDay.h */,
+				F2469C5129F717730023DAD9 /* DDHDay.m */,
+				F2469C5A29F987390023DAD9 /* DDHActionState.h */,
+			);
+			path = DayPlanner;
+			sourceTree = "<group>";
+		};
+		F25F7D3A29F599DA00EF395F /* DailySpoonsTests */ = {
+			isa = PBXGroup;
+			children = (
+				F25F7D3B29F599DA00EF395F /* DailySpoonsTests.m */,
+				F25F7D4529F5ABC600EF395F /* DayPlanner */,
+			);
+			path = DailySpoonsTests;
+			sourceTree = "<group>";
+		};
+		F25F7D4529F5ABC600EF395F /* DayPlanner */ = {
+			isa = PBXGroup;
+			children = (
+				F25F7D4229F59A1700EF395F /* DDHDayPlannerViewControllerTests.m */,
+				F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */,
+			);
+			path = DayPlanner;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +184,24 @@
 			productReference = F25F7D1229F596EA00EF395F /* DailySpoons.app */;
 			productType = "com.apple.product-type.application";
 		};
+		F25F7D3829F599DA00EF395F /* DailySpoonsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F25F7D3F29F599DA00EF395F /* Build configuration list for PBXNativeTarget "DailySpoonsTests" */;
+			buildPhases = (
+				F25F7D3529F599DA00EF395F /* Sources */,
+				F25F7D3629F599DA00EF395F /* Frameworks */,
+				F25F7D3729F599DA00EF395F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F25F7D3E29F599DA00EF395F /* PBXTargetDependency */,
+			);
+			name = DailySpoonsTests;
+			productName = DailySpoonsTests;
+			productReference = F25F7D3929F599DA00EF395F /* DailySpoonsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -103,10 +209,16 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				CLASSPREFIX = DDH;
 				LastUpgradeCheck = 1430;
+				ORGANIZATIONNAME = dasdom;
 				TargetAttributes = {
 					F25F7D1129F596EA00EF395F = {
 						CreatedOnToolsVersion = 14.3;
+					};
+					F25F7D3829F599DA00EF395F = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = F25F7D1129F596EA00EF395F;
 					};
 				};
 			};
@@ -124,6 +236,7 @@
 			projectRoot = "";
 			targets = (
 				F25F7D1129F596EA00EF395F /* DailySpoons */,
+				F25F7D3829F599DA00EF395F /* DailySpoonsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -135,7 +248,13 @@
 			files = (
 				F25F7D2529F596EB00EF395F /* LaunchScreen.storyboard in Resources */,
 				F25F7D2229F596EB00EF395F /* Assets.xcassets in Resources */,
-				F25F7D2029F596EA00EF395F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F25F7D3729F599DA00EF395F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,23 +266,40 @@
 			buildActionMask = 2147483647;
 			files = (
 				F25F7D1D29F596EA00EF395F /* ViewController.m in Sources */,
+				F2469C5229F717730023DAD9 /* DDHDay.m in Sources */,
+				F2469C5629F71B470023DAD9 /* NSUserDefaults+Helper.m in Sources */,
+				F2469C5D29F988D30023DAD9 /* DDHActionCell.m in Sources */,
 				F25F7D1729F596EA00EF395F /* AppDelegate.m in Sources */,
 				F25F7D2829F596EB00EF395F /* main.m in Sources */,
+				F2469C4F29F716150023DAD9 /* DDHAction.m in Sources */,
+				F2469C5929F9855C0023DAD9 /* DDHSpoonCell.m in Sources */,
+				F25F7D3029F5992B00EF395F /* DDHDayPlannerViewController.m in Sources */,
 				F25F7D1A29F596EA00EF395F /* SceneDelegate.m in Sources */,
+				F25F7D3329F5997800EF395F /* DDHDayPlannerView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F25F7D3529F599DA00EF395F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F25F7D4729F5ABEF00EF395F /* DDHDayPlannerViewTests.m in Sources */,
+				F25F7D3C29F599DA00EF395F /* DailySpoonsTests.m in Sources */,
+				F25F7D4329F59A1700EF395F /* DDHDayPlannerViewControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		F25F7D1E29F596EA00EF395F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F25F7D1F29F596EA00EF395F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
+/* Begin PBXTargetDependency section */
+		F25F7D3E29F599DA00EF395F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F25F7D1129F596EA00EF395F /* DailySpoons */;
+			targetProxy = F25F7D3D29F599DA00EF395F /* PBXContainerItemProxy */;
 		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
 		F25F7D2329F596EB00EF395F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -297,9 +433,9 @@
 				INFOPLIST_FILE = DailySpoons/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -324,9 +460,9 @@
 				INFOPLIST_FILE = DailySpoons/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -336,6 +472,40 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F25F7D4029F599DA00EF395F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoonsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DailySpoons.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DailySpoons";
+			};
+			name = Debug;
+		};
+		F25F7D4129F599DA00EF395F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoonsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DailySpoons.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DailySpoons";
 			};
 			name = Release;
 		};
@@ -356,6 +526,15 @@
 			buildConfigurations = (
 				F25F7D2C29F596EB00EF395F /* Debug */,
 				F25F7D2D29F596EB00EF395F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F25F7D3F29F599DA00EF395F /* Build configuration list for PBXNativeTarget "DailySpoonsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F25F7D4029F599DA00EF395F /* Debug */,
+				F25F7D4129F599DA00EF395F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

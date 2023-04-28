@@ -2,8 +2,8 @@
 //  
 //
 
-
 #import "AppDelegate.h"
+#import "NSUserDefaults+Helper.h"
 
 @interface AppDelegate ()
 
@@ -13,7 +13,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  // Override point for customization after application launch.
+
+  [[NSUserDefaults standardUserDefaults] registerDefaults:@{
+    ddh_dailySpoonsKey: [NSNumber numberWithInteger:12]
+  }];
+
   return YES;
 }
 

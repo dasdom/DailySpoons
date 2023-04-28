@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "89DD7B83-77AE-41E5-A2F8-B80563B7B5E8",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:DailySpoons.xcodeproj",
+      "identifier" : "F25F7D1129F596EA00EF395F",
+      "name" : "DailySpoons"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:DailySpoons.xcodeproj",
+        "identifier" : "F25F7D3829F599DA00EF395F",
+        "name" : "DailySpoonsTests"
+      }
+    }
+  ],
+  "version" : 1
+}
