@@ -29,8 +29,22 @@ NSString * const mainSection = @"mainSection";
 }
 
 - (void)loadView {
-  DDHActionStoreView *contentView = [[DDHActionStoreView alloc] init];
+  DDHActionStoreView *contentView = [[DDHActionStoreView alloc] initWithFrame:[[UIScreen mainScreen] bounds] collectionViewLayout:[self layout]];
   [self setView:contentView];
+}
+
+- (UICollectionViewLayout *)layout {
+  UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearancePlain];
+  listConfiguration.trailingSwipeActionsConfigurationProvider = ^UISwipeActionsConfiguration * (NSIndexPath *indexPath) {
+    return [UISwipeActionsConfiguration configurationWithActions:@[
+      [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+      NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
+      DDHAction *action = [[self dataStore] actionForId:actionId];
+      [[self delegate] editActionFromViewController:self action:action];
+    }]
+    ]];
+  };
+  return [UICollectionViewCompositionalLayout layoutWithListConfiguration:listConfiguration];
 }
 
 - (DDHActionStoreView *)contentView {
@@ -74,6 +88,12 @@ NSString * const mainSection = @"mainSection";
   }];
   [snapshot appendItemsWithIdentifiers:[actionIds copy] intoSectionWithIdentifier:mainSection];
   [[self dataSource] applySnapshot:snapshot animatingDifferences:true];
+}
+
+- (void)reload {
+  NSDiffableDataSourceSnapshot *snapshot = [[self dataSource] snapshot];
+  [snapshot reconfigureItemsWithIdentifiers:[snapshot itemIdentifiers]];
+  [[self dataSource] applySnapshot:snapshot animatingDifferences:YES];
 }
 
 // MARK: - UICollectionViewDelegate

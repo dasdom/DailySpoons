@@ -113,6 +113,12 @@
   [[self dataSource] applySnapshot:snapshot animatingDifferences:YES];
 }
 
+- (void)reload {
+  NSDiffableDataSourceSnapshot *snapshot = [[self dataSource] snapshot];
+  [snapshot reconfigureItemsWithIdentifiers:[snapshot itemIdentifiers]];
+  [[self dataSource] applySnapshot:snapshot animatingDifferences:YES];
+}
+
 // MARK: - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
   if ([indexPath section] == 1) {

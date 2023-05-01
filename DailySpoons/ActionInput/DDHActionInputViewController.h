@@ -8,14 +8,12 @@
 @class DDHAction;
 @class DDHDataStore;
 
-NS_ASSUME_NONNULL_BEGIN
-
 @protocol DDHActionInputViewControllerProtocol <NSObject>
 - (void)addActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action;
+- (void)editDoneInViewController:(UIViewController *)viewController;
 @end
 
 @interface DDHActionInputViewController : UIViewController
+- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore editableAction:(DDHAction *)editableAction;
 - (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore;
 @end
-
-NS_ASSUME_NONNULL_END

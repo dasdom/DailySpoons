@@ -10,13 +10,19 @@
 @interface DDHActionInputViewController ()
 @property (nonatomic, weak) id<DDHActionInputViewControllerProtocol> delegate;
 @property (nonatomic, strong) DDHDataStore *dataStore;
+@property (nonatomic, strong) DDHAction *editableAction;
 @end
 
 @implementation DDHActionInputViewController
 - (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore {
+  return [self initWithDelegate:delegate dataStore:dataStore editableAction:nil];
+}
+
+- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore editableAction:(DDHAction *)editableAction {
   if (self = [super init]) {
     _delegate = delegate;
     _dataStore = dataStore;
+    _editableAction = editableAction;
   }
   return self;
 }
@@ -25,6 +31,9 @@
   DDHActionInputView *contentView = [[DDHActionInputView alloc] init];
   [[contentView stepper] addTarget:self action:@selector(stepperChanged:) forControlEvents:UIControlEventValueChanged];
   [[contentView saveButton] addTarget:self action:@selector(save:) forControlEvents:UIControlEventTouchUpInside];
+  [[contentView textField] setText:[[self editableAction] name]];
+  [[contentView stepper] setValue:[[self editableAction] spoons]];
+  [contentView update];
   [self setView:contentView];
 }
 
@@ -52,8 +61,16 @@
 - (void)save:(UIButton *)sender {
   NSString *name = [[[self contentView] textField] text];
   NSInteger spoons = (NSInteger)[[[self contentView] stepper] value];
-  DDHAction *action = [[DDHAction alloc] initWithName:name spoons:spoons];
-  [[self delegate] addActionFromViewController:self action:action];
+  DDHAction *action;
+  if ([self editableAction]) {
+    action = [self editableAction];
+    [action setName:name];
+    [action setSpoons:spoons];
+    [[self delegate] editDoneInViewController:self];
+  } else {
+    action = [[DDHAction alloc] initWithName:name spoons:spoons];
+    [[self delegate] addActionFromViewController:self action:action];
+  }
 }
 
 @end

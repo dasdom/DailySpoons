@@ -62,16 +62,39 @@
   [viewController presentViewController:next animated:YES completion:nil];
 }
 
+- (void)editActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action {
+  DDHActionInputViewController *input = [[DDHActionInputViewController alloc] initWithDelegate:self dataStore:[self dataStore] editableAction:action];
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:input];
+
+  UISheetPresentationController *sheet = navigationController.sheetPresentationController;
+  sheet.detents = @[UISheetPresentationControllerDetent.mediumDetent, UISheetPresentationControllerDetent.largeDetent];
+  sheet.prefersScrollingExpandsWhenScrolledToEdge = YES;
+  sheet.prefersEdgeAttachedInCompactHeight = YES;
+  sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = YES;
+
+  [viewController presentViewController:navigationController animated:YES completion:nil];
+}
+
 // MARK: - DDHActionInputViewControllerProtocol
 - (void)addActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action {
   if ([viewController isKindOfClass:[DDHActionInputViewController class]]) {
     [[self dataStore] addAction:action];
   }
   [[[self dataStore] day] planAction:action];
+  [[self dataStore] saveData];
 
   DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)[[self navigationController] topViewController];
   [dayPlanner updateWithDay:[[self dataStore] day]];
   [dayPlanner dismissViewControllerAnimated:true completion:nil];
+}
+
+- (void)editDoneInViewController:(UIViewController *)viewController {
+  [[self dataStore] saveData];
+  DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)[[self navigationController] topViewController];
+  [dayPlanner reload];
+  DDHActionStoreViewController *presentedViewController = (DDHActionStoreViewController *)[(UINavigationController *)[dayPlanner presentedViewController] topViewController];
+  [presentedViewController reload];
+  [viewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
