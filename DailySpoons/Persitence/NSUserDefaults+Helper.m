@@ -8,10 +8,10 @@ NSString * const ddh_dailySpoonsKey = @"ddh_dailySpoonsKey";
 
 @implementation NSUserDefaults (Helper)
 - (NSInteger)dailySpoons {
-  return [self integerForKey:dailySpoonsKey];
+  return [self integerForKey:ddh_dailySpoonsKey];
 }
 
 - (void)setDailySpoons:(NSInteger)dailySpoons {
-  [self setInteger:dailySpoons forKey:dailySpoonsKey];
+  [self setInteger:dailySpoons forKey:ddh_dailySpoonsKey];
 }
 @end

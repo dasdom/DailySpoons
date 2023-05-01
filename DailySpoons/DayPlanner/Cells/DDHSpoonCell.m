@@ -9,6 +9,10 @@
 @end
 
 @implementation DDHSpoonCell
++ (NSString *)identifier {
+  return NSStringFromClass([self class]);
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
     _imageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"circle.fill"]];
@@ -27,7 +31,7 @@
   return self;
 }
 
-- (void)updateCellWithActionState:(DDHActionState)actionState {
+- (void)updateWithActionState:(DDHActionState)actionState {
   switch (actionState) {
     case DDHActionStatePlanned:
       [[self imageView] setImage:[UIImage systemImageNamed:@"circle"]];

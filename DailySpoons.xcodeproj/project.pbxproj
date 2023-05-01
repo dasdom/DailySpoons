@@ -12,9 +12,19 @@
 		F2469C5629F71B470023DAD9 /* NSUserDefaults+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5529F71B470023DAD9 /* NSUserDefaults+Helper.m */; };
 		F2469C5929F9855C0023DAD9 /* DDHSpoonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5829F9855C0023DAD9 /* DDHSpoonCell.m */; };
 		F2469C5D29F988D30023DAD9 /* DDHActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5C29F988D30023DAD9 /* DDHActionCell.m */; };
+		F2469C6429FBB7150023DAD9 /* DDHDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C6329FBB7150023DAD9 /* DDHDataStore.m */; };
+		F2469C6729FBCE0E0023DAD9 /* DDHActionsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C6629FBCE0E0023DAD9 /* DDHActionsHeaderView.m */; };
+		F2469C6A29FC27620023DAD9 /* DDHActionInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C6929FC27620023DAD9 /* DDHActionInputViewController.m */; };
+		F2469C6E29FC3A9D0023DAD9 /* DDHActionInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C6D29FC3A9D0023DAD9 /* DDHActionInputView.m */; };
+		F2469C7429FC3F270023DAD9 /* DDHAppCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C7329FC3F270023DAD9 /* DDHAppCoordinator.m */; };
+		F2469C7A29FC5CCB0023DAD9 /* DDHActionStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C7929FC5CCB0023DAD9 /* DDHActionStoreViewController.m */; };
+		F2469C7E29FC5D830023DAD9 /* DDHActionStoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C7D29FC5D830023DAD9 /* DDHActionStoreView.m */; };
+		F2469C8129FCE01D0023DAD9 /* DDHCellRegistrationProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C8029FCE01D0023DAD9 /* DDHCellRegistrationProvider.m */; };
+		F2469C8529FE76AB0023DAD9 /* DDHSpoonsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C8429FE76AB0023DAD9 /* DDHSpoonsHeaderView.m */; };
+		F2469C8B29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C8A29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m */; };
+		F2469C8E29FE84710023DAD9 /* DDHSpoonsBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C8D29FE84710023DAD9 /* DDHSpoonsBackgroundView.m */; };
 		F25F7D1729F596EA00EF395F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D1629F596EA00EF395F /* AppDelegate.m */; };
 		F25F7D1A29F596EA00EF395F /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D1929F596EA00EF395F /* SceneDelegate.m */; };
-		F25F7D1D29F596EA00EF395F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D1C29F596EA00EF395F /* ViewController.m */; };
 		F25F7D2229F596EB00EF395F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25F7D2129F596EB00EF395F /* Assets.xcassets */; };
 		F25F7D2529F596EB00EF395F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F25F7D2329F596EB00EF395F /* LaunchScreen.storyboard */; };
 		F25F7D2829F596EB00EF395F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D2729F596EB00EF395F /* main.m */; };
@@ -47,13 +57,35 @@
 		F2469C5A29F987390023DAD9 /* DDHActionState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHActionState.h; sourceTree = "<group>"; };
 		F2469C5B29F988D30023DAD9 /* DDHActionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHActionCell.h; sourceTree = "<group>"; };
 		F2469C5C29F988D30023DAD9 /* DDHActionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionCell.m; sourceTree = "<group>"; };
+		F2469C5F29FBA4F40023DAD9 /* DDHDayPlannerSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHDayPlannerSection.h; sourceTree = "<group>"; };
+		F2469C6229FBB7140023DAD9 /* DDHDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHDataStore.h; sourceTree = "<group>"; };
+		F2469C6329FBB7150023DAD9 /* DDHDataStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDataStore.m; sourceTree = "<group>"; };
+		F2469C6529FBCE0E0023DAD9 /* DDHActionsHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHActionsHeaderView.h; sourceTree = "<group>"; };
+		F2469C6629FBCE0E0023DAD9 /* DDHActionsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionsHeaderView.m; sourceTree = "<group>"; };
+		F2469C6829FC27620023DAD9 /* DDHActionInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHActionInputViewController.h; sourceTree = "<group>"; };
+		F2469C6929FC27620023DAD9 /* DDHActionInputViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionInputViewController.m; sourceTree = "<group>"; };
+		F2469C6C29FC3A9D0023DAD9 /* DDHActionInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHActionInputView.h; sourceTree = "<group>"; };
+		F2469C6D29FC3A9D0023DAD9 /* DDHActionInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionInputView.m; sourceTree = "<group>"; };
+		F2469C7129FC3EA70023DAD9 /* DDHCoordinatorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHCoordinatorProtocol.h; sourceTree = "<group>"; };
+		F2469C7229FC3F270023DAD9 /* DDHAppCoordinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHAppCoordinator.h; sourceTree = "<group>"; };
+		F2469C7329FC3F270023DAD9 /* DDHAppCoordinator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHAppCoordinator.m; sourceTree = "<group>"; };
+		F2469C7829FC5CCB0023DAD9 /* DDHActionStoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHActionStoreViewController.h; sourceTree = "<group>"; };
+		F2469C7929FC5CCB0023DAD9 /* DDHActionStoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionStoreViewController.m; sourceTree = "<group>"; };
+		F2469C7C29FC5D830023DAD9 /* DDHActionStoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHActionStoreView.h; sourceTree = "<group>"; };
+		F2469C7D29FC5D830023DAD9 /* DDHActionStoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionStoreView.m; sourceTree = "<group>"; };
+		F2469C7F29FCE01D0023DAD9 /* DDHCellRegistrationProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHCellRegistrationProvider.h; sourceTree = "<group>"; };
+		F2469C8029FCE01D0023DAD9 /* DDHCellRegistrationProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHCellRegistrationProvider.m; sourceTree = "<group>"; };
+		F2469C8329FE76AA0023DAD9 /* DDHSpoonsHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHSpoonsHeaderView.h; sourceTree = "<group>"; };
+		F2469C8429FE76AB0023DAD9 /* DDHSpoonsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHSpoonsHeaderView.m; sourceTree = "<group>"; };
+		F2469C8929FE7E9A0023DAD9 /* DDHSpoonsFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHSpoonsFooterView.h; sourceTree = "<group>"; };
+		F2469C8A29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHSpoonsFooterView.m; sourceTree = "<group>"; };
+		F2469C8C29FE84710023DAD9 /* DDHSpoonsBackgroundView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHSpoonsBackgroundView.h; sourceTree = "<group>"; };
+		F2469C8D29FE84710023DAD9 /* DDHSpoonsBackgroundView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHSpoonsBackgroundView.m; sourceTree = "<group>"; };
 		F25F7D1229F596EA00EF395F /* DailySpoons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailySpoons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F25F7D1529F596EA00EF395F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F25F7D1629F596EA00EF395F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F25F7D1829F596EA00EF395F /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		F25F7D1929F596EA00EF395F /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		F25F7D1B29F596EA00EF395F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F25F7D1C29F596EA00EF395F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F25F7D2129F596EB00EF395F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F25F7D2429F596EB00EF395F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F25F7D2629F596EB00EF395F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -87,6 +119,72 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F2469C6029FBB6D10023DAD9 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F2469C5729F9855C0023DAD9 /* DDHSpoonCell.h */,
+				F2469C5829F9855C0023DAD9 /* DDHSpoonCell.m */,
+				F2469C5B29F988D30023DAD9 /* DDHActionCell.h */,
+				F2469C5C29F988D30023DAD9 /* DDHActionCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		F2469C6129FBB6DA0023DAD9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F2469C4D29F716150023DAD9 /* DDHAction.h */,
+				F2469C4E29F716150023DAD9 /* DDHAction.m */,
+				F2469C5029F717730023DAD9 /* DDHDay.h */,
+				F2469C5129F717730023DAD9 /* DDHDay.m */,
+				F2469C5A29F987390023DAD9 /* DDHActionState.h */,
+				F2469C5F29FBA4F40023DAD9 /* DDHDayPlannerSection.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F2469C6B29FC3A780023DAD9 /* ActionInput */ = {
+			isa = PBXGroup;
+			children = (
+				F2469C6829FC27620023DAD9 /* DDHActionInputViewController.h */,
+				F2469C6929FC27620023DAD9 /* DDHActionInputViewController.m */,
+				F2469C6C29FC3A9D0023DAD9 /* DDHActionInputView.h */,
+				F2469C6D29FC3A9D0023DAD9 /* DDHActionInputView.m */,
+			);
+			path = ActionInput;
+			sourceTree = "<group>";
+		};
+		F2469C6F29FC3DE80023DAD9 /* Persitence */ = {
+			isa = PBXGroup;
+			children = (
+				F2469C5429F71B470023DAD9 /* NSUserDefaults+Helper.h */,
+				F2469C5529F71B470023DAD9 /* NSUserDefaults+Helper.m */,
+				F2469C6229FBB7140023DAD9 /* DDHDataStore.h */,
+				F2469C6329FBB7150023DAD9 /* DDHDataStore.m */,
+			);
+			path = Persitence;
+			sourceTree = "<group>";
+		};
+		F2469C7B29FC5CD30023DAD9 /* ActionStore */ = {
+			isa = PBXGroup;
+			children = (
+				F2469C7829FC5CCB0023DAD9 /* DDHActionStoreViewController.h */,
+				F2469C7929FC5CCB0023DAD9 /* DDHActionStoreViewController.m */,
+				F2469C7C29FC5D830023DAD9 /* DDHActionStoreView.h */,
+				F2469C7D29FC5D830023DAD9 /* DDHActionStoreView.m */,
+			);
+			path = ActionStore;
+			sourceTree = "<group>";
+		};
+		F2469C8229FCE0270023DAD9 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F2469C7F29FCE01D0023DAD9 /* DDHCellRegistrationProvider.h */,
+				F2469C8029FCE01D0023DAD9 /* DDHCellRegistrationProvider.m */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		F25F7D0929F596EA00EF395F = {
 			isa = PBXGroup;
 			children = (
@@ -113,11 +211,14 @@
 				F25F7D1629F596EA00EF395F /* AppDelegate.m */,
 				F25F7D1829F596EA00EF395F /* SceneDelegate.h */,
 				F25F7D1929F596EA00EF395F /* SceneDelegate.m */,
-				F25F7D1B29F596EA00EF395F /* ViewController.h */,
-				F25F7D1C29F596EA00EF395F /* ViewController.m */,
-				F2469C5429F71B470023DAD9 /* NSUserDefaults+Helper.h */,
-				F2469C5529F71B470023DAD9 /* NSUserDefaults+Helper.m */,
+				F2469C7129FC3EA70023DAD9 /* DDHCoordinatorProtocol.h */,
+				F2469C7229FC3F270023DAD9 /* DDHAppCoordinator.h */,
+				F2469C7329FC3F270023DAD9 /* DDHAppCoordinator.m */,
+				F2469C6F29FC3DE80023DAD9 /* Persitence */,
 				F25F7D3429F5997E00EF395F /* DayPlanner */,
+				F2469C7B29FC5CD30023DAD9 /* ActionStore */,
+				F2469C6B29FC3A780023DAD9 /* ActionInput */,
+				F2469C8229FCE0270023DAD9 /* Helper */,
 				F25F7D2129F596EB00EF395F /* Assets.xcassets */,
 				F25F7D2329F596EB00EF395F /* LaunchScreen.storyboard */,
 				F25F7D2629F596EB00EF395F /* Info.plist */,
@@ -133,15 +234,16 @@
 				F25F7D2F29F5992B00EF395F /* DDHDayPlannerViewController.m */,
 				F25F7D3129F5997800EF395F /* DDHDayPlannerView.h */,
 				F25F7D3229F5997800EF395F /* DDHDayPlannerView.m */,
-				F2469C5729F9855C0023DAD9 /* DDHSpoonCell.h */,
-				F2469C5829F9855C0023DAD9 /* DDHSpoonCell.m */,
-				F2469C5B29F988D30023DAD9 /* DDHActionCell.h */,
-				F2469C5C29F988D30023DAD9 /* DDHActionCell.m */,
-				F2469C4D29F716150023DAD9 /* DDHAction.h */,
-				F2469C4E29F716150023DAD9 /* DDHAction.m */,
-				F2469C5029F717730023DAD9 /* DDHDay.h */,
-				F2469C5129F717730023DAD9 /* DDHDay.m */,
-				F2469C5A29F987390023DAD9 /* DDHActionState.h */,
+				F2469C8329FE76AA0023DAD9 /* DDHSpoonsHeaderView.h */,
+				F2469C8429FE76AB0023DAD9 /* DDHSpoonsHeaderView.m */,
+				F2469C8929FE7E9A0023DAD9 /* DDHSpoonsFooterView.h */,
+				F2469C8A29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m */,
+				F2469C6529FBCE0E0023DAD9 /* DDHActionsHeaderView.h */,
+				F2469C6629FBCE0E0023DAD9 /* DDHActionsHeaderView.m */,
+				F2469C8C29FE84710023DAD9 /* DDHSpoonsBackgroundView.h */,
+				F2469C8D29FE84710023DAD9 /* DDHSpoonsBackgroundView.m */,
+				F2469C6029FBB6D10023DAD9 /* Cells */,
+				F2469C6129FBB6DA0023DAD9 /* Model */,
 			);
 			path = DayPlanner;
 			sourceTree = "<group>";
@@ -265,14 +367,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F25F7D1D29F596EA00EF395F /* ViewController.m in Sources */,
+				F2469C8E29FE84710023DAD9 /* DDHSpoonsBackgroundView.m in Sources */,
+				F2469C8B29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m in Sources */,
+				F2469C8129FCE01D0023DAD9 /* DDHCellRegistrationProvider.m in Sources */,
+				F2469C6A29FC27620023DAD9 /* DDHActionInputViewController.m in Sources */,
+				F2469C7429FC3F270023DAD9 /* DDHAppCoordinator.m in Sources */,
 				F2469C5229F717730023DAD9 /* DDHDay.m in Sources */,
+				F2469C7A29FC5CCB0023DAD9 /* DDHActionStoreViewController.m in Sources */,
 				F2469C5629F71B470023DAD9 /* NSUserDefaults+Helper.m in Sources */,
 				F2469C5D29F988D30023DAD9 /* DDHActionCell.m in Sources */,
 				F25F7D1729F596EA00EF395F /* AppDelegate.m in Sources */,
+				F2469C8529FE76AB0023DAD9 /* DDHSpoonsHeaderView.m in Sources */,
 				F25F7D2829F596EB00EF395F /* main.m in Sources */,
 				F2469C4F29F716150023DAD9 /* DDHAction.m in Sources */,
+				F2469C6429FBB7150023DAD9 /* DDHDataStore.m in Sources */,
+				F2469C6E29FC3A9D0023DAD9 /* DDHActionInputView.m in Sources */,
+				F2469C6729FBCE0E0023DAD9 /* DDHActionsHeaderView.m in Sources */,
 				F2469C5929F9855C0023DAD9 /* DDHSpoonCell.m in Sources */,
+				F2469C7E29FC5D830023DAD9 /* DDHActionStoreView.m in Sources */,
 				F25F7D3029F5992B00EF395F /* DDHDayPlannerViewController.m in Sources */,
 				F25F7D1A29F596EA00EF395F /* SceneDelegate.m in Sources */,
 				F25F7D3329F5997800EF395F /* DDHDayPlannerView.m in Sources */,

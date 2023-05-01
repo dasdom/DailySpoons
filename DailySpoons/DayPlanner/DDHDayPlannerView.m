@@ -3,6 +3,14 @@
 //
 
 #import "DDHDayPlannerView.h"
+#import "DDHSpoonsBackgroundView.h"
+
+NSString * const ELEMENT_KIND_BADGE = @"badge-element-kind";
+NSString * const ELEMENT_KIND_BACKGROUND = @"background-element-kind";
+NSString * const ELEMENT_KIND_SECTION_HEADER = @"section-header-element-kind";
+NSString * const ELEMENT_KIND_SECTION_FOOTER = @"section-footer-element-kind";
+NSString * const ELEMENT_KIND_LAYOUT_HEADER = @"layout-header-element-kind";
+NSString * const ELEMENT_KIND_LAYOUT_FOOTER = @"layout-footer-element-kind";
 
 @implementation DDHDayPlannerView
 
@@ -46,13 +54,31 @@
       NSCollectionLayoutGroup *group = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:groupSize subitems:@[item]];
 
       section = [NSCollectionLayoutSection sectionWithGroup:group];
+
+      NSCollectionLayoutSize *headerFooterSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.0] heightDimension:[NSCollectionLayoutDimension estimatedDimension:30.0]];
+
+      NSCollectionLayoutBoundarySupplementaryItem *sectionHeader = [NSCollectionLayoutBoundarySupplementaryItem boundarySupplementaryItemWithLayoutSize: headerFooterSize elementKind: ELEMENT_KIND_SECTION_HEADER alignment: NSRectAlignmentTop];
+
+      NSCollectionLayoutBoundarySupplementaryItem *sectionFooter = [NSCollectionLayoutBoundarySupplementaryItem boundarySupplementaryItemWithLayoutSize: headerFooterSize elementKind: ELEMENT_KIND_SECTION_FOOTER alignment: NSRectAlignmentBottom];
+
+      [section setBoundarySupplementaryItems: @[sectionHeader, sectionFooter]];
+
+      NSCollectionLayoutDecorationItem *sectionBackground = [NSCollectionLayoutDecorationItem backgroundDecorationItemWithElementKind: ELEMENT_KIND_BACKGROUND];
+
+      [section setDecorationItems: @[sectionBackground]];
+
+      [section setContentInsets:NSDirectionalEdgeInsetsMake(0, 20, 0, 20)];
+
     } else if (sectionIndex == 1) {
 
       UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearancePlain];
+      [listConfiguration setHeaderMode:UICollectionLayoutListHeaderModeSupplementary];
       section = [NSCollectionLayoutSection sectionWithListConfiguration:listConfiguration layoutEnvironment:layoutEnvironment];
     }
     return section;
   }];
+
+  [layout registerClass:[DDHSpoonsBackgroundView class] forDecorationViewOfKind: ELEMENT_KIND_BACKGROUND];
 
   return layout;
 }

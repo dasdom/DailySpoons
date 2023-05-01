@@ -4,10 +4,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class DDHDataStore;
+@class DDHDay;
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DDHDayPlannerViewController : UIViewController
+@protocol DDHDayPlannerViewControllerProtocol <NSObject>
+- (void)addSelectedInViewController:(UIViewController *)viewController;
+@end
 
+@interface DDHDayPlannerViewController : UIViewController
+- (instancetype)initWithDelegate:(id<DDHDayPlannerViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore;
+- (void)updateWithDay:(DDHDay *)day;
 @end
 
 NS_ASSUME_NONNULL_END

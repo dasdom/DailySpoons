@@ -1,0 +1,156 @@
+//  Created by Dominik Hauser on 24.04.23.
+//  Copyright © 2023 dasdom. All rights reserved.
+//
+
+#import "DDHDay.h"
+#import "DDHAction.h"
+
+NSString * const dateKey = @"dateKey";
+NSString * const amountOfSpoonsKey = @"amountOfSpoonsKey";
+NSString * const carryOverSpoonsKey = @"carryOverSpoonsKey";
+NSString * const completedActionsKey = @"completedActionsKey";
+NSString * const plannedActionsKey = @"plannedActionsKey";
+
+@interface DDHDay ()
+@property (nonatomic, strong) NSArray<DDHAction *> *completedActions;
+@property (nonatomic, strong) NSArray<DDHAction *> *plannedActions;
+@end
+
+@implementation DDHDay
+- (instancetype)init {
+  if (self = [super init]) {
+    _date = [NSDate now];
+    [self setAmountOfSpoons:12];
+    _carryOverSpoons = 0;
+
+    _completedActions = [[NSArray alloc] init];
+    _plannedActions = [[NSArray alloc] init];
+  }
+  return self;
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+  if (self = [super init]) {
+    NSTimeInterval timeInterval = [[dictionary valueForKey:dateKey] doubleValue];
+    _date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+    [self setAmountOfSpoons:[[dictionary valueForKey:amountOfSpoonsKey] integerValue]];
+    _carryOverSpoons = [[dictionary valueForKey:carryOverSpoonsKey] integerValue];
+
+    NSArray *rawComletedActions = [dictionary valueForKey:completedActionsKey];
+    NSMutableArray *completedActions = [[NSMutableArray alloc] init];
+    [rawComletedActions enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull dictionary, NSUInteger idx, BOOL * _Nonnull stop) {
+      DDHAction *action = [[DDHAction alloc] initWithDictionary:dictionary];
+      [completedActions addObject:action];
+    }];
+    _completedActions = [completedActions copy];
+
+    NSArray *rawPlannedActions = [dictionary valueForKey:plannedActionsKey];
+    NSMutableArray *plannedActions = [[NSMutableArray alloc] init];
+    [rawPlannedActions enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull dictionary, NSUInteger idx, BOOL * _Nonnull stop) {
+      DDHAction *action = [[DDHAction alloc] initWithDictionary:dictionary];
+      [plannedActions addObject:action];
+    }];
+    _plannedActions = [plannedActions copy];
+  }
+  return self;
+}
+
+- (NSDictionary *)dictionary {
+  NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+  NSTimeInterval timeInterval = [[self date] timeIntervalSince1970];
+  [dictionary setObject:[NSNumber numberWithDouble:timeInterval] forKey:dateKey];
+  [dictionary setObject:[NSNumber numberWithInteger:[self amountOfSpoons]] forKey:amountOfSpoonsKey];
+  [dictionary setObject:[NSNumber numberWithInteger:[self carryOverSpoons]] forKey:carryOverSpoonsKey];
+
+  NSMutableArray *completedActions = [[NSMutableArray alloc] init];
+  [[self completedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+    [completedActions addObject:[action dictionary]];
+  }];
+  [dictionary setObject:[completedActions copy] forKey:completedActionsKey];
+
+  NSMutableArray *plannedActions = [[NSMutableArray alloc] init];
+  [[self plannedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+    [plannedActions addObject:[action dictionary]];
+  }];
+  [dictionary setObject:[plannedActions copy] forKey:plannedActionsKey];
+
+  return [dictionary copy];
+}
+
+- (void)setAmountOfSpoons:(NSInteger)amountOfSpoons {
+  NSMutableArray<NSUUID *> *spoonsIdentifiers = [[NSMutableArray alloc] initWithCapacity:amountOfSpoons];
+  for (NSInteger i = 0; i < amountOfSpoons; i++) {
+    [spoonsIdentifiers addObject:[NSUUID UUID]];
+  }
+  [self setSpoonsIdentifiers:spoonsIdentifiers];
+  _amountOfSpoons = amountOfSpoons;
+}
+
+- (NSInteger)completedSpoons {
+  __block NSInteger completedSpoons = 0;
+  [[self completedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+    completedSpoons += [action spoons];
+  }];
+  return completedSpoons;
+}
+
+- (NSInteger)plannedSpoons {
+  __block NSInteger plannedSpoons = 0;
+  [[self plannedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+    plannedSpoons += [action spoons];
+  }];
+  return plannedSpoons;
+}
+
+- (NSInteger)availableSpoons {
+  return [self amountOfSpoons] - [self completedSpoons];
+}
+
+- (void)planAction:(DDHAction *)action {
+  [self setPlannedActions:[[self plannedActions] arrayByAddingObject:action]];
+}
+
+- (void)completeAction:(DDHAction *)action {
+  [self setCompletedActions:[[self completedActions] arrayByAddingObject:action]];
+}
+
+- (void)unCompleteAction:(DDHAction *)action {
+  NSMutableArray<DDHAction *> *completedActions = [[self completedActions] mutableCopy];
+  [completedActions removeObject:action];
+  [self setCompletedActions:[completedActions copy]];
+}
+
+- (NSArray<NSUUID *> *)idsOfCompletedActions {
+  NSMutableArray<NSUUID *> *ids = [[NSMutableArray alloc] initWithCapacity:[[self completedActions] count]];
+  [[self completedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+    [ids addObject:[action actionId]];
+  }];
+  return [ids copy];
+}
+
+- (NSArray<NSUUID *> *)idsOfPlannedActions {
+  NSMutableArray<NSUUID *> *ids = [[NSMutableArray alloc] initWithCapacity:[[self plannedActions] count]];
+  [[self plannedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+    [ids addObject:[action actionId]];
+  }];
+  return [ids copy];
+}
+
+- (DDHActionState)actionStateForAction:(DDHAction *)action {
+  if ([[self completedActions] containsObject:action]) {
+    return DDHActionStateCompleted;
+  } else if ([[self plannedActions] containsObject:action]) {
+    return DDHActionStatePlanned;
+  } else {
+    return DDHActionStateNone;
+  }
+}
+
+- (void)resetWithDailySpoons:(NSInteger)dailySpoons {
+  NSInteger carryOverSpoons = [self completedSpoons] - ([self amountOfSpoons] - [self carryOverSpoons]);
+  [self setCarryOverSpoons:MAX(0, carryOverSpoons)];
+  [self setDate:[NSDate now]];
+  [self setCompletedActions:[[NSArray alloc] init]];
+  [self setAmountOfSpoons:dailySpoons];
+}
+@end
