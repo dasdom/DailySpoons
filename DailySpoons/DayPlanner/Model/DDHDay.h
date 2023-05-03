@@ -21,8 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)availableSpoons;
 - (NSDictionary *)dictionary;
 - (void)planAction:(DDHAction *)action;
+- (void)unplanAction:(DDHAction *)action;
+- (void)movePlannedActionFromIndex:(NSInteger)initialIndex toFinalIndex:(NSInteger)finalIndex;
 - (void)completeAction:(DDHAction *)action;
-- (void)unCompleteAction:(DDHAction *)action;
+- (void)uncompleteAction:(DDHAction *)action;
 - (NSArray<NSUUID *> *)idsOfPlannedActions;
 - (NSArray<NSUUID *> *)idsOfCompletedActions;
 - (DDHActionState)actionStateForAction:(DDHAction *)action;

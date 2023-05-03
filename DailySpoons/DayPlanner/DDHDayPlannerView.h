@@ -15,6 +15,7 @@ extern NSString * const ELEMENT_KIND_LAYOUT_FOOTER;
 
 @interface DDHDayPlannerView : UIView
 @property (nonatomic, strong) UICollectionView *collectionView;
+- (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(nonnull UICollectionViewLayout *)layout;
 @end
 
 NS_ASSUME_NONNULL_END

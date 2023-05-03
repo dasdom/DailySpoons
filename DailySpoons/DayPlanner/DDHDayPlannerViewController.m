@@ -15,6 +15,7 @@
 #import "DDHAction.h"
 #import "DDHCellRegistrationProvider.h"
 #import "NSUserDefaults+Helper.h"
+#import "DDHSpoonsBackgroundView.h"
 
 @interface DDHDayPlannerViewController () <UICollectionViewDelegate>
 @property (nonatomic, weak) id<DDHDayPlannerViewControllerProtocol> delegate;
@@ -34,7 +35,7 @@
 }
 
 - (void)loadView {
-  DDHDayPlannerView *contentView = [[DDHDayPlannerView alloc] init];
+  DDHDayPlannerView *contentView = [[DDHDayPlannerView alloc] initWithFrame:[[UIScreen mainScreen] bounds] collectionViewLayout:[self layout]];
   [self setView:contentView];
 }
 
@@ -48,12 +49,15 @@
   UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"arrow.counterclockwise"] style:UIBarButtonItemStylePlain target:self action:@selector(reset:)];
   [[self navigationItem] setRightBarButtonItem:resetButton];
 
-  [self setupCollectionView];
+  UICollectionView *collectionView = [[self contentView] collectionView];
+  [self setupCollectionView:collectionView];
   [self updateWithDay:[[self dataStore] day]];
+
+  UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+  [collectionView addGestureRecognizer:longPressRecognizer];
 }
 
-- (void)setupCollectionView {
-  UICollectionView *collectionView = [[self contentView] collectionView];
+- (void)setupCollectionView:(UICollectionView *)collectionView {
   [collectionView setDelegate:self];
 
   [collectionView registerClass:[DDHSpoonCell class] forCellWithReuseIdentifier:[DDHSpoonCell identifier]];
@@ -100,6 +104,18 @@
       return headerView;
     }
   }];
+
+  [[dataSource reorderingHandlers] setCanReorderItemHandler:^BOOL(id _Nonnull itemIdentifier) {
+    return (NO == [[day spoonsIdentifiers] containsObject:itemIdentifier]);
+  }];
+
+  [[dataSource reorderingHandlers] setDidReorderHandler:^(NSDiffableDataSourceTransaction<NSNumber *, NSUUID *> * _Nonnull transaction) {
+    NSInteger numberOfSpoons = [[day spoonsIdentifiers] count];
+    NSInteger finalIndex = transaction.difference.insertions.firstObject.index - numberOfSpoons;
+    NSInteger initialIndex = transaction.difference.insertions.firstObject.associatedIndex - numberOfSpoons;
+    [day movePlannedActionFromIndex:initialIndex toFinalIndex:finalIndex];
+    [[self dataStore] saveData];
+  }];
 }
 
 - (void)updateWithDay:(DDHDay *)day {
@@ -127,7 +143,7 @@
     DDHDay *day = [[self dataStore] day];
     DDHActionState actionState = [day actionStateForAction:action];
     if (actionState == DDHActionStateCompleted) {
-      [day unCompleteAction:action];
+      [day uncompleteAction:action];
     } else {
       [day completeAction:action];
     }
@@ -163,11 +179,104 @@
 
   [[self dataStore] saveData];
 
+  [self updateWithDay:day];
+
   NSDiffableDataSourceSnapshot *snapshot = [[self dataSource] snapshot];
   [snapshot reconfigureItemsWithIdentifiers:[snapshot itemIdentifiers]];
   [[self dataSource] applySnapshot:snapshot animatingDifferences:YES];
 
   [self updateSpoonsAmount];
+}
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)sender {
+
+  UICollectionView *collectionView = [[self contentView] collectionView];
+
+  switch ([sender state]) {
+    case UIGestureRecognizerStateBegan:
+    {
+      NSIndexPath *indexPath = [collectionView indexPathForItemAtPoint:[sender locationInView:collectionView]];
+      if (indexPath) {
+        [collectionView beginInteractiveMovementForItemAtIndexPath:indexPath];
+      }
+    }
+      break;
+    case UIGestureRecognizerStateChanged:
+      [collectionView updateInteractiveMovementTargetPosition:[sender locationInView:collectionView]];
+      break;
+    case UIGestureRecognizerStateEnded:
+      [collectionView endInteractiveMovement];
+      break;
+    case UIGestureRecognizerStateCancelled:
+      [collectionView cancelInteractiveMovement];
+      break;
+    default:
+      break;
+  }
+}
+
+// MARK - Layout
+- (UICollectionViewLayout *)layout {
+
+  UICollectionViewCompositionalLayout *layout = [[UICollectionViewCompositionalLayout alloc] initWithSectionProvider:^NSCollectionLayoutSection * _Nullable(NSInteger sectionIndex, id<NSCollectionLayoutEnvironment>  _Nonnull layoutEnvironment) {
+
+    NSCollectionLayoutSection *section;
+
+    if (sectionIndex == 0) {
+      // Budget Section
+      NSCollectionLayoutDimension *oneOverSixWidthDimension = [NSCollectionLayoutDimension fractionalWidthDimension:1.0/6.0];
+      NSCollectionLayoutDimension *unityHeightDimension = [NSCollectionLayoutDimension fractionalHeightDimension:1.0];
+
+      NSCollectionLayoutSize *itemSize = [NSCollectionLayoutSize sizeWithWidthDimension:oneOverSixWidthDimension heightDimension:unityHeightDimension];
+
+      NSCollectionLayoutItem *item = [NSCollectionLayoutItem itemWithLayoutSize:itemSize];
+
+      NSCollectionLayoutDimension *unityWidthDimension = [NSCollectionLayoutDimension fractionalWidthDimension:1.0];
+
+      NSCollectionLayoutSize *groupSize = [NSCollectionLayoutSize sizeWithWidthDimension:unityWidthDimension heightDimension:oneOverSixWidthDimension];
+
+      NSCollectionLayoutGroup *group = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:groupSize subitems:@[item]];
+
+      section = [NSCollectionLayoutSection sectionWithGroup:group];
+
+      NSCollectionLayoutSize *headerFooterSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.0] heightDimension:[NSCollectionLayoutDimension estimatedDimension:30.0]];
+
+      NSCollectionLayoutBoundarySupplementaryItem *sectionHeader = [NSCollectionLayoutBoundarySupplementaryItem boundarySupplementaryItemWithLayoutSize: headerFooterSize elementKind:ELEMENT_KIND_SECTION_HEADER alignment: NSRectAlignmentTop];
+
+      NSCollectionLayoutBoundarySupplementaryItem *sectionFooter = [NSCollectionLayoutBoundarySupplementaryItem boundarySupplementaryItemWithLayoutSize: headerFooterSize elementKind:ELEMENT_KIND_SECTION_FOOTER alignment: NSRectAlignmentBottom];
+
+      [section setBoundarySupplementaryItems: @[sectionHeader, sectionFooter]];
+
+      NSCollectionLayoutDecorationItem *sectionBackground = [NSCollectionLayoutDecorationItem backgroundDecorationItemWithElementKind:ELEMENT_KIND_BACKGROUND];
+
+      [section setDecorationItems: @[sectionBackground]];
+
+      [section setContentInsets:NSDirectionalEdgeInsetsMake(0, 20, 0, 20)];
+
+    } else if (sectionIndex == 1) {
+
+      UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearancePlain];
+      [listConfiguration setHeaderMode:UICollectionLayoutListHeaderModeSupplementary];
+      [listConfiguration setTrailingSwipeActionsConfigurationProvider:^UISwipeActionsConfiguration * (NSIndexPath *indexPath) {
+        return [UISwipeActionsConfiguration configurationWithActions:@[
+          [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Unplan", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+          NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
+          DDHAction *action = [[self dataStore] actionForId:actionId];
+          DDHDay *day = [[self dataStore] day];
+          [day unplanAction:action];
+          [[self dataStore] saveData];
+          [self updateWithDay:day];
+        }]
+        ]];
+      }];
+      section = [NSCollectionLayoutSection sectionWithListConfiguration:listConfiguration layoutEnvironment:layoutEnvironment];
+    }
+    return section;
+  }];
+
+  [layout registerClass:[DDHSpoonsBackgroundView class] forDecorationViewOfKind:ELEMENT_KIND_BACKGROUND];
+
+  return layout;
 }
 
 @end

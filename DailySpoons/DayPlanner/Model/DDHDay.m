@@ -33,8 +33,8 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
   if (self = [super init]) {
     NSTimeInterval timeInterval = [[dictionary valueForKey:dateKey] doubleValue];
     _date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
-    [self setAmountOfSpoons:[[dictionary valueForKey:amountOfSpoonsKey] integerValue]];
     _carryOverSpoons = [[dictionary valueForKey:carryOverSpoonsKey] integerValue];
+    [self setAmountOfSpoons:[[dictionary valueForKey:amountOfSpoonsKey] integerValue]];
 
     NSArray *rawComletedActions = [dictionary valueForKey:completedActionsKey];
     NSMutableArray *completedActions = [[NSMutableArray alloc] init];
@@ -79,7 +79,7 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
 
 - (void)setAmountOfSpoons:(NSInteger)amountOfSpoons {
   NSMutableArray<NSUUID *> *spoonsIdentifiers = [[NSMutableArray alloc] initWithCapacity:amountOfSpoons];
-  for (NSInteger i = 0; i < amountOfSpoons; i++) {
+  for (NSInteger i = 0; i < amountOfSpoons - [self carryOverSpoons]; i++) {
     [spoonsIdentifiers addObject:[NSUUID UUID]];
   }
   [self setSpoonsIdentifiers:spoonsIdentifiers];
@@ -110,11 +110,25 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
   [self setPlannedActions:[[self plannedActions] arrayByAddingObject:action]];
 }
 
+- (void)unplanAction:(DDHAction *)action {
+  NSMutableArray<DDHAction *> *plannedActions = [[self plannedActions] mutableCopy];
+  [plannedActions removeObject:action];
+  [self setPlannedActions:[plannedActions copy]];
+}
+
+- (void)movePlannedActionFromIndex:(NSInteger)initialIndex toFinalIndex:(NSInteger)finalIndex {
+  NSMutableArray<DDHAction *> *plannedActions = [[self plannedActions] mutableCopy];
+  DDHAction *action = [plannedActions objectAtIndex:initialIndex];
+  [plannedActions removeObjectAtIndex:initialIndex];
+  [plannedActions insertObject:action atIndex:finalIndex];
+  [self setPlannedActions:[plannedActions copy]];
+}
+
 - (void)completeAction:(DDHAction *)action {
   [self setCompletedActions:[[self completedActions] arrayByAddingObject:action]];
 }
 
-- (void)unCompleteAction:(DDHAction *)action {
+- (void)uncompleteAction:(DDHAction *)action {
   NSMutableArray<DDHAction *> *completedActions = [[self completedActions] mutableCopy];
   [completedActions removeObject:action];
   [self setCompletedActions:[completedActions copy]];

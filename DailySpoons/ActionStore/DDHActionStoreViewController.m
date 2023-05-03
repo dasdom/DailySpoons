@@ -33,20 +33,6 @@ NSString * const mainSection = @"mainSection";
   [self setView:contentView];
 }
 
-- (UICollectionViewLayout *)layout {
-  UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearancePlain];
-  listConfiguration.trailingSwipeActionsConfigurationProvider = ^UISwipeActionsConfiguration * (NSIndexPath *indexPath) {
-    return [UISwipeActionsConfiguration configurationWithActions:@[
-      [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-      NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
-      DDHAction *action = [[self dataStore] actionForId:actionId];
-      [[self delegate] editActionFromViewController:self action:action];
-    }]
-    ]];
-  };
-  return [UICollectionViewCompositionalLayout layoutWithListConfiguration:listConfiguration];
-}
-
 - (DDHActionStoreView *)contentView {
   return (DDHActionStoreView *)[self view];
 }
@@ -106,5 +92,20 @@ NSString * const mainSection = @"mainSection";
 // MARK: - Actions
 - (void)add:(UIBarButtonItem *)sender {
   [[self delegate] addSelectedInViewController:self];
+}
+
+// MARK: Layout
+- (UICollectionViewLayout *)layout {
+  UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearancePlain];
+  [listConfiguration setTrailingSwipeActionsConfigurationProvider:^UISwipeActionsConfiguration * (NSIndexPath *indexPath) {
+    return [UISwipeActionsConfiguration configurationWithActions:@[
+      [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+      NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
+      DDHAction *action = [[self dataStore] actionForId:actionId];
+      [[self delegate] editActionFromViewController:self action:action];
+    }]
+    ]];
+  }];
+  return [UICollectionViewCompositionalLayout layoutWithListConfiguration:listConfiguration];
 }
 @end
