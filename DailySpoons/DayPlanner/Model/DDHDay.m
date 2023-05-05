@@ -102,6 +102,23 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
   return plannedSpoons;
 }
 
+- (void)updateAction:(DDHAction *)action {
+  [[self plannedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    if ([[obj actionId] isEqual:[action actionId]]) {
+      [obj setName:[action name]];
+      [obj setSpoons:[action spoons]];
+      *stop = YES;
+    }
+  }];
+  [[self completedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    if ([[obj actionId] isEqual:[action actionId]]) {
+      [obj setName:[action name]];
+      [obj setSpoons:[action spoons]];
+      *stop = YES;
+    }
+  }];
+}
+
 - (NSInteger)availableSpoons {
   return [self amountOfSpoons] - [self completedSpoons];
 }
@@ -114,6 +131,7 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
   NSMutableArray<DDHAction *> *plannedActions = [[self plannedActions] mutableCopy];
   [plannedActions removeObject:action];
   [self setPlannedActions:[plannedActions copy]];
+  [self setAmountOfSpoons:[self amountOfSpoons]];
 }
 
 - (void)movePlannedActionFromIndex:(NSInteger)initialIndex toFinalIndex:(NSInteger)finalIndex {

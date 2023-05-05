@@ -10,8 +10,8 @@
 #import "DDHDataStore.h"
 #import "DDHAction.h"
 #import "DDHActionCell.h"
-
-NSString * const mainSection = @"mainSection";
+#import "DDHActionStoreSection.h"
+#import "DDHActionsHeaderView.h"
 
 @interface DDHActionStoreViewController () <UICollectionViewDelegate>
 @property (nonatomic, weak) id<DDHActionStoreViewControllerProtocol> delegate;
@@ -40,7 +40,7 @@ NSString * const mainSection = @"mainSection";
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  [self setTitle:NSLocalizedString(@"Previous actions", nil)];
+  [self setTitle:NSLocalizedString(@"My spoon sinks", nil)];
 
   UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(add:)];
   [[self navigationItem] setRightBarButtonItem:addItem];
@@ -53,12 +53,33 @@ NSString * const mainSection = @"mainSection";
   [collectionView setDelegate:self];
 
   [collectionView registerClass:[DDHActionCell class] forCellWithReuseIdentifier:[DDHActionCell identifier]];
+  [collectionView registerClass:[DDHActionsHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[DDHActionsHeaderView identifier]];
 
-  UICollectionViewCellRegistration *actionCellRegistration = [DDHCellRegistrationProvider actionCellRegistration:[self dataStore]];
+  DDHDay *day = [[self dataStore] day];
+
+  UICollectionViewCellRegistration *actionCellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[DDHActionCell class] configurationHandler:^(__kindof UICollectionViewCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
+    DDHActionCell *actionCell = (DDHActionCell *)cell;
+    DDHAction *action = [[self dataStore] actionForId:item];
+    DDHActionState actionState = [day actionStateForAction:action];
+    BOOL isPlanned = [[day idsOfPlannedActions] containsObject:[action actionId]];
+    [actionCell updateWithAction:action isCompleted:(actionState == DDHActionStateCompleted) isPlanned:isPlanned];
+  }];
 
   UICollectionViewDiffableDataSource *dataSource = [[UICollectionViewDiffableDataSource alloc] initWithCollectionView:collectionView cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id  _Nonnull itemIdentifier) {
     return [collectionView dequeueConfiguredReusableCellWithRegistration:actionCellRegistration forIndexPath:indexPath item:itemIdentifier];
   }];
+
+  [dataSource setSupplementaryViewProvider:^UICollectionReusableView * _Nullable(UICollectionView * _Nonnull collectionView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
+    DDHActionsHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:[DDHActionsHeaderView identifier] forIndexPath:indexPath];
+    [[headerView addButton] setHidden:YES];
+    if ([indexPath section] == DDHActionStoreSectionUnplanned) {
+      [[headerView nameLabel] setText:NSLocalizedString(@"Unplanned", nil)];
+    } else {
+      [[headerView nameLabel] setText:NSLocalizedString(@"Planned", nil)];
+    }
+    return headerView;
+  }];
+
   [self setDataSource:dataSource];
 
   NSArray<DDHAction *> *allActions = [[self dataStore] actions];
@@ -66,13 +87,25 @@ NSString * const mainSection = @"mainSection";
 }
 
 - (void)updateWithActions:(NSArray<DDHAction *> *)actions {
+  DDHDay *day = [[self dataStore] day];
+
   NSDiffableDataSourceSnapshot *snapshot = [[NSDiffableDataSourceSnapshot alloc] init];
-  [snapshot appendSectionsWithIdentifiers:@[mainSection]];
-  __block NSMutableArray<NSUUID *> *actionIds = [[NSMutableArray alloc] initWithCapacity:[actions count]];
+  [snapshot appendSectionsWithIdentifiers:@[
+    [NSNumber numberWithInteger:DDHActionStoreSectionUnplanned],
+    [NSNumber numberWithInteger:DDHActionStoreSectionPlanned]
+  ]];
+  __block NSMutableArray<NSUUID *> *plannedActionIds = [[NSMutableArray alloc] initWithCapacity:[actions count]];
+  __block NSMutableArray<NSUUID *> *unplannedActionIds = [[NSMutableArray alloc] initWithCapacity:[actions count]];
   [actions enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
-    [actionIds addObject:[action actionId]];
+    NSUUID *actionId = [action actionId];
+    if ([[day idsOfPlannedActions] containsObject:actionId]) {
+      [plannedActionIds addObject:actionId];
+    } else {
+      [unplannedActionIds addObject:actionId];
+    }
   }];
-  [snapshot appendItemsWithIdentifiers:[actionIds copy] intoSectionWithIdentifier:mainSection];
+  [snapshot appendItemsWithIdentifiers:[unplannedActionIds copy] intoSectionWithIdentifier:[NSNumber numberWithInteger:DDHActionStoreSectionUnplanned]];
+  [snapshot appendItemsWithIdentifiers:[plannedActionIds copy] intoSectionWithIdentifier:[NSNumber numberWithInteger:DDHActionStoreSectionPlanned]];
   [[self dataSource] applySnapshot:snapshot animatingDifferences:true];
 }
 
@@ -85,6 +118,9 @@ NSString * const mainSection = @"mainSection";
 // MARK: - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
   NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
+  if ([[[[self dataStore] day] idsOfPlannedActions] containsObject:actionId]) {
+    return;
+  }
   DDHAction *action = [[self dataStore] actionForId:actionId];
   [[self delegate] addActionFromViewController:self action:action];
 }
@@ -97,14 +133,38 @@ NSString * const mainSection = @"mainSection";
 // MARK: Layout
 - (UICollectionViewLayout *)layout {
   UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearancePlain];
+  [listConfiguration setHeaderMode:UICollectionLayoutListHeaderModeSupplementary];
   [listConfiguration setTrailingSwipeActionsConfigurationProvider:^UISwipeActionsConfiguration * (NSIndexPath *indexPath) {
-    return [UISwipeActionsConfiguration configurationWithActions:@[
+
+    NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
+    DDHAction *action = [[self dataStore] actionForId:actionId];
+    DDHDay *day = [[self dataStore] day];
+    DDHActionState actionState = [day actionStateForAction:action];
+
+    NSMutableArray *contextualActions = [[NSMutableArray alloc] initWithArray:@[
       [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
       NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
       DDHAction *action = [[self dataStore] actionForId:actionId];
       [[self delegate] editActionFromViewController:self action:action];
+      completionHandler(true);
     }]
     ]];
+
+    if (actionState == DDHActionStateNone) {
+      [contextualActions addObject:
+         [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"Delete", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
+        DDHAction *action = [[self dataStore] actionForId:actionId];
+        [[self dataStore] removeAction:action];
+        [self updateWithActions:[[self dataStore] actions]];
+        [[self dataStore] saveData];
+        completionHandler(true);
+      }]
+      ];
+    }
+
+    return [UISwipeActionsConfiguration configurationWithActions: contextualActions];
+
   }];
   return [UICollectionViewCompositionalLayout layoutWithListConfiguration:listConfiguration];
 }

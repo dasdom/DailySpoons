@@ -17,6 +17,7 @@
     [_label setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]];
     [_label setText:@"- / -"];
     [_label setTextAlignment:NSTextAlignmentCenter];
+    [_label setNumberOfLines:0];
 
     [self addSubview:_label];
 

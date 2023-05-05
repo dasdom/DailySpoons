@@ -66,7 +66,7 @@
     action = [self editableAction];
     [action setName:name];
     [action setSpoons:spoons];
-    [[self delegate] editDoneInViewController:self];
+    [[self delegate] editDoneInViewController:self action:action];
   } else {
     action = [[DDHAction alloc] initWithName:name spoons:spoons];
     [[self delegate] addActionFromViewController:self action:action];

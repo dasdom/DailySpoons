@@ -127,6 +127,7 @@
   [snapshot appendItemsWithIdentifiers:[day spoonsIdentifiers] intoSectionWithIdentifier:[NSNumber numberWithInteger:DDHDayPlannerSectionSpoons]];
   [snapshot appendItemsWithIdentifiers:[day idsOfPlannedActions] intoSectionWithIdentifier:[NSNumber numberWithInteger:DDHDayPlannerSectionActions]];
   [[self dataSource] applySnapshot:snapshot animatingDifferences:YES];
+  [self updateSpoonsAmount];
 }
 
 - (void)reload {
@@ -161,9 +162,9 @@
   DDHDay *day = [[self dataStore] day];
   NSString *footerString;
   if ([day carryOverSpoons] > 0) {
-    footerString = [NSString stringWithFormat:@"(%ld - %ld) / %ld", [day availableSpoons], [day carryOverSpoons], [day amountOfSpoons]];
+    footerString = [NSString stringWithFormat:@"Planned: (%ld - %ld) / %ld\nCompleted: (%ld - %ld) / %ld", [day plannedSpoons], [day carryOverSpoons], [day amountOfSpoons], [day completedSpoons], [day carryOverSpoons], [day amountOfSpoons]];
   } else {
-    footerString = [NSString stringWithFormat:@"%ld / %ld", [day availableSpoons], [day amountOfSpoons]];
+    footerString = [NSString stringWithFormat:@"Planned: %ld / %ld\nCompleted: %ld / %ld", [day plannedSpoons], [day amountOfSpoons], [day completedSpoons], [day amountOfSpoons]];
   }
   [[self spoonsAmountLabel] setText:footerString];
 }
@@ -266,6 +267,12 @@
           [day unplanAction:action];
           [[self dataStore] saveData];
           [self updateWithDay:day];
+        }],
+          [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+          NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
+          DDHAction *action = [[self dataStore] actionForId:actionId];
+          [[self delegate] editActionFromViewController:self action:action];
+          completionHandler(true);
         }]
         ]];
       }];

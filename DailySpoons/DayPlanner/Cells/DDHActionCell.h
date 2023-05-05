@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DDHActionCell : UICollectionViewCell
 + (NSString *)identifier;
 - (void)updateWithAction:(DDHAction *)action isCompleted:(BOOL)isCompleted;
+- (void)updateWithAction:(DDHAction *)action isCompleted:(BOOL)isCompleted isPlanned:(BOOL)isPlanned;
 @end
 
 NS_ASSUME_NONNULL_END

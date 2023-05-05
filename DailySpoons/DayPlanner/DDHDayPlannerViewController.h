@@ -6,11 +6,13 @@
 
 @class DDHDataStore;
 @class DDHDay;
+@class DDHAction;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol DDHDayPlannerViewControllerProtocol <NSObject>
 - (void)addSelectedInViewController:(UIViewController *)viewController;
+- (void)editActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action;
 @end
 
 @interface DDHDayPlannerViewController : UIViewController

@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)movePlannedActionFromIndex:(NSInteger)initialIndex toFinalIndex:(NSInteger)finalIndex;
 - (void)completeAction:(DDHAction *)action;
 - (void)uncompleteAction:(DDHAction *)action;
+- (void)updateAction:(DDHAction *)action;
 - (NSArray<NSUUID *> *)idsOfPlannedActions;
 - (NSArray<NSUUID *> *)idsOfCompletedActions;
 - (DDHActionState)actionStateForAction:(DDHAction *)action;

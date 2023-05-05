@@ -10,7 +10,7 @@
 
 @protocol DDHActionInputViewControllerProtocol <NSObject>
 - (void)addActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action;
-- (void)editDoneInViewController:(UIViewController *)viewController;
+- (void)editDoneInViewController:(UIViewController *)viewController action:(DDHAction *)action;
 @end
 
 @interface DDHActionInputViewController : UIViewController

@@ -8,6 +8,7 @@
 #import "DDHDataStore.h"
 #import "DDHActionStoreViewController.h"
 #import "DDHDay.h"
+#import "DDHAction.h"
 
 @interface DDHAppCoordinator () <DDHDayPlannerViewControllerProtocol, DDHActionStoreViewControllerProtocol, DDHActionInputViewControllerProtocol>
 @property (nonatomic, strong) UINavigationController *navigationController;
@@ -85,16 +86,25 @@
 
   DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)[[self navigationController] topViewController];
   [dayPlanner updateWithDay:[[self dataStore] day]];
+  [dayPlanner reload];
   [dayPlanner dismissViewControllerAnimated:true completion:nil];
 }
 
-- (void)editDoneInViewController:(UIViewController *)viewController {
+- (void)editDoneInViewController:(UIViewController *)viewController action:(DDHAction *)action {
+  DDHDay *day = [[self dataStore] day];
+  if ([[day idsOfPlannedActions] containsObject:[action actionId]]) {
+    [day updateAction:action];
+  }
   [[self dataStore] saveData];
   DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)[[self navigationController] topViewController];
   [dayPlanner reload];
-  DDHActionStoreViewController *presentedViewController = (DDHActionStoreViewController *)[(UINavigationController *)[dayPlanner presentedViewController] topViewController];
-  [presentedViewController reload];
-  [viewController dismissViewControllerAnimated:YES completion:nil];
+  UIViewController *presentedViewController = [(UINavigationController *)[dayPlanner presentedViewController] topViewController];
+  if ([presentedViewController respondsToSelector:@selector(reload)]) {
+    [presentedViewController performSelector:@selector(reload)];
+  }
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [viewController dismissViewControllerAnimated:YES completion:nil];
+  });
 }
 
 @end

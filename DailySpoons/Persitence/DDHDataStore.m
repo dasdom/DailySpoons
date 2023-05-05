@@ -25,6 +25,12 @@
   [self saveActions:[self actions]];
 }
 
+- (void)removeAction:(DDHAction *)action {
+  NSMutableArray<DDHAction *> *actions = [[self actions] mutableCopy];
+  [actions removeObject:action];
+  [self setActions:[actions copy]];
+}
+
 - (void)saveData {
   [self saveDay:[self day]];
   [self saveActions:[self actions]];

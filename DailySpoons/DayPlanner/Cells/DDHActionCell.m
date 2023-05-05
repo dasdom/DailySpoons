@@ -41,6 +41,10 @@
 }
 
 - (void)updateWithAction:(DDHAction *)action isCompleted:(BOOL)isCompleted {
+  [self updateWithAction:action isCompleted:isCompleted isPlanned:NO];
+}
+
+- (void)updateWithAction:(DDHAction *)action isCompleted:(BOOL)isCompleted isPlanned:(BOOL)isPlanned {
   [[self nameLabel] setText:[action name]];
 
   NSArray<UIView *> *arrangedViews = [[self spoonsStackView] arrangedSubviews];
@@ -58,7 +62,13 @@
     }
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     [imageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [imageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [[self spoonsStackView] addArrangedSubview:imageView];
+  }
+
+  if (isPlanned) {
+    [[self nameLabel] setTextColor:[UIColor systemGrayColor]];
+    [[self spoonsStackView] setTintColor:[UIColor systemGrayColor]];
   }
 }
 @end

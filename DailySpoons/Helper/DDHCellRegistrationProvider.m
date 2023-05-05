@@ -20,6 +20,8 @@
       [spoonCell updateWithActionState:DDHActionStateCompleted];
     } else if (index < [day plannedSpoons]) {
       [spoonCell updateWithActionState:DDHActionStatePlanned];
+    } else {
+      [spoonCell updateWithActionState:DDHActionStateNone];
     }
   }];
 }
@@ -30,6 +32,11 @@
     DDHAction *action = [dataStore actionForId:item];
     DDHActionState actionState = [[dataStore day] actionStateForAction:action];
     [actionCell updateWithAction:action isCompleted:(actionState == DDHActionStateCompleted)];
+//    UICellConfigurationState *configurationState = [actionCell configurationState];
+//    NSLog(@"swiped: %@", configurationState.swiped ? @"YES" : @"NO");
+//    [configurationState setSwiped:NO];
+//    [actionCell updateConfigurationUsingState:configurationState];
+//    [actionCell setNeedsUpdateConfiguration];
   }];
 }
 @end

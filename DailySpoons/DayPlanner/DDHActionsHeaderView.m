@@ -17,7 +17,7 @@
     [_nameLabel setTextColor:[UIColor systemGrayColor]];
 
     _addButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_addButton setImage:[UIImage systemImageNamed:@"plus"] forState:UIControlStateNormal];
+    [_addButton setImage:[UIImage systemImageNamed:@"tray.full"] forState:UIControlStateNormal];
 
     UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_nameLabel, _addButton]];
     [stackView setTranslatesAutoresizingMaskIntoConstraints:NO];
