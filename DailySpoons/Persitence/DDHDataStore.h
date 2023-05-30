@@ -10,7 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DDHDataStore : NSObject
+@protocol DDHDataStoreProtocol <NSObject>
+@property (nonatomic, readonly) DDHDay *day;
+@property (nonatomic, readonly) NSArray<DDHAction *> *actions;
+- (void)addAction:(DDHAction *)action;
+- (void)removeAction:(DDHAction *)action;
+- (void)saveData;
+- (DDHAction *)actionForId:(NSUUID *)actionId;
+@end
+
+@interface DDHDataStore : NSObject <DDHDataStoreProtocol>
 @property (nonatomic, readonly) DDHDay *day;
 @property (nonatomic, readonly) NSArray<DDHAction *> *actions;
 - (void)addAction:(DDHAction *)action;

@@ -12,7 +12,7 @@
 @implementation DDHDayPlannerViewTests
 
 - (void)setUp {
-  [self setSut:[[DDHDayPlannerView alloc] init]];
+  [self setSut:[[DDHDayPlannerView alloc] initWithFrame:CGRectZero collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]]];
 }
 
 - (void)tearDown {

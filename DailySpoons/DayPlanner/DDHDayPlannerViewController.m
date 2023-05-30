@@ -19,14 +19,14 @@
 
 @interface DDHDayPlannerViewController () <UICollectionViewDelegate>
 @property (nonatomic, weak) id<DDHDayPlannerViewControllerProtocol> delegate;
-@property (nonatomic, strong) DDHDataStore *dataStore;
+@property (nonatomic, strong) id<DDHDataStoreProtocol> dataStore;
 @property (nonatomic, strong) UICollectionViewDiffableDataSource *dataSource;
 @property (nonatomic, weak) UILabel *spoonsAmountLabel;
 @end
 
 @implementation DDHDayPlannerViewController
 
-- (instancetype)initWithDelegate:(id<DDHDayPlannerViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore {
+- (instancetype)initWithDelegate:(id<DDHDayPlannerViewControllerProtocol>)delegate dataStore:(id<DDHDataStoreProtocol>)dataStore {
   if (self = [super init]) {
     _delegate = delegate;
     _dataStore = dataStore;
@@ -165,6 +165,12 @@
     footerString = [NSString stringWithFormat:@"Planned: (%ld - %ld) / %ld\nCompleted: (%ld - %ld) / %ld", [day plannedSpoons], [day carryOverSpoons], [day amountOfSpoons], [day completedSpoons], [day carryOverSpoons], [day amountOfSpoons]];
   } else {
     footerString = [NSString stringWithFormat:@"Planned: %ld / %ld\nCompleted: %ld / %ld", [day plannedSpoons], [day amountOfSpoons], [day completedSpoons], [day amountOfSpoons]];
+  }
+  BOOL spoonDeficit = ([day plannedSpoons] - [day carryOverSpoons]) > [day amountOfSpoons];
+  if (spoonDeficit) {
+    [[self spoonsAmountLabel] setTextColor:[UIColor systemRedColor]];
+  } else {
+    [[self spoonsAmountLabel] setTextColor:[UIColor labelColor]];
   }
   [[self spoonsAmountLabel] setText:footerString];
 }

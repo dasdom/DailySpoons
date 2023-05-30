@@ -3,6 +3,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DDHDataStore.h"
 
 @class DDHDataStore;
 @class DDHDay;
@@ -16,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface DDHDayPlannerViewController : UIViewController
-- (instancetype)initWithDelegate:(id<DDHDayPlannerViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore;
+- (instancetype)initWithDelegate:(id<DDHDayPlannerViewControllerProtocol>)delegate dataStore:(id<DDHDataStoreProtocol>)dataStore;
 - (void)updateWithDay:(DDHDay *)day;
 - (void)reload;
 @end

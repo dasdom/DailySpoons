@@ -13,10 +13,11 @@
 #import "DDHActionStoreSection.h"
 #import "DDHActionsHeaderView.h"
 
-@interface DDHActionStoreViewController () <UICollectionViewDelegate>
+@interface DDHActionStoreViewController () <UICollectionViewDelegate, UISearchBarDelegate>
 @property (nonatomic, weak) id<DDHActionStoreViewControllerProtocol> delegate;
 @property (nonatomic, strong) UICollectionViewDiffableDataSource *dataSource;
 @property (nonatomic, strong) DDHDataStore *dataStore;
+@property (nonatomic, strong) NSString *searchText;
 @end
 
 @implementation DDHActionStoreViewController
@@ -28,8 +29,16 @@
   return self;
 }
 
+- (void)setSearchText:(NSString *)searchText {
+  _searchText = searchText;
+
+  NSArray<DDHAction *> *allActions = [[self dataStore] actions];
+  [self updateWithActions:allActions];
+}
+
 - (void)loadView {
   DDHActionStoreView *contentView = [[DDHActionStoreView alloc] initWithFrame:[[UIScreen mainScreen] bounds] collectionViewLayout:[self layout]];
+  [[contentView searchBar] setDelegate:self];
   [self setView:contentView];
 }
 
@@ -97,11 +106,18 @@
   __block NSMutableArray<NSUUID *> *plannedActionIds = [[NSMutableArray alloc] initWithCapacity:[actions count]];
   __block NSMutableArray<NSUUID *> *unplannedActionIds = [[NSMutableArray alloc] initWithCapacity:[actions count]];
   [actions enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
-    NSUUID *actionId = [action actionId];
-    if ([[day idsOfPlannedActions] containsObject:actionId]) {
-      [plannedActionIds addObject:actionId];
-    } else {
-      [unplannedActionIds addObject:actionId];
+    NSString *searchText = [self searchText];
+    BOOL shouldBeAdded = YES;
+    if ([searchText length] > 0 && NO == [[action name] containsString:searchText]) {
+      shouldBeAdded = NO;
+    }
+    if (shouldBeAdded) {
+      NSUUID *actionId = [action actionId];
+      if ([[day idsOfPlannedActions] containsObject:actionId]) {
+        [plannedActionIds addObject:actionId];
+      } else {
+        [unplannedActionIds addObject:actionId];
+      }
     }
   }];
   [snapshot appendItemsWithIdentifiers:[unplannedActionIds copy] intoSectionWithIdentifier:[NSNumber numberWithInteger:DDHActionStoreSectionUnplanned]];
@@ -127,7 +143,7 @@
 
 // MARK: - Actions
 - (void)add:(UIBarButtonItem *)sender {
-  [[self delegate] addSelectedInViewController:self];
+  [[self delegate] addSelectedInViewController:self name:[self searchText]];
 }
 
 // MARK: Layout
@@ -167,5 +183,10 @@
 
   }];
   return [UICollectionViewCompositionalLayout layoutWithListConfiguration:listConfiguration];
+}
+
+// MARK: - UISearchBarDelegate
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+  [self setSearchText:searchText];
 }
 @end

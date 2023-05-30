@@ -15,10 +15,18 @@
     _collectionView = [[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
     [_collectionView setTranslatesAutoresizingMaskIntoConstraints:NO];
 
+    _searchBar = [[UISearchBar alloc] init];
+    [_searchBar setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+    [self addSubview:_searchBar];
     [self addSubview:_collectionView];
 
     [NSLayoutConstraint activateConstraints:@[
-      [[_collectionView topAnchor] constraintEqualToAnchor:[self topAnchor]],
+      [[_searchBar topAnchor] constraintEqualToAnchor:[[self safeAreaLayoutGuide] topAnchor]],
+      [[_searchBar leadingAnchor] constraintEqualToAnchor:[self leadingAnchor]],
+      [[_searchBar trailingAnchor] constraintEqualToAnchor:[self trailingAnchor]],
+
+      [[_collectionView topAnchor] constraintEqualToAnchor:[_searchBar bottomAnchor]],
       [[_collectionView leadingAnchor] constraintEqualToAnchor:[self leadingAnchor]],
       [[_collectionView bottomAnchor] constraintEqualToAnchor:[self bottomAnchor]],
       [[_collectionView trailingAnchor] constraintEqualToAnchor:[self trailingAnchor]],
@@ -26,17 +34,4 @@
   }
   return self;
 }
-
-//- (UICollectionViewLayout *)layout {
-//  UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearancePlain];
-//  listConfiguration.trailingSwipeActionsConfigurationProvider = ^UISwipeActionsConfiguration * (NSIndexPath *indexPath) {
-//    return [UISwipeActionsConfiguration configurationWithActions:@[
-//      [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Edit", nil) handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-//
-//    }]
-//    ]];
-//  };
-//  return [UICollectionViewCompositionalLayout layoutWithListConfiguration:listConfiguration];
-//}
-
 @end

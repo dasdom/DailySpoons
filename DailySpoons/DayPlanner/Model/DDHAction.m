@@ -50,4 +50,12 @@ NSString * const spoonsKey = @"spoonsKey";
   }
   return YES;
 }
+
+- (NSString *)description {
+  return [@[
+    [NSString stringWithFormat:@"%@", [self actionId]],
+    [self name],
+    [NSString stringWithFormat:@"%ld", (long)[self spoons]]
+  ] componentsJoinedByString:@", "];
+}
 @end

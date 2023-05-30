@@ -15,5 +15,6 @@
 
 @interface DDHActionInputViewController : UIViewController
 - (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore editableAction:(DDHAction *)editableAction;
+- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore name:(NSString *)name;
 - (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore;
 @end

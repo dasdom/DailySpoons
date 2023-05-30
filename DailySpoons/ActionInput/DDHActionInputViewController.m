@@ -11,11 +11,19 @@
 @property (nonatomic, weak) id<DDHActionInputViewControllerProtocol> delegate;
 @property (nonatomic, strong) DDHDataStore *dataStore;
 @property (nonatomic, strong) DDHAction *editableAction;
+@property (nonatomic, strong) NSString *name;
 @end
 
 @implementation DDHActionInputViewController
 - (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore {
   return [self initWithDelegate:delegate dataStore:dataStore editableAction:nil];
+}
+
+- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore name:(NSString *)name {
+  if (self = [self initWithDelegate:delegate dataStore:dataStore editableAction:nil]) {
+    _name = name;
+  }
+  return self;
 }
 
 - (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore editableAction:(DDHAction *)editableAction {
@@ -31,8 +39,12 @@
   DDHActionInputView *contentView = [[DDHActionInputView alloc] init];
   [[contentView stepper] addTarget:self action:@selector(stepperChanged:) forControlEvents:UIControlEventValueChanged];
   [[contentView saveButton] addTarget:self action:@selector(save:) forControlEvents:UIControlEventTouchUpInside];
-  [[contentView textField] setText:[[self editableAction] name]];
-  [[contentView stepper] setValue:[[self editableAction] spoons]];
+  if ([self editableAction]) {
+    [[contentView textField] setText:[[self editableAction] name]];
+    [[contentView stepper] setValue:[[self editableAction] spoons]];
+  } else if ([[self name] length] > 0) {
+    [[contentView textField] setText:[self name]];
+  }
   [contentView update];
   [self setView:contentView];
 }

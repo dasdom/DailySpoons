@@ -7,11 +7,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DDHAction : NSObject
-- (instancetype)initWithName:(NSString *)name spoons:(NSInteger)spoons;
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 @property (nonatomic, strong) NSUUID *actionId;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, assign) NSInteger spoons;
+- (instancetype)initWithName:(NSString *)name spoons:(NSInteger)spoons;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (NSDictionary *)dictionary;
 @end
 

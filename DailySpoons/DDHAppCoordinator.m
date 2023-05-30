@@ -36,31 +36,29 @@
 
 // MARK: - DDHActionStoreViewControllerProtocol/DDHActionInputViewControllerProtocol
 - (void)addSelectedInViewController:(UIViewController *)viewController {
-  UIViewController *next;
-  if ([viewController isKindOfClass:[DDHDayPlannerViewController class]]) {
-    DDHActionStoreViewController *store = [[DDHActionStoreViewController alloc] initWithDelegate:self dataStore:[self dataStore]];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:store];
+  DDHActionStoreViewController *store = [[DDHActionStoreViewController alloc] initWithDelegate:self dataStore:[self dataStore]];
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:store];
 
-    UISheetPresentationController *sheet = navigationController.sheetPresentationController;
-    sheet.detents = @[UISheetPresentationControllerDetent.mediumDetent, UISheetPresentationControllerDetent.largeDetent];
-    sheet.prefersScrollingExpandsWhenScrolledToEdge = YES;
-    sheet.prefersEdgeAttachedInCompactHeight = YES;
-    sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = YES;
+  UISheetPresentationController *sheet = navigationController.sheetPresentationController;
+  sheet.detents = @[UISheetPresentationControllerDetent.mediumDetent, UISheetPresentationControllerDetent.largeDetent];
+  sheet.prefersScrollingExpandsWhenScrolledToEdge = YES;
+  sheet.prefersEdgeAttachedInCompactHeight = YES;
+  sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = YES;
 
-    next = navigationController;
-  } else {
-    DDHActionInputViewController *input = [[DDHActionInputViewController alloc] initWithDelegate:self dataStore:[self dataStore]];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:input];
+  [viewController presentViewController:navigationController animated:YES completion:nil];
+}
 
-    UISheetPresentationController *sheet = navigationController.sheetPresentationController;
-    sheet.detents = @[UISheetPresentationControllerDetent.mediumDetent, UISheetPresentationControllerDetent.largeDetent];
-    sheet.prefersScrollingExpandsWhenScrolledToEdge = YES;
-    sheet.prefersEdgeAttachedInCompactHeight = YES;
-    sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = YES;
+- (void)addSelectedInViewController:(UIViewController *)viewController name:(NSString *)name {
+  DDHActionInputViewController *input = [[DDHActionInputViewController alloc] initWithDelegate:self dataStore:[self dataStore] name:name];
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:input];
 
-    next = navigationController;
-  }
-  [viewController presentViewController:next animated:YES completion:nil];
+  UISheetPresentationController *sheet = navigationController.sheetPresentationController;
+  sheet.detents = @[UISheetPresentationControllerDetent.mediumDetent, UISheetPresentationControllerDetent.largeDetent];
+  sheet.prefersScrollingExpandsWhenScrolledToEdge = YES;
+  sheet.prefersEdgeAttachedInCompactHeight = YES;
+  sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = YES;
+
+  [viewController presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)editActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action {

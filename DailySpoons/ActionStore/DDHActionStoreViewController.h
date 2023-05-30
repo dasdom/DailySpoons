@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol DDHActionStoreViewControllerProtocol <NSObject>
 - (void)addActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action;
-- (void)addSelectedInViewController:(UIViewController *)viewController;
+- (void)addSelectedInViewController:(UIViewController *)viewController name:(NSString *)name;
 - (void)editActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action;
 @end
 
