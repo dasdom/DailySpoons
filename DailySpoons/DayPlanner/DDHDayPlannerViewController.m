@@ -49,6 +49,9 @@
   UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"arrow.counterclockwise"] style:UIBarButtonItemStylePlain target:self action:@selector(reset:)];
   [[self navigationItem] setRightBarButtonItem:resetButton];
 
+  UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(didSetSettings:)];
+  [[self navigationItem] setLeftBarButtonItem:settingsButton];
+
   UICollectionView *collectionView = [[self contentView] collectionView];
   [self setupCollectionView:collectionView];
   [self updateWithDay:[[self dataStore] day]];
@@ -222,6 +225,10 @@
   }
 }
 
+- (void)didSetSettings:(UIBarButtonItem *)sender {
+  [[self delegate] didSelectSettingsButtonInViewController:self];
+}
+
 // MARK - Layout
 - (UICollectionViewLayout *)layout {
 
@@ -265,22 +272,11 @@
       UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearancePlain];
       [listConfiguration setHeaderMode:UICollectionLayoutListHeaderModeSupplementary];
       [listConfiguration setTrailingSwipeActionsConfigurationProvider:^UISwipeActionsConfiguration * (NSIndexPath *indexPath) {
-        return [UISwipeActionsConfiguration configurationWithActions:@[
-          [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Unplan", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-          NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
-          DDHAction *action = [[self dataStore] actionForId:actionId];
-          DDHDay *day = [[self dataStore] day];
-          [day unplanAction:action];
-          [[self dataStore] saveData];
-          [self updateWithDay:day];
-        }],
-          [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-          NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
-          DDHAction *action = [[self dataStore] actionForId:actionId];
-          [[self delegate] editActionFromViewController:self action:action];
-          completionHandler(true);
-        }]
-        ]];
+
+        NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
+        DDHAction *action = [[self dataStore] actionForId:actionId];
+
+        return [UISwipeActionsConfiguration configurationWithActions:@[[self contextualUnplanActionWithAction:action], [self contextualEditActionWithAction:action]]];
       }];
       section = [NSCollectionLayoutSection sectionWithListConfiguration:listConfiguration layoutEnvironment:layoutEnvironment];
     }
@@ -290,6 +286,24 @@
   [layout registerClass:[DDHSpoonsBackgroundView class] forDecorationViewOfKind:ELEMENT_KIND_BACKGROUND];
 
   return layout;
+}
+
+- (UIContextualAction *)contextualUnplanActionWithAction:(DDHAction *)action {
+  return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Unplan", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+
+    DDHDay *day = [[self dataStore] day];
+    [day unplanAction:action];
+    [[self dataStore] saveData];
+    [self updateWithDay:day];
+  }];
+}
+
+- (UIContextualAction *)contextualEditActionWithAction:(DDHAction *)action {
+  return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+
+    [[self delegate] editActionFromViewController:self action:action];
+    completionHandler(true);
+  }];
 }
 
 @end

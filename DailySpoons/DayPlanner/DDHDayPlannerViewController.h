@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol DDHDayPlannerViewControllerProtocol <NSObject>
 - (void)didSelectAddButtonInViewController:(UIViewController *)viewController;
 - (void)editActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action;
+- (void)didSelectSettingsButtonInViewController:(UIViewController *)viewController;
 @end
 
 @interface DDHDayPlannerViewController : UIViewController

@@ -9,8 +9,9 @@
 #import "DDHActionStoreViewController.h"
 #import "DDHDay.h"
 #import "DDHAction.h"
+#import "DDHSettingsViewController.h"
 
-@interface DDHAppCoordinator () <DDHDayPlannerViewControllerProtocol, DDHActionStoreViewControllerProtocol, DDHActionInputViewControllerProtocol>
+@interface DDHAppCoordinator () <DDHDayPlannerViewControllerProtocol, DDHActionStoreViewControllerProtocol, DDHActionInputViewControllerProtocol, DDHSettingsViewControllerProtocol>
 @property (nonatomic, strong) UINavigationController *navigationController;
 @property (nonatomic, strong) DDHDataStore *dataStore;
 @end
@@ -34,7 +35,7 @@
   return [self navigationController];
 }
 
-// MARK: - DDHActionStoreViewControllerProtocol/DDHActionInputViewControllerProtocol
+// MARK: - DDHDayPlannerViewControllerProtocol/DDHActionInputViewControllerProtocol
 - (void)didSelectAddButtonInViewController:(UIViewController *)viewController {
   DDHActionStoreViewController *store = [[DDHActionStoreViewController alloc] initWithDelegate:self dataStore:[self dataStore]];
   UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:store];
@@ -64,6 +65,20 @@
 - (void)editActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action {
   DDHActionInputViewController *input = [[DDHActionInputViewController alloc] initWithDelegate:self dataStore:[self dataStore] editableAction:action];
   UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:input];
+
+  UISheetPresentationController *sheet = navigationController.sheetPresentationController;
+  sheet.detents = @[UISheetPresentationControllerDetent.mediumDetent, UISheetPresentationControllerDetent.largeDetent];
+  sheet.prefersScrollingExpandsWhenScrolledToEdge = YES;
+  sheet.prefersEdgeAttachedInCompactHeight = YES;
+  sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = YES;
+
+  [viewController presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)didSelectSettingsButtonInViewController:(UIViewController *)viewController {
+  DDHSettingsViewController *next = [[DDHSettingsViewController alloc] initWithDelegate:self];
+
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:next];
 
   UISheetPresentationController *sheet = navigationController.sheetPresentationController;
   sheet.detents = @[UISheetPresentationControllerDetent.mediumDetent, UISheetPresentationControllerDetent.largeDetent];
@@ -105,4 +120,12 @@
   });
 }
 
+- (void)dailySpoonsChangedInViewController:(UIViewController *)viewController amountOfSpoons:(NSInteger)spoons {
+  DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)[[self navigationController] topViewController];
+  DDHDay *day = [[self dataStore] day];
+  [day setAmountOfSpoons:spoons];
+  [dayPlanner updateWithDay:day];
+  [[self dataStore] saveData];
+  [dayPlanner reload];
+}
 @end

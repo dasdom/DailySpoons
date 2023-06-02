@@ -15,6 +15,8 @@
 		F2005F182A2930E400093F6C /* DDHActionInputViewControllerProtocolMock.m in Sources */ = {isa = PBXBuildFile; fileRef = F2005F172A2930E400093F6C /* DDHActionInputViewControllerProtocolMock.m */; };
 		F2005F1B2A29D1AD00093F6C /* DDHActionStoreViewControllerProtocolMock.m in Sources */ = {isa = PBXBuildFile; fileRef = F2005F1A2A29D1AD00093F6C /* DDHActionStoreViewControllerProtocolMock.m */; };
 		F2005F1D2A29D21D00093F6C /* DDHActionStoreViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2005F1C2A29D21D00093F6C /* DDHActionStoreViewControllerTests.m */; };
+		F22737F52A2A4229001B15B6 /* DDHSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F22737F42A2A4229001B15B6 /* DDHSettingsViewController.m */; };
+		F22737F92A2A4372001B15B6 /* DDHSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = F22737F82A2A4372001B15B6 /* DDHSettingsView.m */; };
 		F2469C4F29F716150023DAD9 /* DDHAction.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C4E29F716150023DAD9 /* DDHAction.m */; };
 		F2469C5229F717730023DAD9 /* DDHDay.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5129F717730023DAD9 /* DDHDay.m */; };
 		F2469C5629F71B470023DAD9 /* NSUserDefaults+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5529F71B470023DAD9 /* NSUserDefaults+Helper.m */; };
@@ -69,6 +71,10 @@
 		F2005F1A2A29D1AD00093F6C /* DDHActionStoreViewControllerProtocolMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionStoreViewControllerProtocolMock.m; sourceTree = "<group>"; };
 		F2005F1C2A29D21D00093F6C /* DDHActionStoreViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionStoreViewControllerTests.m; sourceTree = "<group>"; };
 		F21B217E2A0550F100518B8E /* DDHActionStoreSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHActionStoreSection.h; sourceTree = "<group>"; };
+		F22737F32A2A4229001B15B6 /* DDHSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHSettingsViewController.h; sourceTree = "<group>"; };
+		F22737F42A2A4229001B15B6 /* DDHSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHSettingsViewController.m; sourceTree = "<group>"; };
+		F22737F72A2A4372001B15B6 /* DDHSettingsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHSettingsView.h; sourceTree = "<group>"; };
+		F22737F82A2A4372001B15B6 /* DDHSettingsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHSettingsView.m; sourceTree = "<group>"; };
 		F2469C4D29F716150023DAD9 /* DDHAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHAction.h; sourceTree = "<group>"; };
 		F2469C4E29F716150023DAD9 /* DDHAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHAction.m; sourceTree = "<group>"; };
 		F2469C5029F717730023DAD9 /* DDHDay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHDay.h; sourceTree = "<group>"; };
@@ -180,6 +186,17 @@
 			path = ActionInput;
 			sourceTree = "<group>";
 		};
+		F22737F62A2A423B001B15B6 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F22737F32A2A4229001B15B6 /* DDHSettingsViewController.h */,
+				F22737F42A2A4229001B15B6 /* DDHSettingsViewController.m */,
+				F22737F72A2A4372001B15B6 /* DDHSettingsView.h */,
+				F22737F82A2A4372001B15B6 /* DDHSettingsView.m */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		F2469C6029FBB6D10023DAD9 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +293,7 @@
 				F2469C7129FC3EA70023DAD9 /* DDHCoordinatorProtocol.h */,
 				F2469C7229FC3F270023DAD9 /* DDHAppCoordinator.h */,
 				F2469C7329FC3F270023DAD9 /* DDHAppCoordinator.m */,
+				F22737F62A2A423B001B15B6 /* Settings */,
 				F2469C6F29FC3DE80023DAD9 /* Persitence */,
 				F2469C6129FBB6DA0023DAD9 /* Model */,
 				F25F7D3429F5997E00EF395F /* DayPlanner */,
@@ -437,12 +455,14 @@
 				F2469C8B29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m in Sources */,
 				F2469C8129FCE01D0023DAD9 /* DDHCellRegistrationProvider.m in Sources */,
 				F2469C6A29FC27620023DAD9 /* DDHActionInputViewController.m in Sources */,
+				F22737F52A2A4229001B15B6 /* DDHSettingsViewController.m in Sources */,
 				F2469C7429FC3F270023DAD9 /* DDHAppCoordinator.m in Sources */,
 				F2469C5229F717730023DAD9 /* DDHDay.m in Sources */,
 				F2469C7A29FC5CCB0023DAD9 /* DDHActionStoreViewController.m in Sources */,
 				F2469C5629F71B470023DAD9 /* NSUserDefaults+Helper.m in Sources */,
 				F2469C5D29F988D30023DAD9 /* DDHActionCell.m in Sources */,
 				F25F7D1729F596EA00EF395F /* AppDelegate.m in Sources */,
+				F22737F92A2A4372001B15B6 /* DDHSettingsView.m in Sources */,
 				F2469C8529FE76AB0023DAD9 /* DDHSpoonsHeaderView.m in Sources */,
 				F25F7D2829F596EB00EF395F /* main.m in Sources */,
 				F2469C4F29F716150023DAD9 /* DDHAction.m in Sources */,

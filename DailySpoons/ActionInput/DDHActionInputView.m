@@ -4,9 +4,6 @@
 
 #import "DDHActionInputView.h"
 
-@interface DDHActionInputView ()
-@end
-
 @implementation DDHActionInputView
 
 - (instancetype)initWithFrame:(CGRect)frame {
