@@ -105,6 +105,18 @@
   XCTAssertEqualObjects([nameLabel text], @"B");
 }
 
+- (void)test_canMoveItemAtIndexPath_whenInSectionZero_shouldReturnNo {
+  BOOL canMoveItem = [[[self collectionView] dataSource] collectionView:[self collectionView] canMoveItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+
+  XCTAssertFalse(canMoveItem);
+}
+
+- (void)test_moveItem_shouldUpdateDay {
+  [[[self collectionView] dataSource] collectionView:[self collectionView] moveItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1] toIndexPath:[NSIndexPath indexPathForItem:1 inSection:1]];
+
+  XCTAssertEqualObjects([[self firstPlannedAction] name], @"B");
+}
+
 // MARK: - Helper
 - (UICollectionView *)collectionView {
   DDHDayPlannerView *contentView = [[self sut] performSelector:@selector(contentView)];

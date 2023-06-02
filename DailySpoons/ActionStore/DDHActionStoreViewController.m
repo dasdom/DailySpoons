@@ -16,12 +16,12 @@
 @interface DDHActionStoreViewController () <UICollectionViewDelegate, UISearchBarDelegate>
 @property (nonatomic, weak) id<DDHActionStoreViewControllerProtocol> delegate;
 @property (nonatomic, strong) UICollectionViewDiffableDataSource *dataSource;
-@property (nonatomic, strong) DDHDataStore *dataStore;
+@property (nonatomic, strong) id<DDHDataStoreProtocol> dataStore;
 @property (nonatomic, strong) NSString *searchText;
 @end
 
 @implementation DDHActionStoreViewController
-- (instancetype)initWithDelegate:(id<DDHActionStoreViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore {
+- (instancetype)initWithDelegate:(id<DDHActionStoreViewControllerProtocol>)delegate dataStore:(id<DDHDataStoreProtocol>)dataStore {
   if (self = [super init]) {
     _delegate = delegate;
     _dataStore = dataStore;
@@ -143,7 +143,7 @@
 
 // MARK: - Actions
 - (void)add:(UIBarButtonItem *)sender {
-  [[self delegate] addSelectedInViewController:self name:[self searchText]];
+  [[self delegate] didSelectAddButtonInViewController:self name:[self searchText]];
 }
 
 // MARK: Layout
@@ -154,35 +154,38 @@
 
     NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
     DDHAction *action = [[self dataStore] actionForId:actionId];
+
+    NSMutableArray *contextualActions = [[NSMutableArray alloc] init];
+    [contextualActions addObject:[self contextualEditActionWithAction:action]];
+
     DDHDay *day = [[self dataStore] day];
     DDHActionState actionState = [day actionStateForAction:action];
-
-    NSMutableArray *contextualActions = [[NSMutableArray alloc] initWithArray:@[
-      [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-      NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
-      DDHAction *action = [[self dataStore] actionForId:actionId];
-      [[self delegate] editActionFromViewController:self action:action];
-      completionHandler(true);
-    }]
-    ]];
-
     if (actionState == DDHActionStateNone) {
-      [contextualActions addObject:
-         [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"Delete", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-        NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
-        DDHAction *action = [[self dataStore] actionForId:actionId];
-        [[self dataStore] removeAction:action];
-        [self updateWithActions:[[self dataStore] actions]];
-        [[self dataStore] saveData];
-        completionHandler(true);
-      }]
-      ];
+      [contextualActions addObject:[self contextualDeleteActionWithAction:action]];
     }
 
     return [UISwipeActionsConfiguration configurationWithActions: contextualActions];
 
   }];
   return [UICollectionViewCompositionalLayout layoutWithListConfiguration:listConfiguration];
+}
+
+- (UIContextualAction *)contextualEditActionWithAction:(DDHAction *)action {
+  return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+
+    [[self delegate] editActionFromViewController:self action:action];
+    completionHandler(true);
+  }];
+}
+
+- (UIContextualAction *)contextualDeleteActionWithAction:(DDHAction *)action {
+  return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"Delete", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+
+    [[self dataStore] removeAction:action];
+    [self updateWithActions:[[self dataStore] actions]];
+    [[self dataStore] saveData];
+    completionHandler(true);
+  }];
 }
 
 // MARK: - UISearchBarDelegate

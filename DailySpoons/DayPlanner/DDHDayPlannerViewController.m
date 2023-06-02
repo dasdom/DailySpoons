@@ -177,7 +177,7 @@
 
 // MARK: - Actions
 - (void)add:(UIButton *)sender {
-  [[self delegate] addSelectedInViewController:self];
+  [[self delegate] didSelectAddButtonInViewController:self];
 }
 
 - (void)reset:(UIBarButtonItem *)sender {

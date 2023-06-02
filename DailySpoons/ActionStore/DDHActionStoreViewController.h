@@ -4,20 +4,20 @@
 
 
 #import <UIKit/UIKit.h>
+#import "DDHDataStore.h"
 
-@class DDHDataStore;
 @class DDHAction;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol DDHActionStoreViewControllerProtocol <NSObject>
 - (void)addActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action;
-- (void)addSelectedInViewController:(UIViewController *)viewController name:(NSString *)name;
+- (void)didSelectAddButtonInViewController:(UIViewController *)viewController name:(NSString *)name;
 - (void)editActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action;
 @end
 
 @interface DDHActionStoreViewController : UIViewController
-- (instancetype)initWithDelegate:(id<DDHActionStoreViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore;
+- (instancetype)initWithDelegate:(id<DDHActionStoreViewControllerProtocol>)delegate dataStore:(id<DDHDataStoreProtocol>)dataStore;
 - (void)reload;
 @end
 

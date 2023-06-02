@@ -35,7 +35,7 @@
 }
 
 // MARK: - DDHActionStoreViewControllerProtocol/DDHActionInputViewControllerProtocol
-- (void)addSelectedInViewController:(UIViewController *)viewController {
+- (void)didSelectAddButtonInViewController:(UIViewController *)viewController {
   DDHActionStoreViewController *store = [[DDHActionStoreViewController alloc] initWithDelegate:self dataStore:[self dataStore]];
   UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:store];
 
@@ -48,7 +48,7 @@
   [viewController presentViewController:navigationController animated:YES completion:nil];
 }
 
-- (void)addSelectedInViewController:(UIViewController *)viewController name:(NSString *)name {
+- (void)didSelectAddButtonInViewController:(UIViewController *)viewController name:(NSString *)name {
   DDHActionInputViewController *input = [[DDHActionInputViewController alloc] initWithDelegate:self dataStore:[self dataStore] name:name];
   UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:input];
 

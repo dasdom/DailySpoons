@@ -9,24 +9,24 @@
 
 @interface DDHActionInputViewController ()
 @property (nonatomic, weak) id<DDHActionInputViewControllerProtocol> delegate;
-@property (nonatomic, strong) DDHDataStore *dataStore;
+@property (nonatomic, strong) id<DDHDataStoreProtocol> dataStore;
 @property (nonatomic, strong) DDHAction *editableAction;
 @property (nonatomic, strong) NSString *name;
 @end
 
 @implementation DDHActionInputViewController
-- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore {
+- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(id<DDHDataStoreProtocol>)dataStore {
   return [self initWithDelegate:delegate dataStore:dataStore editableAction:nil];
 }
 
-- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore name:(NSString *)name {
+- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(id<DDHDataStoreProtocol>)dataStore name:(NSString *)name {
   if (self = [self initWithDelegate:delegate dataStore:dataStore editableAction:nil]) {
     _name = name;
   }
   return self;
 }
 
-- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore editableAction:(DDHAction *)editableAction {
+- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(id<DDHDataStoreProtocol>)dataStore editableAction:(DDHAction *)editableAction {
   if (self = [super init]) {
     _delegate = delegate;
     _dataStore = dataStore;

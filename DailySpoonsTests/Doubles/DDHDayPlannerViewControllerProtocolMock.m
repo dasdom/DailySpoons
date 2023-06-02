@@ -6,7 +6,7 @@
 #import "DDHDayPlannerViewControllerProtocolMock.h"
 
 @implementation DDHDayPlannerViewControllerProtocolMock
-- (void)addSelectedInViewController:(nonnull UIViewController *)viewController {
+- (void)didSelectAddButtonInViewController:(nonnull UIViewController *)viewController {
 
 }
 

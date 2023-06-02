@@ -4,9 +4,9 @@
 
 
 #import <UIKit/UIKit.h>
+#import "DDHDataStore.h"
 
 @class DDHAction;
-@class DDHDataStore;
 
 @protocol DDHActionInputViewControllerProtocol <NSObject>
 - (void)addActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action;
@@ -14,7 +14,7 @@
 @end
 
 @interface DDHActionInputViewController : UIViewController
-- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore editableAction:(DDHAction *)editableAction;
-- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore name:(NSString *)name;
-- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(DDHDataStore *)dataStore;
+- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(id<DDHDataStoreProtocol>)dataStore editableAction:(DDHAction *)editableAction;
+- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(id<DDHDataStoreProtocol>)dataStore name:(NSString *)name;
+- (instancetype)initWithDelegate:(id<DDHActionInputViewControllerProtocol>)delegate dataStore:(id<DDHDataStoreProtocol>)dataStore;
 @end

@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		F2005F092A24962200093F6C /* DDHDayPlannerViewControllerProtocolMock.m in Sources */ = {isa = PBXBuildFile; fileRef = F2005F082A24962200093F6C /* DDHDayPlannerViewControllerProtocolMock.m */; };
 		F2005F0D2A24B33A00093F6C /* DDHDataStoreProtocolMock.m in Sources */ = {isa = PBXBuildFile; fileRef = F2005F0C2A24B33A00093F6C /* DDHDataStoreProtocolMock.m */; };
+		F2005F0F2A27B55D00093F6C /* DDHActionStoreViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2005F0E2A27B55D00093F6C /* DDHActionStoreViewTests.m */; };
+		F2005F122A27B76F00093F6C /* DDHActionInputViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2005F112A27B76F00093F6C /* DDHActionInputViewTests.m */; };
+		F2005F152A292F7600093F6C /* DDHActionInputViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2005F142A292F7600093F6C /* DDHActionInputViewControllerTests.m */; };
+		F2005F182A2930E400093F6C /* DDHActionInputViewControllerProtocolMock.m in Sources */ = {isa = PBXBuildFile; fileRef = F2005F172A2930E400093F6C /* DDHActionInputViewControllerProtocolMock.m */; };
+		F2005F1B2A29D1AD00093F6C /* DDHActionStoreViewControllerProtocolMock.m in Sources */ = {isa = PBXBuildFile; fileRef = F2005F1A2A29D1AD00093F6C /* DDHActionStoreViewControllerProtocolMock.m */; };
+		F2005F1D2A29D21D00093F6C /* DDHActionStoreViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2005F1C2A29D21D00093F6C /* DDHActionStoreViewControllerTests.m */; };
 		F2469C4F29F716150023DAD9 /* DDHAction.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C4E29F716150023DAD9 /* DDHAction.m */; };
 		F2469C5229F717730023DAD9 /* DDHDay.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5129F717730023DAD9 /* DDHDay.m */; };
 		F2469C5629F71B470023DAD9 /* NSUserDefaults+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5529F71B470023DAD9 /* NSUserDefaults+Helper.m */; };
@@ -35,6 +41,8 @@
 		F25F7D3C29F599DA00EF395F /* DailySpoonsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D3B29F599DA00EF395F /* DailySpoonsTests.m */; };
 		F25F7D4329F59A1700EF395F /* DDHDayPlannerViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D4229F59A1700EF395F /* DDHDayPlannerViewControllerTests.m */; };
 		F25F7D4729F5ABEF00EF395F /* DDHDayPlannerViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */; };
+		F2F49A182A2A25AE00874BA9 /* DDHViewControllerMock.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F49A172A2A25AE00874BA9 /* DDHViewControllerMock.m */; };
+		F2F49A1A2A2A262F00874BA9 /* DDHAppCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F49A192A2A262F00874BA9 /* DDHAppCoordinatorTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +60,14 @@
 		F2005F082A24962200093F6C /* DDHDayPlannerViewControllerProtocolMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDayPlannerViewControllerProtocolMock.m; sourceTree = "<group>"; };
 		F2005F0B2A24B33A00093F6C /* DDHDataStoreProtocolMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHDataStoreProtocolMock.h; sourceTree = "<group>"; };
 		F2005F0C2A24B33A00093F6C /* DDHDataStoreProtocolMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDataStoreProtocolMock.m; sourceTree = "<group>"; };
+		F2005F0E2A27B55D00093F6C /* DDHActionStoreViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionStoreViewTests.m; sourceTree = "<group>"; };
+		F2005F112A27B76F00093F6C /* DDHActionInputViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionInputViewTests.m; sourceTree = "<group>"; };
+		F2005F142A292F7600093F6C /* DDHActionInputViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionInputViewControllerTests.m; sourceTree = "<group>"; };
+		F2005F162A2930E400093F6C /* DDHActionInputViewControllerProtocolMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHActionInputViewControllerProtocolMock.h; sourceTree = "<group>"; };
+		F2005F172A2930E400093F6C /* DDHActionInputViewControllerProtocolMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionInputViewControllerProtocolMock.m; sourceTree = "<group>"; };
+		F2005F192A29D1AD00093F6C /* DDHActionStoreViewControllerProtocolMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHActionStoreViewControllerProtocolMock.h; sourceTree = "<group>"; };
+		F2005F1A2A29D1AD00093F6C /* DDHActionStoreViewControllerProtocolMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionStoreViewControllerProtocolMock.m; sourceTree = "<group>"; };
+		F2005F1C2A29D21D00093F6C /* DDHActionStoreViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHActionStoreViewControllerTests.m; sourceTree = "<group>"; };
 		F21B217E2A0550F100518B8E /* DDHActionStoreSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHActionStoreSection.h; sourceTree = "<group>"; };
 		F2469C4D29F716150023DAD9 /* DDHAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHAction.h; sourceTree = "<group>"; };
 		F2469C4E29F716150023DAD9 /* DDHAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHAction.m; sourceTree = "<group>"; };
@@ -106,6 +122,9 @@
 		F25F7D4229F59A1700EF395F /* DDHDayPlannerViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDayPlannerViewControllerTests.m; sourceTree = "<group>"; };
 		F25F7D4429F5A8F900EF395F /* DailySpoons.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailySpoons.xctestplan; sourceTree = "<group>"; };
 		F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDayPlannerViewTests.m; sourceTree = "<group>"; };
+		F2F49A162A2A25AE00874BA9 /* DDHViewControllerMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHViewControllerMock.h; sourceTree = "<group>"; };
+		F2F49A172A2A25AE00874BA9 /* DDHViewControllerMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHViewControllerMock.m; sourceTree = "<group>"; };
+		F2F49A192A2A262F00874BA9 /* DDHAppCoordinatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHAppCoordinatorTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,8 +152,32 @@
 				F2005F082A24962200093F6C /* DDHDayPlannerViewControllerProtocolMock.m */,
 				F2005F0B2A24B33A00093F6C /* DDHDataStoreProtocolMock.h */,
 				F2005F0C2A24B33A00093F6C /* DDHDataStoreProtocolMock.m */,
+				F2005F162A2930E400093F6C /* DDHActionInputViewControllerProtocolMock.h */,
+				F2005F172A2930E400093F6C /* DDHActionInputViewControllerProtocolMock.m */,
+				F2005F192A29D1AD00093F6C /* DDHActionStoreViewControllerProtocolMock.h */,
+				F2005F1A2A29D1AD00093F6C /* DDHActionStoreViewControllerProtocolMock.m */,
+				F2F49A162A2A25AE00874BA9 /* DDHViewControllerMock.h */,
+				F2F49A172A2A25AE00874BA9 /* DDHViewControllerMock.m */,
 			);
 			path = Doubles;
+			sourceTree = "<group>";
+		};
+		F2005F102A27B56100093F6C /* ActionStore */ = {
+			isa = PBXGroup;
+			children = (
+				F2005F1C2A29D21D00093F6C /* DDHActionStoreViewControllerTests.m */,
+				F2005F0E2A27B55D00093F6C /* DDHActionStoreViewTests.m */,
+			);
+			path = ActionStore;
+			sourceTree = "<group>";
+		};
+		F2005F132A27B77200093F6C /* ActionInput */ = {
+			isa = PBXGroup;
+			children = (
+				F2005F142A292F7600093F6C /* DDHActionInputViewControllerTests.m */,
+				F2005F112A27B76F00093F6C /* DDHActionInputViewTests.m */,
+			);
+			path = ActionInput;
 			sourceTree = "<group>";
 		};
 		F2469C6029FBB6D10023DAD9 /* Cells */ = {
@@ -234,6 +277,7 @@
 				F2469C7229FC3F270023DAD9 /* DDHAppCoordinator.h */,
 				F2469C7329FC3F270023DAD9 /* DDHAppCoordinator.m */,
 				F2469C6F29FC3DE80023DAD9 /* Persitence */,
+				F2469C6129FBB6DA0023DAD9 /* Model */,
 				F25F7D3429F5997E00EF395F /* DayPlanner */,
 				F2469C7B29FC5CD30023DAD9 /* ActionStore */,
 				F2469C6B29FC3A780023DAD9 /* ActionInput */,
@@ -262,7 +306,6 @@
 				F2469C8C29FE84710023DAD9 /* DDHSpoonsBackgroundView.h */,
 				F2469C8D29FE84710023DAD9 /* DDHSpoonsBackgroundView.m */,
 				F2469C6029FBB6D10023DAD9 /* Cells */,
-				F2469C6129FBB6DA0023DAD9 /* Model */,
 			);
 			path = DayPlanner;
 			sourceTree = "<group>";
@@ -271,8 +314,11 @@
 			isa = PBXGroup;
 			children = (
 				F25F7D3B29F599DA00EF395F /* DailySpoonsTests.m */,
+				F2F49A192A2A262F00874BA9 /* DDHAppCoordinatorTests.m */,
 				F2005F0A2A24967E00093F6C /* Doubles */,
 				F25F7D4529F5ABC600EF395F /* DayPlanner */,
+				F2005F102A27B56100093F6C /* ActionStore */,
+				F2005F132A27B77200093F6C /* ActionInput */,
 			);
 			path = DailySpoonsTests;
 			sourceTree = "<group>";
@@ -420,6 +466,14 @@
 				F2005F092A24962200093F6C /* DDHDayPlannerViewControllerProtocolMock.m in Sources */,
 				F25F7D3C29F599DA00EF395F /* DailySpoonsTests.m in Sources */,
 				F25F7D4329F59A1700EF395F /* DDHDayPlannerViewControllerTests.m in Sources */,
+				F2005F122A27B76F00093F6C /* DDHActionInputViewTests.m in Sources */,
+				F2F49A1A2A2A262F00874BA9 /* DDHAppCoordinatorTests.m in Sources */,
+				F2005F1D2A29D21D00093F6C /* DDHActionStoreViewControllerTests.m in Sources */,
+				F2F49A182A2A25AE00874BA9 /* DDHViewControllerMock.m in Sources */,
+				F2005F152A292F7600093F6C /* DDHActionInputViewControllerTests.m in Sources */,
+				F2005F182A2930E400093F6C /* DDHActionInputViewControllerProtocolMock.m in Sources */,
+				F2005F0F2A27B55D00093F6C /* DDHActionStoreViewTests.m in Sources */,
+				F2005F1B2A29D1AD00093F6C /* DDHActionStoreViewControllerProtocolMock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
