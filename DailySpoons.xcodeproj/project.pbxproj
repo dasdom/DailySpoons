@@ -45,6 +45,18 @@
 		F25F7D4729F5ABEF00EF395F /* DDHDayPlannerViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */; };
 		F2CA90D52A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */; };
 		F2CA90D82A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90D72A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m */; };
+		F2CA90E12A2C802100B8B47F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2CA90E02A2C802100B8B47F /* WidgetKit.framework */; };
+		F2CA90E32A2C802100B8B47F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2CA90E22A2C802100B8B47F /* SwiftUI.framework */; };
+		F2CA90E62A2C802100B8B47F /* InfoWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90E52A2C802100B8B47F /* InfoWidgetsBundle.swift */; };
+		F2CA90E82A2C802100B8B47F /* InfoWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90E72A2C802100B8B47F /* InfoWidgets.swift */; };
+		F2CA90EA2A2C802200B8B47F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2CA90E92A2C802200B8B47F /* Assets.xcassets */; };
+		F2CA90EE2A2C802200B8B47F /* InfoWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F2CA90DE2A2C802100B8B47F /* InfoWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F2CA90F32A2C80E100B8B47F /* DDHDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C6329FBB7150023DAD9 /* DDHDataStore.m */; };
+		F2CA90F52A2C88BE00B8B47F /* DDHDay.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5129F717730023DAD9 /* DDHDay.m */; };
+		F2CA90F62A2C8DC000B8B47F /* DDHAction.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C4E29F716150023DAD9 /* DDHAction.m */; };
+		F2CA90F72A2C8DFA00B8B47F /* NSUserDefaults+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5529F71B470023DAD9 /* NSUserDefaults+Helper.m */; };
+		F2CA90FA2A2CFB7300B8B47F /* BugetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90F92A2CFB7300B8B47F /* BugetView.swift */; };
+		F2CA90FD2A2D044D00B8B47F /* WidgetReloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90FC2A2D044D00B8B47F /* WidgetReloader.swift */; };
 		F2F49A182A2A25AE00874BA9 /* DDHViewControllerMock.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F49A172A2A25AE00874BA9 /* DDHViewControllerMock.m */; };
 		F2F49A1A2A2A262F00874BA9 /* DDHAppCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F49A192A2A262F00874BA9 /* DDHAppCoordinatorTests.m */; };
 /* End PBXBuildFile section */
@@ -57,7 +69,28 @@
 			remoteGlobalIDString = F25F7D1129F596EA00EF395F;
 			remoteInfo = DailySpoons;
 		};
+		F2CA90EC2A2C802200B8B47F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F25F7D0A29F596EA00EF395F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2CA90DD2A2C802100B8B47F;
+			remoteInfo = InfoWidgetsExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F2CA90F22A2C802200B8B47F /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F2CA90EE2A2C802200B8B47F /* InfoWidgetsExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F2005F072A24962200093F6C /* DDHDayPlannerViewControllerProtocolMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHDayPlannerViewControllerProtocolMock.h; sourceTree = "<group>"; };
@@ -135,6 +168,18 @@
 		F2CA90D62A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHCollectionViewLayoutProvider.h; sourceTree = "<group>"; };
 		F2CA90D72A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHCollectionViewLayoutProvider.m; sourceTree = "<group>"; };
 		F2CA90D92A2C7CCF00B8B47F /* DailySpoons.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DailySpoons.entitlements; sourceTree = "<group>"; };
+		F2CA90DE2A2C802100B8B47F /* InfoWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = InfoWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2CA90E02A2C802100B8B47F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		F2CA90E22A2C802100B8B47F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		F2CA90E52A2C802100B8B47F /* InfoWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWidgetsBundle.swift; sourceTree = "<group>"; };
+		F2CA90E72A2C802100B8B47F /* InfoWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWidgets.swift; sourceTree = "<group>"; };
+		F2CA90E92A2C802200B8B47F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F2CA90EB2A2C802200B8B47F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2CA90F42A2C812700B8B47F /* InfoWidgets-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InfoWidgets-Bridging-Header.h"; sourceTree = "<group>"; };
+		F2CA90F82A2C8EAE00B8B47F /* InfoWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InfoWidgetsExtension.entitlements; sourceTree = "<group>"; };
+		F2CA90F92A2CFB7300B8B47F /* BugetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugetView.swift; sourceTree = "<group>"; };
+		F2CA90FC2A2D044D00B8B47F /* WidgetReloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetReloader.swift; sourceTree = "<group>"; };
+		F2CA90FE2A2D05C400B8B47F /* DailySpoons-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DailySpoons-Bridging-Header.h"; sourceTree = "<group>"; };
 		F2F49A162A2A25AE00874BA9 /* DDHViewControllerMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHViewControllerMock.h; sourceTree = "<group>"; };
 		F2F49A172A2A25AE00874BA9 /* DDHViewControllerMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHViewControllerMock.m; sourceTree = "<group>"; };
 		F2F49A192A2A262F00874BA9 /* DDHAppCoordinatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHAppCoordinatorTests.m; sourceTree = "<group>"; };
@@ -152,6 +197,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2CA90DB2A2C802100B8B47F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2CA90E32A2C802100B8B47F /* SwiftUI.framework in Frameworks */,
+				F2CA90E12A2C802100B8B47F /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +323,8 @@
 				F2469C8029FCE01D0023DAD9 /* DDHCellRegistrationProvider.m */,
 				F2CA90D62A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.h */,
 				F2CA90D72A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m */,
+				F2CA90FC2A2D044D00B8B47F /* WidgetReloader.swift */,
+				F2CA90FE2A2D05C400B8B47F /* DailySpoons-Bridging-Header.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -276,9 +332,12 @@
 		F25F7D0929F596EA00EF395F = {
 			isa = PBXGroup;
 			children = (
+				F2CA90F82A2C8EAE00B8B47F /* InfoWidgetsExtension.entitlements */,
 				F25F7D4429F5A8F900EF395F /* DailySpoons.xctestplan */,
 				F25F7D1429F596EA00EF395F /* DailySpoons */,
 				F25F7D3A29F599DA00EF395F /* DailySpoonsTests */,
+				F2CA90E42A2C802100B8B47F /* InfoWidgets */,
+				F2CA90DF2A2C802100B8B47F /* Frameworks */,
 				F25F7D1329F596EA00EF395F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -288,6 +347,7 @@
 			children = (
 				F25F7D1229F596EA00EF395F /* DailySpoons.app */,
 				F25F7D3929F599DA00EF395F /* DailySpoonsTests.xctest */,
+				F2CA90DE2A2C802100B8B47F /* InfoWidgetsExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -316,6 +376,7 @@
 				F25F7D2329F596EB00EF395F /* LaunchScreen.storyboard */,
 				F25F7D2629F596EB00EF395F /* Info.plist */,
 				F25F7D2729F596EB00EF395F /* main.m */,
+				F2CA90F42A2C812700B8B47F /* InfoWidgets-Bridging-Header.h */,
 			);
 			path = DailySpoons;
 			sourceTree = "<group>";
@@ -362,6 +423,27 @@
 			path = DayPlanner;
 			sourceTree = "<group>";
 		};
+		F2CA90DF2A2C802100B8B47F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F2CA90E02A2C802100B8B47F /* WidgetKit.framework */,
+				F2CA90E22A2C802100B8B47F /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F2CA90E42A2C802100B8B47F /* InfoWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				F2CA90E52A2C802100B8B47F /* InfoWidgetsBundle.swift */,
+				F2CA90E72A2C802100B8B47F /* InfoWidgets.swift */,
+				F2CA90F92A2CFB7300B8B47F /* BugetView.swift */,
+				F2CA90E92A2C802200B8B47F /* Assets.xcassets */,
+				F2CA90EB2A2C802200B8B47F /* Info.plist */,
+			);
+			path = InfoWidgets;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -372,10 +454,12 @@
 				F25F7D0E29F596EA00EF395F /* Sources */,
 				F25F7D0F29F596EA00EF395F /* Frameworks */,
 				F25F7D1029F596EA00EF395F /* Resources */,
+				F2CA90F22A2C802200B8B47F /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F2CA90ED2A2C802200B8B47F /* PBXTargetDependency */,
 			);
 			name = DailySpoons;
 			productName = DailySpoons;
@@ -400,6 +484,23 @@
 			productReference = F25F7D3929F599DA00EF395F /* DailySpoonsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F2CA90DD2A2C802100B8B47F /* InfoWidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2CA90EF2A2C802200B8B47F /* Build configuration list for PBXNativeTarget "InfoWidgetsExtension" */;
+			buildPhases = (
+				F2CA90DA2A2C802100B8B47F /* Sources */,
+				F2CA90DB2A2C802100B8B47F /* Frameworks */,
+				F2CA90DC2A2C802100B8B47F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InfoWidgetsExtension;
+			productName = InfoWidgetsExtension;
+			productReference = F2CA90DE2A2C802100B8B47F /* InfoWidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -408,15 +509,20 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				CLASSPREFIX = DDH;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = dasdom;
 				TargetAttributes = {
 					F25F7D1129F596EA00EF395F = {
 						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1430;
 					};
 					F25F7D3829F599DA00EF395F = {
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = F25F7D1129F596EA00EF395F;
+					};
+					F2CA90DD2A2C802100B8B47F = {
+						CreatedOnToolsVersion = 14.3;
 					};
 				};
 			};
@@ -435,6 +541,7 @@
 			targets = (
 				F25F7D1129F596EA00EF395F /* DailySpoons */,
 				F25F7D3829F599DA00EF395F /* DailySpoonsTests */,
+				F2CA90DD2A2C802100B8B47F /* InfoWidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -456,6 +563,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F2CA90DC2A2C802100B8B47F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2CA90EA2A2C802200B8B47F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -468,6 +583,7 @@
 				F2CA90D82A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m in Sources */,
 				F2469C8129FCE01D0023DAD9 /* DDHCellRegistrationProvider.m in Sources */,
 				F2469C6A29FC27620023DAD9 /* DDHActionInputViewController.m in Sources */,
+				F2CA90FD2A2D044D00B8B47F /* WidgetReloader.swift in Sources */,
 				F22737F52A2A4229001B15B6 /* DDHSettingsViewController.m in Sources */,
 				F2469C7429FC3F270023DAD9 /* DDHAppCoordinator.m in Sources */,
 				F2469C5229F717730023DAD9 /* DDHDay.m in Sources */,
@@ -511,6 +627,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F2CA90DA2A2C802100B8B47F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2CA90E62A2C802100B8B47F /* InfoWidgetsBundle.swift in Sources */,
+				F2CA90F52A2C88BE00B8B47F /* DDHDay.m in Sources */,
+				F2CA90E82A2C802100B8B47F /* InfoWidgets.swift in Sources */,
+				F2CA90FA2A2CFB7300B8B47F /* BugetView.swift in Sources */,
+				F2CA90F32A2C80E100B8B47F /* DDHDataStore.m in Sources */,
+				F2CA90F62A2C8DC000B8B47F /* DDHAction.m in Sources */,
+				F2CA90F72A2C8DFA00B8B47F /* NSUserDefaults+Helper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -518,6 +648,11 @@
 			isa = PBXTargetDependency;
 			target = F25F7D1129F596EA00EF395F /* DailySpoons */;
 			targetProxy = F25F7D3D29F599DA00EF395F /* PBXContainerItemProxy */;
+		};
+		F2CA90ED2A2C802200B8B47F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2CA90DD2A2C802100B8B47F /* InfoWidgetsExtension */;
+			targetProxy = F2CA90EC2A2C802200B8B47F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -646,8 +781,10 @@
 		F25F7D2C29F596EB00EF395F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DailySpoons/DailySpoons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
@@ -667,6 +804,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "DailySpoons/Helper/DailySpoons-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -674,8 +814,10 @@
 		F25F7D2D29F596EB00EF395F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DailySpoons/DailySpoons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
@@ -695,6 +837,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "DailySpoons/Helper/DailySpoons-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -702,6 +846,7 @@
 		F25F7D4029F599DA00EF395F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -719,6 +864,7 @@
 		F25F7D4129F599DA00EF395F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -730,6 +876,68 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DailySpoons.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DailySpoons";
+			};
+			name = Release;
+		};
+		F2CA90F02A2C802200B8B47F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = InfoWidgetsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = InfoWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = InfoWidgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 dasdom. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons.InfoWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "DailySpoons/InfoWidgets-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F2CA90F12A2C802200B8B47F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = InfoWidgetsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = InfoWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = InfoWidgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 dasdom. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons.InfoWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "DailySpoons/InfoWidgets-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -759,6 +967,15 @@
 			buildConfigurations = (
 				F25F7D4029F599DA00EF395F /* Debug */,
 				F25F7D4129F599DA00EF395F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2CA90EF2A2C802200B8B47F /* Build configuration list for PBXNativeTarget "InfoWidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2CA90F02A2C802200B8B47F /* Debug */,
+				F2CA90F12A2C802200B8B47F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -23,11 +23,7 @@
     UIStackView *dailySpoonsStepperStackView = [[UIStackView alloc] initWithArrangedSubviews:@[_dailySpoonsStepperLabel, _dailySpoonsStepper]];
     [dailySpoonsStepperStackView setSpacing:10];
 
-    _resetOnboardingButton = [[UIButton alloc] init];
-    [_resetOnboardingButton setConfiguration:[UIButtonConfiguration filledButtonConfiguration]];
-    [_resetOnboardingButton setTitle:@"Show onboarding" forState:UIControlStateNormal];
-
-    UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[dailySpoonsStepperStackView, _resetOnboardingButton]];
+    UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[dailySpoonsStepperStackView]];
     [stackView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [stackView setAxis:UILayoutConstraintAxisVertical];
     [stackView setSpacing:20];

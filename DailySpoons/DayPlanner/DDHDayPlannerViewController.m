@@ -17,6 +17,7 @@
 #import "NSUserDefaults+Helper.h"
 #import "DDHOnboardingOverlayView.h"
 #import "DDHCollectionViewLayoutProvider.h"
+#import "DailySpoons-Swift.h"
 
 @interface DDHDayPlannerViewController () <UICollectionViewDelegate>
 @property (nonatomic, weak) id<DDHDayPlannerViewControllerProtocol> delegate;
@@ -219,6 +220,8 @@
   NSDiffableDataSourceSnapshot *snapshot = [[self dataSource] snapshot];
   [snapshot reconfigureItemsWithIdentifiers:[snapshot itemIdentifiers]];
   [[self dataSource] applySnapshot:snapshot animatingDifferences:YES];
+
+  [WidgetContentLoader reloadWidgetContent];
 }
 
 // MARK: - UICollectionViewDelegate
@@ -240,6 +243,8 @@
     [[self dataSource] applySnapshot:snapshot animatingDifferences:YES];
 
     [self updateSpoonsAmount];
+
+    [WidgetContentLoader reloadWidgetContent];
   }
 }
 
@@ -318,6 +323,8 @@
     [day unplanAction:action];
     [[self dataStore] saveData];
     [self updateWithDay:day];
+
+    [WidgetContentLoader reloadWidgetContent];
   }];
 }
 

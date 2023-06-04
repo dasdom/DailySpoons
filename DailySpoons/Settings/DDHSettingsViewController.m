@@ -24,7 +24,6 @@
   DDHSettingsView *contentView = [[DDHSettingsView alloc] init];
   [[contentView dailySpoonsStepper] addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
   [[contentView dailySpoonsStepper] setValue:[[NSUserDefaults standardUserDefaults] dailySpoons]];
-  [[contentView resetOnboardingButton] addTarget:self action:@selector(showOnboarding:) forControlEvents:UIControlEventTouchUpInside];
   [contentView update];
   [self setView:contentView];
 }
@@ -37,6 +36,9 @@
   [super viewDidLoad];
 
   [self setTitle:@"Settings"];
+
+  UIBarButtonItem *showOnboardingButton = [[UIBarButtonItem alloc] initWithTitle:@"How to" style:UIBarButtonItemStylePlain target:self action:@selector(showOnboarding:)];
+  [[self navigationItem] setLeftBarButtonItem:showOnboardingButton];
 }
 
 // MARK: - Actions
@@ -47,7 +49,7 @@
   [[self contentView] update];
 }
 
-- (void)showOnboarding:(UIButton *)sender {
+- (void)showOnboarding:(UIBarButtonItem *)sender {
   [[self delegate] onboardingDidResetInViewController:self];
 }
 @end

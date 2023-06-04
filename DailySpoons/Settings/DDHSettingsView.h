@@ -10,7 +10,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DDHSettingsView : UIView
 @property (nonatomic, strong) UILabel *dailySpoonsStepperLabel;
 @property (nonatomic, strong) UIStepper *dailySpoonsStepper;
-@property (nonatomic, strong) UIButton *resetOnboardingButton;
 - (void)update;
 @end
 
