@@ -134,6 +134,7 @@
 		F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHOnboardingOverlayView.m; sourceTree = "<group>"; };
 		F2CA90D62A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHCollectionViewLayoutProvider.h; sourceTree = "<group>"; };
 		F2CA90D72A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHCollectionViewLayoutProvider.m; sourceTree = "<group>"; };
+		F2CA90D92A2C7CCF00B8B47F /* DailySpoons.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DailySpoons.entitlements; sourceTree = "<group>"; };
 		F2F49A162A2A25AE00874BA9 /* DDHViewControllerMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHViewControllerMock.h; sourceTree = "<group>"; };
 		F2F49A172A2A25AE00874BA9 /* DDHViewControllerMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHViewControllerMock.m; sourceTree = "<group>"; };
 		F2F49A192A2A262F00874BA9 /* DDHAppCoordinatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHAppCoordinatorTests.m; sourceTree = "<group>"; };
@@ -294,6 +295,7 @@
 		F25F7D1429F596EA00EF395F /* DailySpoons */ = {
 			isa = PBXGroup;
 			children = (
+				F2CA90D92A2C7CCF00B8B47F /* DailySpoons.entitlements */,
 				F25F7D1529F596EA00EF395F /* AppDelegate.h */,
 				F25F7D1629F596EA00EF395F /* AppDelegate.m */,
 				F25F7D1829F596EA00EF395F /* SceneDelegate.h */,
@@ -646,8 +648,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DailySpoons/DailySpoons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailySpoons/Info.plist;
@@ -673,8 +676,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DailySpoons/DailySpoons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailySpoons/Info.plist;

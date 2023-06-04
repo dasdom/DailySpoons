@@ -66,8 +66,9 @@
 }
 
 - (NSURL *)dayURL {
-  NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
-  NSURL *url = [documentsURL URLByAppendingPathComponent:@"day.json"];
+  NSURL *sharedURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.de.dasdom.dailyspoons"];
+//  NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+  NSURL *url = [sharedURL URLByAppendingPathComponent:@"day.json"];
   return url;
 }
 

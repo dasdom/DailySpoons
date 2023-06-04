@@ -15,7 +15,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
 
-    [self setBackgroundColor:[[UIColor labelColor] colorWithAlphaComponent:0.7]];
+    [self setBackgroundColor:[[UIColor labelColor] colorWithAlphaComponent:0.9]];
 
     _arrowImageView = [[UIImageView alloc] init];
     [_arrowImageView setTintColor:[UIColor systemBackgroundColor]];

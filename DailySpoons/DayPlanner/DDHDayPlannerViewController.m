@@ -129,12 +129,12 @@
     }
     default:
       [[NSUserDefaults standardUserDefaults] setOnboardingShown:YES];
-      [self setOnboardingState:DDHOnboardingStateSpoonBudget];
 
       [UIView animateWithDuration:0.3 animations:^{
         [[self overlayView] setAlpha:0];
       } completion:^(BOOL finished) {
         [[self overlayView] removeFromSuperview];
+        [self setOnboardingState:DDHOnboardingStateSpoonBudget];
       }];
       break;
   }
