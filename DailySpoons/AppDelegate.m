@@ -5,10 +5,6 @@
 #import "AppDelegate.h"
 #import "NSUserDefaults+Helper.h"
 
-@interface AppDelegate ()
-
-@end
-
 @implementation AppDelegate
 
 

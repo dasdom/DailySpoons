@@ -4,6 +4,7 @@
 
 #import "DDHDay.h"
 #import "DDHAction.h"
+#import "NSUserDefaults+Helper.h"
 
 NSString * const dateKey = @"dateKey";
 NSString * const amountOfSpoonsKey = @"amountOfSpoonsKey";
@@ -20,7 +21,7 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
 - (instancetype)init {
   if (self = [super init]) {
     _date = [NSDate now];
-    [self setAmountOfSpoons:12];
+    [self setAmountOfSpoons:[[NSUserDefaults standardUserDefaults] dailySpoons]];
     _carryOverSpoons = 0;
 
     _completedActions = [[NSArray alloc] init];

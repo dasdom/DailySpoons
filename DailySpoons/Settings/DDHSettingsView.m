@@ -12,31 +12,39 @@
 
     [self setBackgroundColor:[UIColor systemBackgroundColor]];
 
-    _stepperLabel = [[UILabel alloc] init];
-    [_stepperLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    _dailySpoonsStepperLabel = [[UILabel alloc] init];
+    [_dailySpoonsStepperLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
 
-    _stepper = [[UIStepper alloc] init];
-    [_stepper setMinimumValue:1];
-    [_stepper setMaximumValue:24];
-    [_stepper setValue:1];
+    _dailySpoonsStepper = [[UIStepper alloc] init];
+    [_dailySpoonsStepper setMinimumValue:1];
+    [_dailySpoonsStepper setMaximumValue:24];
+    [_dailySpoonsStepper setValue:1];
 
-    UIStackView *stepperStackView = [[UIStackView alloc] initWithArrangedSubviews:@[_stepperLabel, _stepper]];
-    [stepperStackView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [stepperStackView setSpacing:10];
+    UIStackView *dailySpoonsStepperStackView = [[UIStackView alloc] initWithArrangedSubviews:@[_dailySpoonsStepperLabel, _dailySpoonsStepper]];
+    [dailySpoonsStepperStackView setSpacing:10];
 
-    [self addSubview:stepperStackView];
+    _resetOnboardingButton = [[UIButton alloc] init];
+    [_resetOnboardingButton setConfiguration:[UIButtonConfiguration filledButtonConfiguration]];
+    [_resetOnboardingButton setTitle:@"Show onboarding" forState:UIControlStateNormal];
+
+    UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[dailySpoonsStepperStackView, _resetOnboardingButton]];
+    [stackView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [stackView setAxis:UILayoutConstraintAxisVertical];
+    [stackView setSpacing:20];
+
+    [self addSubview:stackView];
 
     [NSLayoutConstraint activateConstraints:@[
-      [[stepperStackView topAnchor] constraintEqualToAnchor:[[self safeAreaLayoutGuide] topAnchor] constant:20],
-      [[stepperStackView leadingAnchor] constraintEqualToAnchor:[[self safeAreaLayoutGuide] leadingAnchor] constant:20],
-      [[stepperStackView trailingAnchor] constraintEqualToAnchor:[[self safeAreaLayoutGuide] trailingAnchor] constant:-20],
+      [[stackView topAnchor] constraintEqualToAnchor:[[self safeAreaLayoutGuide] topAnchor] constant:20],
+      [[stackView leadingAnchor] constraintEqualToAnchor:[[self safeAreaLayoutGuide] leadingAnchor] constant:20],
+      [[stackView trailingAnchor] constraintEqualToAnchor:[[self safeAreaLayoutGuide] trailingAnchor] constant:-20],
     ]];
   }
   return self;
 }
 
 - (void)update {
-  NSString *stepperLabelText = [NSString stringWithFormat:@"Spoons: %.0lf", [[self stepper] value]];
-  [[self stepperLabel] setText:stepperLabelText];
+  NSString *stepperLabelText = [NSString stringWithFormat:@"Daily spoons: %.0lf", [[self dailySpoonsStepper] value]];
+  [[self dailySpoonsStepperLabel] setText:stepperLabelText];
 }
 @end

@@ -63,6 +63,7 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     [imageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [imageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [imageView setTintColor:[UIColor labelColor]];
     [[self spoonsStackView] addArrangedSubview:imageView];
   }
 

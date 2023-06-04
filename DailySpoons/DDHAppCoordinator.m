@@ -120,6 +120,7 @@
   });
 }
 
+// MARK: - DDHSettingsViewControllerProtocol
 - (void)dailySpoonsChangedInViewController:(UIViewController *)viewController amountOfSpoons:(NSInteger)spoons {
   DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)[[self navigationController] topViewController];
   DDHDay *day = [[self dataStore] day];
@@ -127,5 +128,12 @@
   [dayPlanner updateWithDay:day];
   [[self dataStore] saveData];
   [dayPlanner reload];
+}
+
+- (void)onboardingDidResetInViewController:(UIViewController *)viewController {
+  DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)[[self navigationController] topViewController];
+  [viewController dismissViewControllerAnimated:true completion:^{
+    [dayPlanner showOverlay];
+  }];
 }
 @end

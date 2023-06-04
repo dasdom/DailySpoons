@@ -18,6 +18,7 @@
     _imageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"circle.fill"]];
     [_imageView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_imageView setContentMode:UIViewContentModeCenter];
+    [_imageView setTintColor:[UIColor labelColor]];
 
     [[self contentView] addSubview:_imageView];
 

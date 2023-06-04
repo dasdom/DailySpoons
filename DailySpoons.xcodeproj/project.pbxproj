@@ -43,6 +43,8 @@
 		F25F7D3C29F599DA00EF395F /* DailySpoonsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D3B29F599DA00EF395F /* DailySpoonsTests.m */; };
 		F25F7D4329F59A1700EF395F /* DDHDayPlannerViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D4229F59A1700EF395F /* DDHDayPlannerViewControllerTests.m */; };
 		F25F7D4729F5ABEF00EF395F /* DDHDayPlannerViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */; };
+		F2CA90D52A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */; };
+		F2CA90D82A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90D72A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m */; };
 		F2F49A182A2A25AE00874BA9 /* DDHViewControllerMock.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F49A172A2A25AE00874BA9 /* DDHViewControllerMock.m */; };
 		F2F49A1A2A2A262F00874BA9 /* DDHAppCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F49A192A2A262F00874BA9 /* DDHAppCoordinatorTests.m */; };
 /* End PBXBuildFile section */
@@ -128,6 +130,10 @@
 		F25F7D4229F59A1700EF395F /* DDHDayPlannerViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDayPlannerViewControllerTests.m; sourceTree = "<group>"; };
 		F25F7D4429F5A8F900EF395F /* DailySpoons.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailySpoons.xctestplan; sourceTree = "<group>"; };
 		F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDayPlannerViewTests.m; sourceTree = "<group>"; };
+		F2CA90D32A2BA4FB00B8B47F /* DDHOnboardingOverlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHOnboardingOverlayView.h; sourceTree = "<group>"; };
+		F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHOnboardingOverlayView.m; sourceTree = "<group>"; };
+		F2CA90D62A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHCollectionViewLayoutProvider.h; sourceTree = "<group>"; };
+		F2CA90D72A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHCollectionViewLayoutProvider.m; sourceTree = "<group>"; };
 		F2F49A162A2A25AE00874BA9 /* DDHViewControllerMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHViewControllerMock.h; sourceTree = "<group>"; };
 		F2F49A172A2A25AE00874BA9 /* DDHViewControllerMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHViewControllerMock.m; sourceTree = "<group>"; };
 		F2F49A192A2A262F00874BA9 /* DDHAppCoordinatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHAppCoordinatorTests.m; sourceTree = "<group>"; };
@@ -260,6 +266,8 @@
 			children = (
 				F2469C7F29FCE01D0023DAD9 /* DDHCellRegistrationProvider.h */,
 				F2469C8029FCE01D0023DAD9 /* DDHCellRegistrationProvider.m */,
+				F2CA90D62A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.h */,
+				F2CA90D72A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -293,6 +301,8 @@
 				F2469C7129FC3EA70023DAD9 /* DDHCoordinatorProtocol.h */,
 				F2469C7229FC3F270023DAD9 /* DDHAppCoordinator.h */,
 				F2469C7329FC3F270023DAD9 /* DDHAppCoordinator.m */,
+				F2CA90D32A2BA4FB00B8B47F /* DDHOnboardingOverlayView.h */,
+				F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */,
 				F22737F62A2A423B001B15B6 /* Settings */,
 				F2469C6F29FC3DE80023DAD9 /* Persitence */,
 				F2469C6129FBB6DA0023DAD9 /* Model */,
@@ -453,6 +463,7 @@
 			files = (
 				F2469C8E29FE84710023DAD9 /* DDHSpoonsBackgroundView.m in Sources */,
 				F2469C8B29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m in Sources */,
+				F2CA90D82A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m in Sources */,
 				F2469C8129FCE01D0023DAD9 /* DDHCellRegistrationProvider.m in Sources */,
 				F2469C6A29FC27620023DAD9 /* DDHActionInputViewController.m in Sources */,
 				F22737F52A2A4229001B15B6 /* DDHSettingsViewController.m in Sources */,
@@ -472,6 +483,7 @@
 				F2469C5929F9855C0023DAD9 /* DDHSpoonCell.m in Sources */,
 				F2469C7E29FC5D830023DAD9 /* DDHActionStoreView.m in Sources */,
 				F25F7D3029F5992B00EF395F /* DDHDayPlannerViewController.m in Sources */,
+				F2CA90D52A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m in Sources */,
 				F25F7D1A29F596EA00EF395F /* SceneDelegate.m in Sources */,
 				F25F7D3329F5997800EF395F /* DDHDayPlannerView.m in Sources */,
 			);

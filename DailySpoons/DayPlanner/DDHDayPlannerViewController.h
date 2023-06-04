@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDelegate:(id<DDHDayPlannerViewControllerProtocol>)delegate dataStore:(id<DDHDataStoreProtocol>)dataStore;
 - (void)updateWithDay:(DDHDay *)day;
 - (void)reload;
+- (void)showOverlay;
 @end
 
 NS_ASSUME_NONNULL_END

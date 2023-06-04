@@ -22,8 +22,9 @@
 
 - (void)loadView {
   DDHSettingsView *contentView = [[DDHSettingsView alloc] init];
-  [[contentView stepper] addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
-  [[contentView stepper] setValue:[[NSUserDefaults standardUserDefaults] dailySpoons]];
+  [[contentView dailySpoonsStepper] addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
+  [[contentView dailySpoonsStepper] setValue:[[NSUserDefaults standardUserDefaults] dailySpoons]];
+  [[contentView resetOnboardingButton] addTarget:self action:@selector(showOnboarding:) forControlEvents:UIControlEventTouchUpInside];
   [contentView update];
   [self setView:contentView];
 }
@@ -44,5 +45,9 @@
   [[NSUserDefaults standardUserDefaults] setDailySpoons:amountOfSpoons];
   [[self delegate] dailySpoonsChangedInViewController:self amountOfSpoons:amountOfSpoons];
   [[self contentView] update];
+}
+
+- (void)showOnboarding:(UIButton *)sender {
+  [[self delegate] onboardingDidResetInViewController:self];
 }
 @end

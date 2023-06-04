@@ -11,6 +11,8 @@ extern NSString * const ddh_dailySpoonsKey;
 @interface NSUserDefaults (Helper)
 - (NSInteger)dailySpoons;
 - (void)setDailySpoons:(NSInteger)dailySpoons;
+- (BOOL)onboardingShown;
+- (void)setOnboardingShown:(BOOL)onboardingShown;
 @end
 
 NS_ASSUME_NONNULL_END

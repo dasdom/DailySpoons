@@ -15,13 +15,16 @@
 #import "DDHAction.h"
 #import "DDHCellRegistrationProvider.h"
 #import "NSUserDefaults+Helper.h"
-#import "DDHSpoonsBackgroundView.h"
+#import "DDHOnboardingOverlayView.h"
+#import "DDHCollectionViewLayoutProvider.h"
 
 @interface DDHDayPlannerViewController () <UICollectionViewDelegate>
 @property (nonatomic, weak) id<DDHDayPlannerViewControllerProtocol> delegate;
 @property (nonatomic, strong) id<DDHDataStoreProtocol> dataStore;
 @property (nonatomic, strong) UICollectionViewDiffableDataSource *dataSource;
 @property (nonatomic, weak) UILabel *spoonsAmountLabel;
+@property (nonatomic, strong) DDHOnboardingOverlayView *overlayView;
+@property (nonatomic, assign) DDHOnboardingState onboardingState;
 @end
 
 @implementation DDHDayPlannerViewController
@@ -35,7 +38,13 @@
 }
 
 - (void)loadView {
-  DDHDayPlannerView *contentView = [[DDHDayPlannerView alloc] initWithFrame:[[UIScreen mainScreen] bounds] collectionViewLayout:[self layout]];
+  DDHDayPlannerView *contentView = [[DDHDayPlannerView alloc] initWithFrame:[[UIScreen mainScreen] bounds] collectionViewLayout:[DDHCollectionViewLayoutProvider layoutWithTrailingSwipeActionsConfigurationProvider:^UISwipeActionsConfiguration * _Nullable(NSIndexPath * _Nonnull indexPath) {
+
+    NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
+    DDHAction *action = [[self dataStore] actionForId:actionId];
+
+    return [UISwipeActionsConfiguration configurationWithActions:@[[self contextualUnplanActionWithAction:action], [self contextualEditActionWithAction:action]]];
+  }]];
   [self setView:contentView];
 }
 
@@ -49,15 +58,88 @@
   UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"arrow.counterclockwise"] style:UIBarButtonItemStylePlain target:self action:@selector(reset:)];
   [[self navigationItem] setRightBarButtonItem:resetButton];
 
-  UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(didSetSettings:)];
+  UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(didSelectSettings:)];
   [[self navigationItem] setLeftBarButtonItem:settingsButton];
 
   UICollectionView *collectionView = [[self contentView] collectionView];
   [self setupCollectionView:collectionView];
-  [self updateWithDay:[[self dataStore] day]];
 
   UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
   [collectionView addGestureRecognizer:longPressRecognizer];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+
+  DDHDay *day = [[self dataStore] day];
+  NSCalendar *calendar = [NSCalendar currentCalendar];
+  if (NO == [calendar isDate:[day date] inSameDayAsDate:[NSDate now]]) {
+    [day resetWithDailySpoons:[[NSUserDefaults standardUserDefaults] dailySpoons]];
+  }
+  [self updateWithDay:[[self dataStore] day]];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+
+  if (NO == [[NSUserDefaults standardUserDefaults] onboardingShown]) {
+    [self showOverlay];
+  }
+}
+
+- (void)showOverlay {
+  DDHDayPlannerView *contentView = [self contentView];
+  _overlayView = [[DDHOnboardingOverlayView alloc] initWithFrame:[contentView frame]];
+  [[_overlayView nextButton] addTarget:self action:@selector(nextOnboarding:) forControlEvents:UIControlEventTouchUpInside];
+  [contentView addSubview:_overlayView];
+
+  [self nextOnboarding:nil];
+}
+
+- (void)nextOnboarding:(UIButton *)sender {
+  DDHDayPlannerView *contentView = [self contentView];
+
+  switch ([self onboardingState]) {
+    case DDHOnboardingStateSpoonBudget:
+    {
+      DDHSpoonsFooterView *spoonsFooterView = (DDHSpoonsFooterView *)[[[self contentView] collectionView] supplementaryViewForElementKind:ELEMENT_KIND_SECTION_FOOTER atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+      CGFloat yPos = CGRectGetMaxY([spoonsFooterView frame]) + [contentView layoutMargins].top;
+      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:@"This is your spoon budget for the day. One spoon represents the minimal energy you can spend during the day." alignment:UIStackViewAlignmentCenter];
+      break;
+    }
+    case DDHOnboardingStateSettings:
+    {
+      CGFloat yPos = [contentView layoutMargins].top;
+      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:@"You can change the amount of spoons per day in the settings." alignment:UIStackViewAlignmentLeading];
+      break;
+    }
+    case DDHOnboardingStateActions:
+    {
+      DDHActionsHeaderView *actionHeaderView = (DDHActionsHeaderView *)[[[self contentView] collectionView] supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+      CGFloat yPos = CGRectGetMaxY([actionHeaderView frame]) + [contentView layoutMargins].top;
+      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:@"Add actions for your day and set their spoon amount. For example getting out of bed could take one spoon. Select the action in this list to spend the spoon." alignment:UIStackViewAlignmentTrailing];
+      break;
+    }
+    case DDHOnboardingStateReload:
+    {
+      CGFloat yPos = [contentView layoutMargins].top;
+      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:@"Reset the view to start over." alignment:UIStackViewAlignmentTrailing];
+      [[[self overlayView] nextButton] setTitle:@"Done" forState:UIControlStateNormal];
+      break;
+    }
+    default:
+      [[NSUserDefaults standardUserDefaults] setOnboardingShown:YES];
+      [self setOnboardingState:DDHOnboardingStateSpoonBudget];
+
+      [UIView animateWithDuration:0.3 animations:^{
+        [[self overlayView] setAlpha:0];
+      } completion:^(BOOL finished) {
+        [[self overlayView] removeFromSuperview];
+      }];
+      break;
+  }
+
+  [self setOnboardingState:[self onboardingState] + 1];
 }
 
 - (void)setupCollectionView:(UICollectionView *)collectionView {
@@ -225,67 +307,8 @@
   }
 }
 
-- (void)didSetSettings:(UIBarButtonItem *)sender {
+- (void)didSelectSettings:(UIBarButtonItem *)sender {
   [[self delegate] didSelectSettingsButtonInViewController:self];
-}
-
-// MARK - Layout
-- (UICollectionViewLayout *)layout {
-
-  UICollectionViewCompositionalLayout *layout = [[UICollectionViewCompositionalLayout alloc] initWithSectionProvider:^NSCollectionLayoutSection * _Nullable(NSInteger sectionIndex, id<NSCollectionLayoutEnvironment>  _Nonnull layoutEnvironment) {
-
-    NSCollectionLayoutSection *section;
-
-    if (sectionIndex == 0) {
-      // Budget Section
-      NSCollectionLayoutDimension *oneOverSixWidthDimension = [NSCollectionLayoutDimension fractionalWidthDimension:1.0/6.0];
-      NSCollectionLayoutDimension *unityHeightDimension = [NSCollectionLayoutDimension fractionalHeightDimension:1.0];
-
-      NSCollectionLayoutSize *itemSize = [NSCollectionLayoutSize sizeWithWidthDimension:oneOverSixWidthDimension heightDimension:unityHeightDimension];
-
-      NSCollectionLayoutItem *item = [NSCollectionLayoutItem itemWithLayoutSize:itemSize];
-
-      NSCollectionLayoutDimension *unityWidthDimension = [NSCollectionLayoutDimension fractionalWidthDimension:1.0];
-
-      NSCollectionLayoutSize *groupSize = [NSCollectionLayoutSize sizeWithWidthDimension:unityWidthDimension heightDimension:oneOverSixWidthDimension];
-
-      NSCollectionLayoutGroup *group = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:groupSize subitems:@[item]];
-
-      section = [NSCollectionLayoutSection sectionWithGroup:group];
-
-      NSCollectionLayoutSize *headerFooterSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.0] heightDimension:[NSCollectionLayoutDimension estimatedDimension:30.0]];
-
-      NSCollectionLayoutBoundarySupplementaryItem *sectionHeader = [NSCollectionLayoutBoundarySupplementaryItem boundarySupplementaryItemWithLayoutSize: headerFooterSize elementKind:ELEMENT_KIND_SECTION_HEADER alignment: NSRectAlignmentTop];
-
-      NSCollectionLayoutBoundarySupplementaryItem *sectionFooter = [NSCollectionLayoutBoundarySupplementaryItem boundarySupplementaryItemWithLayoutSize: headerFooterSize elementKind:ELEMENT_KIND_SECTION_FOOTER alignment: NSRectAlignmentBottom];
-
-      [section setBoundarySupplementaryItems: @[sectionHeader, sectionFooter]];
-
-      NSCollectionLayoutDecorationItem *sectionBackground = [NSCollectionLayoutDecorationItem backgroundDecorationItemWithElementKind:ELEMENT_KIND_BACKGROUND];
-
-      [section setDecorationItems: @[sectionBackground]];
-
-      [section setContentInsets:NSDirectionalEdgeInsetsMake(0, 20, 0, 20)];
-
-    } else if (sectionIndex == 1) {
-
-      UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearancePlain];
-      [listConfiguration setHeaderMode:UICollectionLayoutListHeaderModeSupplementary];
-      [listConfiguration setTrailingSwipeActionsConfigurationProvider:^UISwipeActionsConfiguration * (NSIndexPath *indexPath) {
-
-        NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
-        DDHAction *action = [[self dataStore] actionForId:actionId];
-
-        return [UISwipeActionsConfiguration configurationWithActions:@[[self contextualUnplanActionWithAction:action], [self contextualEditActionWithAction:action]]];
-      }];
-      section = [NSCollectionLayoutSection sectionWithListConfiguration:listConfiguration layoutEnvironment:layoutEnvironment];
-    }
-    return section;
-  }];
-
-  [layout registerClass:[DDHSpoonsBackgroundView class] forDecorationViewOfKind:ELEMENT_KIND_BACKGROUND];
-
-  return layout;
 }
 
 - (UIContextualAction *)contextualUnplanActionWithAction:(DDHAction *)action {
