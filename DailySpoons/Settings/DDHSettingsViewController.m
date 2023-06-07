@@ -2,7 +2,7 @@
 //  Copyright © 2023 dasdom. All rights reserved.
 //
 
-
+@import RevenueCat;
 #import "DDHSettingsViewController.h"
 #import "DDHSettingsView.h"
 #import "NSUserDefaults+Helper.h"
@@ -39,6 +39,16 @@
 
   UIBarButtonItem *showOnboardingButton = [[UIBarButtonItem alloc] initWithTitle:@"How to" style:UIBarButtonItemStylePlain target:self action:@selector(showOnboarding:)];
   [[self navigationItem] setLeftBarButtonItem:showOnboardingButton];
+
+  [[RCPurchases sharedPurchases] products:@[
+    @"de.dasdom.dailyspoons.small_tip"
+  ] completionHandler:^(NSArray<RCStoreProduct *> * _Nonnull products) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      RCStoreProduct *product = [products firstObject];
+      NSString *buttonTitle = [NSString stringWithFormat:@"%@: %@", [product localizedTitle], [product localizedPriceString]];
+      [[[self contentView] tipButton] setTitle:buttonTitle forState:UIControlStateNormal];
+    });
+  }];
 }
 
 // MARK: - Actions

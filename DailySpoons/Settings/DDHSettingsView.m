@@ -28,12 +28,22 @@
     [stackView setAxis:UILayoutConstraintAxisVertical];
     [stackView setSpacing:20];
 
+    _tipButton = [[UIButton alloc] init];
+    [_tipButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [_tipButton setConfiguration:[UIButtonConfiguration borderedButtonConfiguration]];
+    [_tipButton setTitle:@"Small Tip" forState:UIControlStateNormal];
+
     [self addSubview:stackView];
+    [self addSubview:_tipButton];
 
     [NSLayoutConstraint activateConstraints:@[
       [[stackView topAnchor] constraintEqualToAnchor:[[self safeAreaLayoutGuide] topAnchor] constant:20],
       [[stackView leadingAnchor] constraintEqualToAnchor:[[self safeAreaLayoutGuide] leadingAnchor] constant:20],
       [[stackView trailingAnchor] constraintEqualToAnchor:[[self safeAreaLayoutGuide] trailingAnchor] constant:-20],
+
+      [[_tipButton leadingAnchor] constraintEqualToAnchor:[[self safeAreaLayoutGuide] leadingAnchor] constant:20],
+      [[_tipButton bottomAnchor] constraintEqualToAnchor:[[self safeAreaLayoutGuide] bottomAnchor] constant:-20],
+      [[_tipButton trailingAnchor] constraintEqualToAnchor:[[self safeAreaLayoutGuide] trailingAnchor] constant:-20]
     ]];
   }
   return self;

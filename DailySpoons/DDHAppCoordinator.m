@@ -80,11 +80,12 @@
 
   UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:next];
 
-  UISheetPresentationController *sheet = navigationController.sheetPresentationController;
-  sheet.detents = @[UISheetPresentationControllerDetent.mediumDetent, UISheetPresentationControllerDetent.largeDetent];
-  sheet.prefersScrollingExpandsWhenScrolledToEdge = YES;
-  sheet.prefersEdgeAttachedInCompactHeight = YES;
-  sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = YES;
+  UISheetPresentationController *sheet = [navigationController sheetPresentationController];
+  [sheet setDetents:@[UISheetPresentationControllerDetent.mediumDetent, UISheetPresentationControllerDetent.largeDetent]];
+  [sheet setPrefersScrollingExpandsWhenScrolledToEdge:YES];
+  [sheet setPrefersEdgeAttachedInCompactHeight:YES];
+  [sheet setWidthFollowsPreferredContentSizeWhenEdgeAttached:YES];
+  [sheet setPrefersGrabberVisible:YES];
 
   [viewController presentViewController:navigationController animated:YES completion:nil];
 }

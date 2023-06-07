@@ -59,7 +59,8 @@
 }
 
 - (void)test_numberOfRows_whenSectionZero_shouldBeAmountOfSpoons {
-  [[self sut] loadViewIfNeeded];
+  [[self sut] beginAppearanceTransition:YES animated:NO];
+  [[self sut] endAppearanceTransition];
 
   NSInteger numberOfRowsInSectionZero = [[self dataSource] collectionView:[self collectionView]
                                                    numberOfItemsInSection:0];
@@ -68,8 +69,11 @@
 }
 
 - (void)test_numberOfRows_whenSectionOne_shouldBeAmountOfPlannedActions {
+  [[self sut] beginAppearanceTransition:YES animated:NO];
+  [[self sut] endAppearanceTransition];
+
   NSInteger numberOfRowsInSectionOne = [[self dataSource] collectionView:[self collectionView]
-                                                   numberOfItemsInSection:1];
+                                                  numberOfItemsInSection:1];
 
   XCTAssertEqual(numberOfRowsInSectionOne, [[[self day] idsOfPlannedActions] count]);
 }
@@ -112,6 +116,9 @@
 }
 
 - (void)test_moveItem_shouldUpdateDay {
+  [[self sut] beginAppearanceTransition:YES animated:NO];
+  [[self sut] endAppearanceTransition];
+  
   [[[self collectionView] dataSource] collectionView:[self collectionView] moveItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1] toIndexPath:[NSIndexPath indexPathForItem:1 inSection:1]];
 
   XCTAssertEqualObjects([[self firstPlannedAction] name], @"B");

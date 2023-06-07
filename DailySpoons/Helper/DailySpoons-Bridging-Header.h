@@ -6,5 +6,7 @@
 #ifndef DailySpoons_Bridging_Header_h
 #define DailySpoons_Bridging_Header_h
 
+#import "DDHDayPlannerViewController.h"
+#import "DDHAppCoordinator.h"
 
 #endif /* DailySpoons_Bridging_Header_h */

@@ -2,6 +2,7 @@
 //  
 //
 
+@import RevenueCat;
 #import "AppDelegate.h"
 #import "NSUserDefaults+Helper.h"
 
@@ -13,6 +14,12 @@
   [[NSUserDefaults standardUserDefaults] registerDefaults:@{
     ddh_dailySpoonsKey: [NSNumber numberWithInteger:12]
   }];
+
+  NSString *apiKey = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"RevenueCatKey"];
+  if (apiKey) {
+    [RCPurchases setLogLevel:RCLogLevelVerbose];
+    [RCPurchases configureWithAPIKey:apiKey];
+  }
 
   return YES;
 }

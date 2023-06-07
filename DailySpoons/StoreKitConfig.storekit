@@ -1,0 +1,35 @@
+{
+  "identifier" : "4AC5AC11",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "6449911484",
+      "localizations" : [
+        {
+          "description" : "A small tip for the developer.",
+          "displayName" : "Small Tip",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "de.dasdom.dailyspoons.small_tip",
+      "referenceName" : "Small Tip",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6448132547",
+    "_developerTeamID" : "Q6PD97MRX4",
+    "_lastSynchronizedDate" : 707600932.07796597
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}
