@@ -7,7 +7,7 @@
 #import "DDHDataStore.h"
 #import "DDHAction.h"
 
-@interface DDHActionInputViewController ()
+@interface DDHActionInputViewController () <UITextFieldDelegate>
 @property (nonatomic, weak) id<DDHActionInputViewControllerProtocol> delegate;
 @property (nonatomic, strong) id<DDHDataStoreProtocol> dataStore;
 @property (nonatomic, strong) DDHAction *editableAction;
@@ -39,11 +39,15 @@
   DDHActionInputView *contentView = [[DDHActionInputView alloc] init];
   [[contentView stepper] addTarget:self action:@selector(stepperChanged:) forControlEvents:UIControlEventValueChanged];
   [[contentView saveButton] addTarget:self action:@selector(save:) forControlEvents:UIControlEventTouchUpInside];
+  [[contentView textField] setDelegate:self];
   if ([self editableAction]) {
     [[contentView textField] setText:[[self editableAction] name]];
     [[contentView stepper] setValue:[[self editableAction] spoons]];
   } else if ([[self name] length] > 0) {
     [[contentView textField] setText:[self name]];
+  }
+  if ([[[contentView textField] text] length] > 0) {
+    [[contentView saveButton] setEnabled:YES];
   }
   [contentView update];
   [self setView:contentView];
@@ -63,6 +67,20 @@
   [super viewWillAppear:animated];
 
   [[[self contentView] textField] becomeFirstResponder];
+}
+
+// MARK: UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+
+  NSString *newText = [[textField text] stringByReplacingCharactersInRange:range withString:string];
+
+  if ([newText length] > 0) {
+    [[[self contentView] saveButton] setEnabled:YES];
+  } else {
+    [[[self contentView] saveButton] setEnabled:NO];
+  }
+
+  return YES;
 }
 
 // MARK: - Actions

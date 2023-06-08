@@ -29,6 +29,7 @@
     UIButtonConfiguration *buttonConfiguration = [UIButtonConfiguration filledButtonConfiguration];
     _saveButton = [UIButton buttonWithConfiguration:buttonConfiguration primaryAction:nil];
     [_saveButton setTitle:NSLocalizedString(@"actionInput.save", nil) forState:UIControlStateNormal];
+    [_saveButton setEnabled:NO];
 
     UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_textField, stepperStackView, _saveButton]];
     [stackView setTranslatesAutoresizingMaskIntoConstraints:NO];
