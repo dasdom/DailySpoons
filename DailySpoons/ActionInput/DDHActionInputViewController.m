@@ -56,7 +56,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  [self setTitle:NSLocalizedString(@"New action", nil)];
+  [self setTitle:NSLocalizedString(@"actionInput.title", nil)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

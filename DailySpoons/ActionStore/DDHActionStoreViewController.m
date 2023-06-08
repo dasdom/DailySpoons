@@ -49,7 +49,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  [self setTitle:NSLocalizedString(@"My spoon sinks", nil)];
+  [self setTitle:NSLocalizedString(@"actionStore.title", nil)];
 
   UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(add:)];
   [[self navigationItem] setRightBarButtonItem:addItem];
@@ -82,9 +82,9 @@
     DDHActionsHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:[DDHActionsHeaderView identifier] forIndexPath:indexPath];
     [[headerView addButton] setHidden:YES];
     if ([indexPath section] == DDHActionStoreSectionUnplanned) {
-      [[headerView nameLabel] setText:NSLocalizedString(@"Unplanned", nil)];
+      [[headerView nameLabel] setText:NSLocalizedString(@"actionStore.unplanned", nil)];
     } else {
-      [[headerView nameLabel] setText:NSLocalizedString(@"Planned", nil)];
+      [[headerView nameLabel] setText:NSLocalizedString(@"actionStore.planned", nil)];
     }
     return headerView;
   }];
@@ -171,7 +171,7 @@
 }
 
 - (UIContextualAction *)contextualEditActionWithAction:(DDHAction *)action {
-  return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+  return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"actionStore.edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
 
     [[self delegate] editActionFromViewController:self action:action];
     completionHandler(true);
@@ -179,7 +179,7 @@
 }
 
 - (UIContextualAction *)contextualDeleteActionWithAction:(DDHAction *)action {
-  return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"Delete", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+  return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"actionStore.delete", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
 
     [[self dataStore] removeAction:action];
     [self updateWithActions:[[self dataStore] actions]];

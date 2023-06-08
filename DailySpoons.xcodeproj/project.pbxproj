@@ -43,6 +43,8 @@
 		F25F7D3C29F599DA00EF395F /* DailySpoonsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D3B29F599DA00EF395F /* DailySpoonsTests.m */; };
 		F25F7D4329F59A1700EF395F /* DDHDayPlannerViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D4229F59A1700EF395F /* DDHDayPlannerViewControllerTests.m */; };
 		F25F7D4729F5ABEF00EF395F /* DDHDayPlannerViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */; };
+		F2AE97482A31B83200B0D792 /* DailySpoonsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2AE97472A31B83200B0D792 /* DailySpoonsUITests.m */; };
+		F2AE97532A31BD2200B0D792 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F2AE97552A31BD2200B0D792 /* Localizable.strings */; };
 		F2CA90D52A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */; };
 		F2CA90D82A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90D72A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m */; };
 		F2CA90E12A2C802100B8B47F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2CA90E02A2C802100B8B47F /* WidgetKit.framework */; };
@@ -64,6 +66,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		F25F7D3D29F599DA00EF395F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F25F7D0A29F596EA00EF395F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F25F7D1129F596EA00EF395F;
+			remoteInfo = DailySpoons;
+		};
+		F2AE974B2A31B83200B0D792 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F25F7D0A29F596EA00EF395F /* Project object */;
 			proxyType = 1;
@@ -164,6 +173,12 @@
 		F25F7D4229F59A1700EF395F /* DDHDayPlannerViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDayPlannerViewControllerTests.m; sourceTree = "<group>"; };
 		F25F7D4429F5A8F900EF395F /* DailySpoons.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailySpoons.xctestplan; sourceTree = "<group>"; };
 		F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDayPlannerViewTests.m; sourceTree = "<group>"; };
+		F2AE97452A31B83200B0D792 /* DailySpoonsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailySpoonsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2AE97472A31B83200B0D792 /* DailySpoonsUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailySpoonsUITests.m; sourceTree = "<group>"; };
+		F2AE97522A31BD0600B0D792 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		F2AE97542A31BD2200B0D792 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F2AE97562A31BD2600B0D792 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F2AE97582A31BD3500B0D792 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F2CA90D32A2BA4FB00B8B47F /* DDHOnboardingOverlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHOnboardingOverlayView.h; sourceTree = "<group>"; };
 		F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHOnboardingOverlayView.m; sourceTree = "<group>"; };
 		F2CA90D62A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHCollectionViewLayoutProvider.h; sourceTree = "<group>"; };
@@ -198,6 +213,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F25F7D3629F599DA00EF395F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2AE97422A31B83200B0D792 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -340,6 +362,7 @@
 				F25F7D4429F5A8F900EF395F /* DailySpoons.xctestplan */,
 				F25F7D1429F596EA00EF395F /* DailySpoons */,
 				F25F7D3A29F599DA00EF395F /* DailySpoonsTests */,
+				F2AE97462A31B83200B0D792 /* DailySpoonsUITests */,
 				F2CA90E42A2C802100B8B47F /* InfoWidgets */,
 				F2CA90DF2A2C802100B8B47F /* Frameworks */,
 				F25F7D1329F596EA00EF395F /* Products */,
@@ -352,6 +375,7 @@
 				F25F7D1229F596EA00EF395F /* DailySpoons.app */,
 				F25F7D3929F599DA00EF395F /* DailySpoonsTests.xctest */,
 				F2CA90DE2A2C802100B8B47F /* InfoWidgetsExtension.appex */,
+				F2AE97452A31B83200B0D792 /* DailySpoonsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -370,6 +394,7 @@
 				F2CA90D32A2BA4FB00B8B47F /* DDHOnboardingOverlayView.h */,
 				F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */,
 				F2CA90FF2A2D185500B8B47F /* Config.xcconfig */,
+				F2AE97552A31BD2200B0D792 /* Localizable.strings */,
 				F22737F62A2A423B001B15B6 /* Settings */,
 				F2469C6F29FC3DE80023DAD9 /* Persitence */,
 				F2469C6129FBB6DA0023DAD9 /* Model */,
@@ -427,6 +452,14 @@
 				F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */,
 			);
 			path = DayPlanner;
+			sourceTree = "<group>";
+		};
+		F2AE97462A31B83200B0D792 /* DailySpoonsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F2AE97472A31B83200B0D792 /* DailySpoonsUITests.m */,
+			);
+			path = DailySpoonsUITests;
 			sourceTree = "<group>";
 		};
 		F2CA90DF2A2C802100B8B47F /* Frameworks */ = {
@@ -493,6 +526,24 @@
 			productReference = F25F7D3929F599DA00EF395F /* DailySpoonsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F2AE97442A31B83200B0D792 /* DailySpoonsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2AE974D2A31B83200B0D792 /* Build configuration list for PBXNativeTarget "DailySpoonsUITests" */;
+			buildPhases = (
+				F2AE97412A31B83200B0D792 /* Sources */,
+				F2AE97422A31B83200B0D792 /* Frameworks */,
+				F2AE97432A31B83200B0D792 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F2AE974C2A31B83200B0D792 /* PBXTargetDependency */,
+			);
+			name = DailySpoonsUITests;
+			productName = DailySpoonsUITests;
+			productReference = F2AE97452A31B83200B0D792 /* DailySpoonsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		F2CA90DD2A2C802100B8B47F /* InfoWidgetsExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F2CA90EF2A2C802200B8B47F /* Build configuration list for PBXNativeTarget "InfoWidgetsExtension" */;
@@ -530,6 +581,10 @@
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = F25F7D1129F596EA00EF395F;
 					};
+					F2AE97442A31B83200B0D792 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = F25F7D1129F596EA00EF395F;
+					};
 					F2CA90DD2A2C802100B8B47F = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -542,6 +597,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = F25F7D0929F596EA00EF395F;
 			packageReferences = (
@@ -554,6 +610,7 @@
 				F25F7D1129F596EA00EF395F /* DailySpoons */,
 				F25F7D3829F599DA00EF395F /* DailySpoonsTests */,
 				F2CA90DD2A2C802100B8B47F /* InfoWidgetsExtension */,
+				F2AE97442A31B83200B0D792 /* DailySpoonsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -564,11 +621,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				F25F7D2529F596EB00EF395F /* LaunchScreen.storyboard in Resources */,
+				F2AE97532A31BD2200B0D792 /* Localizable.strings in Resources */,
 				F25F7D2229F596EB00EF395F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F25F7D3729F599DA00EF395F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2AE97432A31B83200B0D792 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -639,6 +704,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F2AE97412A31B83200B0D792 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2AE97482A31B83200B0D792 /* DailySpoonsUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2CA90DA2A2C802100B8B47F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -661,6 +734,11 @@
 			target = F25F7D1129F596EA00EF395F /* DailySpoons */;
 			targetProxy = F25F7D3D29F599DA00EF395F /* PBXContainerItemProxy */;
 		};
+		F2AE974C2A31B83200B0D792 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F25F7D1129F596EA00EF395F /* DailySpoons */;
+			targetProxy = F2AE974B2A31B83200B0D792 /* PBXContainerItemProxy */;
+		};
 		F2CA90ED2A2C802200B8B47F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F2CA90DD2A2C802100B8B47F /* InfoWidgetsExtension */;
@@ -673,8 +751,19 @@
 			isa = PBXVariantGroup;
 			children = (
 				F25F7D2429F596EB00EF395F /* Base */,
+				F2AE97522A31BD0600B0D792 /* de */,
+				F2AE97582A31BD3500B0D792 /* en */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		F2AE97552A31BD2200B0D792 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2AE97542A31BD2200B0D792 /* en */,
+				F2AE97562A31BD2600B0D792 /* de */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -685,6 +774,7 @@
 			baseConfigurationReference = F2CA90FF2A2D185500B8B47F /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -744,6 +834,7 @@
 			baseConfigurationReference = F2CA90FF2A2D185500B8B47F /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -899,6 +990,40 @@
 			};
 			name = Release;
 		};
+		F2AE974E2A31B83200B0D792 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoonsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DailySpoons;
+			};
+			name = Debug;
+		};
+		F2AE974F2A31B83200B0D792 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoonsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DailySpoons;
+			};
+			name = Release;
+		};
 		F2CA90F02A2C802200B8B47F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F2CA90FF2A2D185500B8B47F /* Config.xcconfig */;
@@ -991,6 +1116,15 @@
 			buildConfigurations = (
 				F25F7D4029F599DA00EF395F /* Debug */,
 				F25F7D4129F599DA00EF395F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2AE974D2A31B83200B0D792 /* Build configuration list for PBXNativeTarget "DailySpoonsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2AE974E2A31B83200B0D792 /* Debug */,
+				F2AE974F2A31B83200B0D792 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -31,7 +31,7 @@
     _tipButton = [[UIButton alloc] init];
     [_tipButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_tipButton setConfiguration:[UIButtonConfiguration borderedButtonConfiguration]];
-    [_tipButton setTitle:@"Small Tip" forState:UIControlStateNormal];
+    [_tipButton setTitle:NSLocalizedString(@"settings.smallTip", nil) forState:UIControlStateNormal];
 
     [self addSubview:stackView];
     [self addSubview:_tipButton];
@@ -50,7 +50,9 @@
 }
 
 - (void)update {
-  NSString *stepperLabelText = [NSString stringWithFormat:@"Daily spoons: %.0lf", [[self dailySpoonsStepper] value]];
+  NSString *stepperLabelText = [NSString
+                                stringWithFormat:NSLocalizedString(@"settings.dailySpoons", nil),
+                                [[self dailySpoonsStepper] value]];
   [[self dailySpoonsStepperLabel] setText:stepperLabelText];
 }
 @end

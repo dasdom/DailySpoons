@@ -105,27 +105,27 @@
     {
       DDHSpoonsFooterView *spoonsFooterView = (DDHSpoonsFooterView *)[[[self contentView] collectionView] supplementaryViewForElementKind:ELEMENT_KIND_SECTION_FOOTER atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
       CGFloat yPos = CGRectGetMaxY([spoonsFooterView frame]) + [contentView layoutMargins].top;
-      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:@"This is your spoon budget for the day. One spoon represents the minimal energy you can spend during the day." alignment:UIStackViewAlignmentCenter];
+      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.spoonBudget", nil) alignment:UIStackViewAlignmentCenter];
       break;
     }
     case DDHOnboardingStateSettings:
     {
       CGFloat yPos = [contentView layoutMargins].top;
-      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:@"You can change the amount of spoons per day in the settings." alignment:UIStackViewAlignmentLeading];
+      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.settings", nil) alignment:UIStackViewAlignmentLeading];
       break;
     }
     case DDHOnboardingStateActions:
     {
       DDHActionsHeaderView *actionHeaderView = (DDHActionsHeaderView *)[[[self contentView] collectionView] supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
       CGFloat yPos = CGRectGetMaxY([actionHeaderView frame]) + [contentView layoutMargins].top;
-      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:@"Add actions for your day and set their spoon amount. For example getting out of bed could take one spoon. Select the action in this list to spend the spoon." alignment:UIStackViewAlignmentTrailing];
+      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.actions", nil) alignment:UIStackViewAlignmentTrailing];
       break;
     }
     case DDHOnboardingStateReload:
     {
       CGFloat yPos = [contentView layoutMargins].top;
-      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:@"Reset the view to start over." alignment:UIStackViewAlignmentTrailing];
-      [[[self overlayView] nextButton] setTitle:@"Done" forState:UIControlStateNormal];
+      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.reload", nil) alignment:UIStackViewAlignmentTrailing];
+      [[[self overlayView] nextButton] setTitle:NSLocalizedString(@"onboarding.done", nil) forState:UIControlStateNormal];
       break;
     }
     default:
@@ -252,9 +252,9 @@
   DDHDay *day = [[self dataStore] day];
   NSString *footerString;
   if ([day carryOverSpoons] > 0) {
-    footerString = [NSString stringWithFormat:@"Planned: (%ld - %ld) / %ld\nCompleted: (%ld - %ld) / %ld", [day plannedSpoons], [day carryOverSpoons], [day amountOfSpoons], [day completedSpoons], [day carryOverSpoons], [day amountOfSpoons]];
+    footerString = [NSString stringWithFormat:NSLocalizedString(@"dayPlanner.spoonAmounts.withCarryOver", nil), [day plannedSpoons], [day carryOverSpoons], [day amountOfSpoons], [day completedSpoons], [day carryOverSpoons], [day amountOfSpoons]];
   } else {
-    footerString = [NSString stringWithFormat:@"Planned: %ld / %ld\nCompleted: %ld / %ld", [day plannedSpoons], [day amountOfSpoons], [day completedSpoons], [day amountOfSpoons]];
+    footerString = [NSString stringWithFormat:NSLocalizedString(@"dayPlanner.spoonAmounts.withoutCarryOver", nil), [day plannedSpoons], [day amountOfSpoons], [day completedSpoons], [day amountOfSpoons]];
   }
   BOOL spoonDeficit = ([day plannedSpoons] - [day carryOverSpoons]) > [day amountOfSpoons];
   if (spoonDeficit) {
@@ -317,7 +317,7 @@
 }
 
 - (UIContextualAction *)contextualUnplanActionWithAction:(DDHAction *)action {
-  return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Unplan", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+  return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"dayPlanner.unplan", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
 
     DDHDay *day = [[self dataStore] day];
     [day unplanAction:action];
@@ -329,7 +329,7 @@
 }
 
 - (UIContextualAction *)contextualEditActionWithAction:(DDHAction *)action {
-  return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+  return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"dayPlanner.edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
 
     [[self delegate] editActionFromViewController:self action:action];
     completionHandler(true);

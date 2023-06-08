@@ -12,7 +12,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
     _nameLabel = [[UILabel alloc] init];
-    [_nameLabel setText:NSLocalizedString(@"Actions", nil)];
+    [_nameLabel setText:NSLocalizedString(@"dayPlanner.actions", nil)];
     [_nameLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]];
     [_nameLabel setTextColor:[UIColor systemGrayColor]];
 

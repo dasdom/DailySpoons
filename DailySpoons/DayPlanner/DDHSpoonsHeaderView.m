@@ -14,7 +14,7 @@
   if (self = [super initWithFrame:frame]) {
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:frame];
     [titleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [titleLabel setText:NSLocalizedString(@"Spoon Budget", nil)];
+    [titleLabel setText:NSLocalizedString(@"dayPlanner.spoonBudget", nil)];
     [titleLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]];
 //    [titleLabel setTextColor:[UIColor systemGrayColor]];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];

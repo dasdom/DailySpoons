@@ -12,7 +12,7 @@
     [self setBackgroundColor:[UIColor systemBackgroundColor]];
 
     _textField = [[UITextField alloc] init];
-    [_textField setPlaceholder:NSLocalizedString(@"Action name", nil)];
+    [_textField setPlaceholder:NSLocalizedString(@"actionInput.namePlaceholder", nil)];
     [_textField setBorderStyle:UITextBorderStyleRoundedRect];
 
     _stepperLabel = [[UILabel alloc] init];
@@ -28,7 +28,7 @@
 
     UIButtonConfiguration *buttonConfiguration = [UIButtonConfiguration filledButtonConfiguration];
     _saveButton = [UIButton buttonWithConfiguration:buttonConfiguration primaryAction:nil];
-    [_saveButton setTitle:NSLocalizedString(@"Save", nil) forState:UIControlStateNormal];
+    [_saveButton setTitle:NSLocalizedString(@"actionInput.save", nil) forState:UIControlStateNormal];
 
     UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_textField, stepperStackView, _saveButton]];
     [stackView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -49,7 +49,7 @@
 }
 
 - (void)update {
-  NSString *stepperLabelText = [NSString stringWithFormat:@"Spoons: %.0lf", [[self stepper] value]];
+  NSString *stepperLabelText = [NSString stringWithFormat:NSLocalizedString(@"actionInput.spoonAmount", nil), [[self stepper] value]];
   [[self stepperLabel] setText:stepperLabelText];
 }
 

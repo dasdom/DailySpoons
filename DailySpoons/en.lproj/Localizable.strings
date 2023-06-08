@@ -1,0 +1,36 @@
+/* 
+  Localizable.strings
+  DailySpoons
+
+  Created by Dominik Hauser on 08.06.23.
+  Copyright © 2023 dasdom. All rights reserved.
+*/
+
+"settings.smallTip" = "Small Tip";
+"settings.dailySpoons" = "Daily spoons: %.0lf";
+"settings.title" = "Settings";
+"settings.howTo" = "How to";
+
+"onboarding.spoonBudget" = "This is your spoon budget for the day. One spoon represents the minimal energy you can spend during the day.";
+"onboarding.settings" = "You can change the amount of spoons per day in the settings.";
+"onboarding.actions" = "Add actions for your day and set their spoon amount. For example getting out of bed could take one spoon. Select the action in this list to spend the spoon.";
+"onboarding.reload" = "Reset the view to start over.";
+"onboarding.done" = "Done";
+
+"dayPlanner.spoonAmounts.withCarryOver" = "Planned: (%ld - %ld) / %ld\nCompleted: (%ld - %ld) / %ld";
+"dayPlanner.spoonAmounts.withoutCarryOver" = "Planned: %ld / %ld\nCompleted: %ld / %ld";
+"dayPlanner.unplan" = "Unplan";
+"dayPlanner.edit" = "Edit";
+"dayPlanner.spoonBudget" = "Spoon Budget";
+"dayPlanner.actions" = "Actions";
+
+"actionStore.title" = "My spoon sinks";
+"actionStore.unplanned" = "Unplanned";
+"actionStore.planned" = "Planned";
+"actionStore.edit" = "Edit";
+"actionStore.delete" = "Delete";
+
+"actionInput.title" = "New action";
+"actionInput.namePlaceholder" = "Action name";
+"actionInput.save" = "Save";
+"actionInput.spoonAmount" = "Spoons: %.0lf";

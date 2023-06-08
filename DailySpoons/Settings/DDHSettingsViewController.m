@@ -35,9 +35,9 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  [self setTitle:@"Settings"];
+  [self setTitle:NSLocalizedString(@"settings.title", nil)];
 
-  UIBarButtonItem *showOnboardingButton = [[UIBarButtonItem alloc] initWithTitle:@"How to" style:UIBarButtonItemStylePlain target:self action:@selector(showOnboarding:)];
+  UIBarButtonItem *showOnboardingButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"settings.howTo", nil) style:UIBarButtonItemStylePlain target:self action:@selector(showOnboarding:)];
   [[self navigationItem] setLeftBarButtonItem:showOnboardingButton];
 
   [[RCPurchases sharedPurchases] products:@[

@@ -1,0 +1,36 @@
+/* 
+  Localizable.strings
+  DailySpoons
+
+  Created by Dominik Hauser on 08.06.23.
+  Copyright © 2023 dasdom. All rights reserved.
+*/
+
+"settings.smallTip" = "Kleines Trinkgeld";
+"settings.dailySpoons" = "Tägliche Löffel: %.0lf";
+"settings.title" = "Einstellungen";
+"settings.howTo" = "How to";
+
+"onboarding.spoonBudget" = "Dies ist dein Löffel-Budget für den Tag. Ein Löffel representiert die minimale Energie die du während des Tages 'ausgeben' kannst.";
+"onboarding.settings" = "Du kannst die Anzahl der täglich verfügbaren Löffel in den Einstellungen anpassen.";
+"onboarding.actions" = "Füge Aktionen und deren Löffelverbrauch für deinen Tag hinzu. Zum Beispiel Aufstehen könnte einen Löffel verbrauchen. Wähle die Aktion in der Liste aus, um die entsprechende Anzahl an Löffeln auszugeben.";
+"onboarding.reload" = "Setze die Anzeige zurück um von neuem zu starten.";
+"onboarding.done" = "Fertig";
+
+"dayPlanner.spoonAmounts.withCarryOver" = "Geplant: (%ld - %ld) / %ld\nFertig: (%ld - %ld) / %ld";
+"dayPlanner.spoonAmounts.withoutCarryOver" = "Geplant: %ld / %ld\nFertig: %ld / %ld";
+"dayPlanner.unplan" = "Unplan";
+"dayPlanner.edit" = "Ändern";
+"dayPlanner.spoonBudget" = "Löffel-Budget";
+"dayPlanner.actions" = "Aktionen";
+
+"actionStore.title" = "Meine Löffelsenken";
+"actionStore.unplanned" = "Ungeplant";
+"actionStore.planned" = "Geplant";
+"actionStore.edit" = "Ändern";
+"actionStore.delete" = "Löschen";
+
+"actionInput.title" = "Neue Aktion";
+"actionInput.namePlaceholder" = "Aktionsname";
+"actionInput.save" = "Speichern";
+"actionInput.spoonAmount" = "Löffel: %.0lf";
