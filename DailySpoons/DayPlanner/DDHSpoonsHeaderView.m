@@ -18,6 +18,8 @@
     [titleLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]];
 //    [titleLabel setTextColor:[UIColor systemGrayColor]];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setAdjustsFontForContentSizeCategory:YES];
+    [titleLabel setNumberOfLines:0];
 
     [self addSubview:titleLabel];
 

@@ -21,6 +21,7 @@
     [_arrowImageView setTintColor:[UIColor systemBackgroundColor]];
     [_arrowImageView setAlpha:0];
     [_arrowImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [_arrowImageView setIsAccessibilityElement:NO];
 
     _descriptionLabel = [[UILabel alloc] init];
     [_descriptionLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleTitle2]];
@@ -37,7 +38,7 @@
     _nextButton = [[UIButton alloc] init];
     [_nextButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_nextButton setConfiguration:[UIButtonConfiguration borderedButtonConfiguration]];
-    [_nextButton setTitle:@"Next" forState:UIControlStateNormal];
+    [_nextButton setTitle:NSLocalizedString(@"onboarding.next", @"") forState:UIControlStateNormal];
     [_nextButton setTintColor:[UIColor systemBackgroundColor]];
 
     [self addSubview:_stackView];

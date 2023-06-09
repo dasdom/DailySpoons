@@ -57,6 +57,7 @@
   [super viewDidLoad];
 
   UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"arrow.counterclockwise"] style:UIBarButtonItemStylePlain target:self action:@selector(reset:)];
+  [resetButton setAccessibilityLabel:NSLocalizedString(@"dayPlanner.reset", nil)];
   [[self navigationItem] setRightBarButtonItem:resetButton];
 
   UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(didSelectSettings:)];
@@ -95,6 +96,11 @@
   [contentView addSubview:_overlayView];
 
   [self nextOnboarding:nil];
+
+  [[[self navigationController] navigationBar] setUserInteractionEnabled:NO];
+  [[[self navigationController] navigationBar] setAccessibilityElementsHidden:YES];
+  [[[self contentView] collectionView] setUserInteractionEnabled:NO];
+  [[[self contentView] collectionView] setAccessibilityElementsHidden:YES];
 }
 
 - (void)nextOnboarding:(UIButton *)sender {
@@ -136,6 +142,11 @@
       } completion:^(BOOL finished) {
         [[self overlayView] removeFromSuperview];
         [self setOnboardingState:DDHOnboardingStateSpoonBudget];
+
+        [[[self navigationController] navigationBar] setUserInteractionEnabled:YES];
+        [[[self navigationController] navigationBar] setAccessibilityElementsHidden:NO];
+        [[[self contentView] collectionView] setUserInteractionEnabled:YES];
+        [[[self contentView] collectionView] setAccessibilityElementsHidden:NO];
       }];
       break;
   }
@@ -236,11 +247,14 @@
     } else {
       [day completeAction:action];
     }
+    UISelectionFeedbackGenerator *feedbackGenerator = [[UISelectionFeedbackGenerator alloc] init];
+    [feedbackGenerator prepare];
+    [feedbackGenerator selectionChanged];
     [[self dataStore] saveData];
 
     NSDiffableDataSourceSnapshot *snapshot = [[self dataSource] snapshot];
     [snapshot reconfigureItemsWithIdentifiers:[snapshot itemIdentifiers]];
-    [[self dataSource] applySnapshot:snapshot animatingDifferences:YES];
+    [[self dataSource] applySnapshot:snapshot animatingDifferences:NO];
 
     [self updateSpoonsAmount];
 

@@ -18,6 +18,7 @@
     [_label setText:@"- / -"];
     [_label setTextAlignment:NSTextAlignmentCenter];
     [_label setNumberOfLines:0];
+    [_label setAdjustsFontForContentSizeCategory:YES];
 
     [self addSubview:_label];
 

@@ -15,6 +15,7 @@
 "onboarding.settings" = "You can change the amount of spoons per day in the settings.";
 "onboarding.actions" = "Add actions for your day and set their spoon amount. For example getting out of bed could take one spoon. Select the action in this list to spend the spoon.";
 "onboarding.reload" = "Reset the view to start over.";
+"onboarding.next" = "Next";
 "onboarding.done" = "Done";
 
 "dayPlanner.spoonAmounts.withCarryOver" = "Planned: (%ld - %ld) / %ld\nCompleted: (%ld - %ld) / %ld";
@@ -23,6 +24,10 @@
 "dayPlanner.edit" = "Edit";
 "dayPlanner.spoonBudget" = "Spoon Budget";
 "dayPlanner.actions" = "Actions";
+"dayPlanner.reset" = "Reset day";
+"dayPlanner.planActions" = "Plan actions";
+"dayPlanner.spoonsCompleted" = "spoons completed";
+"dayPlanner.spoonsUncompleted" = "spoons uncompleted";
 
 "actionStore.title" = "My spoon sinks";
 "actionStore.unplanned" = "Unplanned";

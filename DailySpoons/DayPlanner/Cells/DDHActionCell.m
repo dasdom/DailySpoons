@@ -6,8 +6,14 @@
 #import "DDHAction.h"
 
 @interface DDHActionCell ()
+@property (nonatomic, strong) UIListContentConfiguration *listContentConfiguration;
+@property (nonatomic, strong) UIListContentView* listContentView;
 @property (nonatomic, strong) UIStackView *spoonsStackView;
-@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) DDHAction *action;
+@property (nonatomic, assign) BOOL isCompleted;
+@property (nonatomic, assign) BOOL isPlanned;
+@property (nonatomic, strong) NSLayoutConstraint *leadingSpoonConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *trailingSpoonConstraint;
 @end
 
 @implementation DDHActionCell
@@ -17,25 +23,33 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
+
+    _listContentConfiguration = [UIListContentConfiguration cellConfiguration];
+    _listContentView = [[UIListContentView alloc] initWithConfiguration:_listContentConfiguration];
+    [_listContentView setTranslatesAutoresizingMaskIntoConstraints:NO];
+
     _spoonsStackView = [[UIStackView alloc] init];
+    [_spoonsStackView setTranslatesAutoresizingMaskIntoConstraints:NO];
 
-    _nameLabel = [[UILabel alloc] init];
-    [_nameLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
-    [_nameLabel setTextAlignment:NSTextAlignmentRight];
+    [[self contentView] addSubview:_listContentView];
+    [[self contentView] addSubview:_spoonsStackView];
 
-    UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_spoonsStackView, _nameLabel]];
-    [stackView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [stackView setDistribution:UIStackViewDistributionFillProportionally];
-    [stackView setSpacing:10];
-
-    [[self contentView] addSubview:stackView];
+    _leadingSpoonConstraint = [[_spoonsStackView leadingAnchor] constraintEqualToAnchor:[_listContentView trailingAnchor]];
+    _trailingSpoonConstraint = [[_spoonsStackView trailingAnchor] constraintEqualToAnchor:[[self contentView] trailingAnchor]];
 
     [NSLayoutConstraint activateConstraints:@[
-      [[stackView topAnchor] constraintEqualToAnchor:[[self contentView] topAnchor] constant:10],
-      [[stackView leadingAnchor] constraintEqualToAnchor:[[self contentView] leadingAnchor] constant:20],
-      [[stackView bottomAnchor] constraintEqualToAnchor:[[self contentView] bottomAnchor] constant:-10],
-      [[stackView trailingAnchor] constraintEqualToAnchor:[[self contentView] trailingAnchor] constant:-20]
+      [[_listContentView topAnchor] constraintEqualToAnchor:[[self contentView] topAnchor]],
+      [[_listContentView bottomAnchor] constraintEqualToAnchor:[[self contentView] bottomAnchor]],
+      [[_listContentView leadingAnchor] constraintEqualToAnchor:[[self contentView] leadingAnchor]],
+
+//      [[_spoonsStackView topAnchor] constraintEqualToAnchor:[_listContentView topAnchor]],
+//      [[_spoonsStackView bottomAnchor] constraintEqualToAnchor:[_listContentView bottomAnchor]],
+      [[_spoonsStackView centerYAnchor] constraintEqualToAnchor:[[self contentView] centerYAnchor]],
+      _leadingSpoonConstraint,
+      _trailingSpoonConstraint
     ]];
+
+    [self setTintColor:[UIColor labelColor]];
   }
   return self;
 }
@@ -45,7 +59,17 @@
 }
 
 - (void)updateWithAction:(DDHAction *)action isCompleted:(BOOL)isCompleted isPlanned:(BOOL)isPlanned {
-  [[self nameLabel] setText:[action name]];
+  [self setAction:action];
+  [self setIsCompleted:isCompleted];
+  [self setIsPlanned:isPlanned];
+}
+
+- (void)updateConfigurationUsingState:(UICellConfigurationState *)state {
+  UIListContentConfiguration *contentConfig = [[self listContentConfiguration] updatedConfigurationForState:state];
+  [contentConfig setText:[[self action] name]];
+  [[contentConfig textProperties] setAlignment:UIListContentTextAlignmentJustified];
+
+  UIListContentConfiguration *valueConfiguration = [[UIListContentConfiguration valueCellConfiguration] updatedConfigurationForState:state];
 
   NSArray<UIView *> *arrangedViews = [[self spoonsStackView] arrangedSubviews];
   [arrangedViews enumerateObjectsUsingBlock:^(UIView * _Nonnull arrangeSubview, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -53,9 +77,9 @@
     [arrangeSubview removeFromSuperview];
   }];
 
-  for (NSInteger i = 0; i < [action spoons]; i++) {
+  for (NSInteger i = 0; i < [[self action] spoons]; i++) {
     UIImage *image;
-    if (isCompleted) {
+    if ([self isCompleted]) {
       image = [UIImage systemImageNamed:@"circle.slash"];
     } else {
       image = [UIImage systemImageNamed:@"circle"];
@@ -64,12 +88,28 @@
     [imageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [imageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [imageView setTintColor:[UIColor labelColor]];
+    [imageView setPreferredSymbolConfiguration:[UIImageSymbolConfiguration configurationWithFont:[[valueConfiguration textProperties] font] scale:UIImageSymbolScaleDefault]];
     [[self spoonsStackView] addArrangedSubview:imageView];
   }
 
-  if (isPlanned) {
-    [[self nameLabel] setTextColor:[UIColor systemGrayColor]];
+  if ([self isPlanned]) {
+    [[contentConfig textProperties] setColor:[UIColor systemGrayColor]];
     [[self spoonsStackView] setTintColor:[UIColor systemGrayColor]];
   }
+
+  [[self listContentView] setConfiguration:contentConfig];
+
+  [[self leadingSpoonConstraint] setConstant:[valueConfiguration textToSecondaryTextHorizontalPadding]];
+  [[self trailingSpoonConstraint] setConstant:-[contentConfig directionalLayoutMargins].trailing];
+
+  NSString *typOfAction;
+  if ([self isCompleted]) {
+    typOfAction = NSLocalizedString(@"dayPlanner.spoonsCompleted", nil);
+  } else {
+    typOfAction = NSLocalizedString(@"dayPlanner.spoonsUncompleted", nil);
+  }
+  NSString *labelString = [NSString stringWithFormat:@"%@, %ld %@", [[self action] name], (long)[[self action] spoons], typOfAction];
+  [self setAccessibilityLabel:labelString];
+  [self setAccessibilityTraits:UIAccessibilityTraitButton];
 }
 @end

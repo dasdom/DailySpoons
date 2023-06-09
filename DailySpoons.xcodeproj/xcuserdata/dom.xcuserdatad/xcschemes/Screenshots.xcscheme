@@ -29,7 +29,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:DailySpoons.xctestplan"
+            reference = "container:Screenshots.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

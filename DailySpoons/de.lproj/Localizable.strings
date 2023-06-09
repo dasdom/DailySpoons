@@ -15,6 +15,7 @@
 "onboarding.settings" = "Du kannst die Anzahl der täglich verfügbaren Löffel in den Einstellungen anpassen.";
 "onboarding.actions" = "Füge Aktionen und deren Löffelverbrauch für deinen Tag hinzu. Zum Beispiel Aufstehen könnte einen Löffel verbrauchen. Wähle die Aktion in der Liste aus, um die entsprechende Anzahl an Löffeln auszugeben.";
 "onboarding.reload" = "Setze die Anzeige zurück um von neuem zu starten.";
+"onboarding.next" = "Nächste";
 "onboarding.done" = "Fertig";
 
 "dayPlanner.spoonAmounts.withCarryOver" = "Geplant: (%ld - %ld) / %ld\nFertig: (%ld - %ld) / %ld";
@@ -23,6 +24,10 @@
 "dayPlanner.edit" = "Ändern";
 "dayPlanner.spoonBudget" = "Löffel-Budget";
 "dayPlanner.actions" = "Aktionen";
+"dayPlanner.reset" = "Tag zurücksetzen";
+"dayPlanner.planActions" = "Aktionen planen";
+"dayPlanner.spoonsCompleted" = "Löffel erledigt";
+"dayPlanner.spoonsUncompleted" = "Löffel nicht erledigt";
 
 "actionStore.title" = "Meine Löffelsenken";
 "actionStore.unplanned" = "Ungeplant";

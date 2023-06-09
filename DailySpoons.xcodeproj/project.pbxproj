@@ -33,6 +33,7 @@
 		F2469C8529FE76AB0023DAD9 /* DDHSpoonsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C8429FE76AB0023DAD9 /* DDHSpoonsHeaderView.m */; };
 		F2469C8B29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C8A29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m */; };
 		F2469C8E29FE84710023DAD9 /* DDHSpoonsBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C8D29FE84710023DAD9 /* DDHSpoonsBackgroundView.m */; };
+		F2573E0F2A3337BF008E5429 /* UICellConfigurationState+ActionCellAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F2573E0E2A3337BF008E5429 /* UICellConfigurationState+ActionCellAdditions.m */; };
 		F25F7D1729F596EA00EF395F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D1629F596EA00EF395F /* AppDelegate.m */; };
 		F25F7D1A29F596EA00EF395F /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D1929F596EA00EF395F /* SceneDelegate.m */; };
 		F25F7D2229F596EB00EF395F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25F7D2129F596EB00EF395F /* Assets.xcassets */; };
@@ -155,6 +156,8 @@
 		F2469C8A29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHSpoonsFooterView.m; sourceTree = "<group>"; };
 		F2469C8C29FE84710023DAD9 /* DDHSpoonsBackgroundView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHSpoonsBackgroundView.h; sourceTree = "<group>"; };
 		F2469C8D29FE84710023DAD9 /* DDHSpoonsBackgroundView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHSpoonsBackgroundView.m; sourceTree = "<group>"; };
+		F2573E0D2A3337BF008E5429 /* UICellConfigurationState+ActionCellAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICellConfigurationState+ActionCellAdditions.h"; sourceTree = "<group>"; };
+		F2573E0E2A3337BF008E5429 /* UICellConfigurationState+ActionCellAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICellConfigurationState+ActionCellAdditions.m"; sourceTree = "<group>"; };
 		F25F7D1229F596EA00EF395F /* DailySpoons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailySpoons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F25F7D1529F596EA00EF395F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F25F7D1629F596EA00EF395F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -198,6 +201,7 @@
 		F2CA90FE2A2D05C400B8B47F /* DailySpoons-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DailySpoons-Bridging-Header.h"; sourceTree = "<group>"; };
 		F2CA90FF2A2D185500B8B47F /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		F2CA91032A2D222100B8B47F /* StoreKitConfig.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKitConfig.storekit; sourceTree = "<group>"; };
+		F2D8ED9F2A31ED64000C6102 /* Screenshots.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Screenshots.xctestplan; sourceTree = "<group>"; };
 		F2F49A162A2A25AE00874BA9 /* DDHViewControllerMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHViewControllerMock.h; sourceTree = "<group>"; };
 		F2F49A172A2A25AE00874BA9 /* DDHViewControllerMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHViewControllerMock.m; sourceTree = "<group>"; };
 		F2F49A192A2A262F00874BA9 /* DDHAppCoordinatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHAppCoordinatorTests.m; sourceTree = "<group>"; };
@@ -291,6 +295,8 @@
 				F2469C5829F9855C0023DAD9 /* DDHSpoonCell.m */,
 				F2469C5B29F988D30023DAD9 /* DDHActionCell.h */,
 				F2469C5C29F988D30023DAD9 /* DDHActionCell.m */,
+				F2573E0D2A3337BF008E5429 /* UICellConfigurationState+ActionCellAdditions.h */,
+				F2573E0E2A3337BF008E5429 /* UICellConfigurationState+ActionCellAdditions.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -358,6 +364,7 @@
 		F25F7D0929F596EA00EF395F = {
 			isa = PBXGroup;
 			children = (
+				F2D8ED9F2A31ED64000C6102 /* Screenshots.xctestplan */,
 				F2CA90F82A2C8EAE00B8B47F /* InfoWidgetsExtension.entitlements */,
 				F25F7D4429F5A8F900EF395F /* DailySpoons.xctestplan */,
 				F25F7D1429F596EA00EF395F /* DailySpoons */,
@@ -658,6 +665,7 @@
 				F2469C8E29FE84710023DAD9 /* DDHSpoonsBackgroundView.m in Sources */,
 				F2469C8B29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m in Sources */,
 				F2CA90D82A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m in Sources */,
+				F2573E0F2A3337BF008E5429 /* UICellConfigurationState+ActionCellAdditions.m in Sources */,
 				F2469C8129FCE01D0023DAD9 /* DDHCellRegistrationProvider.m in Sources */,
 				F2469C6A29FC27620023DAD9 /* DDHActionInputViewController.m in Sources */,
 				F2CA90FD2A2D044D00B8B47F /* WidgetReloader.swift in Sources */,
@@ -893,14 +901,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DailySpoons/DailySpoons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailySpoons/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -909,11 +916,14 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "DailySpoons/Helper/DailySpoons-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -927,14 +937,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DailySpoons/DailySpoons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailySpoons/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -943,10 +952,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "DailySpoons/Helper/DailySpoons-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1032,7 +1044,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = InfoWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InfoWidgets/Info.plist;
@@ -1065,7 +1077,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = InfoWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InfoWidgets/Info.plist;

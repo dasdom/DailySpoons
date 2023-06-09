@@ -15,9 +15,11 @@
     [_nameLabel setText:NSLocalizedString(@"dayPlanner.actions", nil)];
     [_nameLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]];
     [_nameLabel setTextColor:[UIColor systemGrayColor]];
+    [_nameLabel setAdjustsFontForContentSizeCategory:YES];
 
     _addButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [_addButton setImage:[UIImage systemImageNamed:@"tray.full"] forState:UIControlStateNormal];
+    [_addButton setAccessibilityLabel:NSLocalizedString(@"dayPlanner.planActions", nil)];
 
     UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_nameLabel, _addButton]];
     [stackView setTranslatesAutoresizingMaskIntoConstraints:NO];

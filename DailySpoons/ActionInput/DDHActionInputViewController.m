@@ -83,6 +83,11 @@
   return YES;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+  [textField resignFirstResponder];
+  return NO;
+}
+
 // MARK: - Actions
 - (void)stepperChanged:(UIStepper *)sender {
   [[self contentView] update];

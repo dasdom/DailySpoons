@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "F88C3380-03F1-4096-B0E9-CFB14BAA1B52",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "language" : "de"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:DailySpoons.xcodeproj",
+        "identifier" : "F2AE97442A31B83200B0D792",
+        "name" : "DailySpoonsUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
