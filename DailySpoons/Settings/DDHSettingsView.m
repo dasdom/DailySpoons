@@ -32,6 +32,7 @@
     [_tipButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_tipButton setConfiguration:[UIButtonConfiguration borderedButtonConfiguration]];
     [_tipButton setTitle:NSLocalizedString(@"settings.smallTip", nil) forState:UIControlStateNormal];
+    [_tipButton setHidden:YES];
 
     [self addSubview:stackView];
     [self addSubview:_tipButton];

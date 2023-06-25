@@ -13,6 +13,11 @@
           "description" : "A small tip for the developer.",
           "displayName" : "Small Tip",
           "locale" : "en_US"
+        },
+        {
+          "description" : "Kleines Trinkgeld für den Entwickler ",
+          "displayName" : "Kleines Trinkgeld",
+          "locale" : "de"
         }
       ],
       "productID" : "de.dasdom.dailyspoons.small_tip",
@@ -23,7 +28,7 @@
   "settings" : {
     "_applicationInternalID" : "6448132547",
     "_developerTeamID" : "Q6PD97MRX4",
-    "_lastSynchronizedDate" : 707600932.07796597
+    "_lastSynchronizedDate" : 708274217.566113
   },
   "subscriptionGroups" : [
 

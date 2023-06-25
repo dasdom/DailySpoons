@@ -97,16 +97,16 @@
   [[self collectionView] reloadData];
   DDHAction *action = [self firstPlannedAction];
   DDHActionCell *actionCell = (DDHActionCell *)[[self collectionView] cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
-  UILabel *nameLabel = [actionCell valueForKey:@"nameLabel"];
   [action setName:@"B"];
   [[self day] updateAction:action];
-  XCTAssertEqualObjects([nameLabel text], @"A");
+  UIListContentView *listContentView = [actionCell valueForKey:@"listContentView"];
+  UIListContentConfiguration *config = [listContentView configuration];
+  XCTAssertEqualObjects([config text], @"A");
 
   [[self sut] reload];
 
-  actionCell = (DDHActionCell *)[[self collectionView] cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
-  nameLabel = [actionCell valueForKey:@"nameLabel"];
-  XCTAssertEqualObjects([nameLabel text], @"B");
+  config = [listContentView configuration];
+  XCTAssertEqualObjects([config text], @"B");
 }
 
 - (void)test_canMoveItemAtIndexPath_whenInSectionZero_shouldReturnNo {

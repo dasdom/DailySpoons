@@ -10,6 +10,11 @@
 "settings.dailySpoons" = "Daily spoons: %.0lf";
 "settings.title" = "Settings";
 "settings.howTo" = "How to";
+"settings.error" = "Error";
+"settings.purchaseNotAllowed" = "Purchases not allowed on this device.";
+"settings.purchaseInvalid" = "Purchase invalid, check payment source.";
+"settings.thankYouTitle" = "Thank you!";
+"settings.thankYouMessage" = "Thank you! You are awesome!";
 
 "onboarding.spoonBudget" = "This is your spoon budget for the day. One spoon represents the minimal energy you can spend during the day.";
 "onboarding.settings" = "You can change the amount of spoons per day in the settings.";

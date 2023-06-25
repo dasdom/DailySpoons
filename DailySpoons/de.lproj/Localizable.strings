@@ -10,6 +10,10 @@
 "settings.dailySpoons" = "Tägliche Löffel: %.0lf";
 "settings.title" = "Einstellungen";
 "settings.howTo" = "How to";
+"settings.purchaseNotAllowed" = "Kauf auf diesem Gerät nicht erlaubt.";
+"settings.purchaseInvalid" = "Kauf nicht möglich. Bitte überprüfe die Kaufeinstellungen.";
+"settings.thankYouTitle" = "Vielen Dank!";
+"settings.thankYouMessage" = "Vielen Dank! Du bist großartig!";
 
 "onboarding.spoonBudget" = "Dies ist dein Löffel-Budget für den Tag. Ein Löffel representiert die minimale Energie die du während des Tages 'ausgeben' kannst.";
 "onboarding.settings" = "Du kannst die Anzahl der täglich verfügbaren Löffel in den Einstellungen anpassen.";

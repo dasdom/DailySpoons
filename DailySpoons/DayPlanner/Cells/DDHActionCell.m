@@ -7,7 +7,7 @@
 
 @interface DDHActionCell ()
 @property (nonatomic, strong) UIListContentConfiguration *listContentConfiguration;
-@property (nonatomic, strong) UIListContentView* listContentView;
+@property (nonatomic, strong) UIListContentView *listContentView;
 @property (nonatomic, strong) UIStackView *spoonsStackView;
 @property (nonatomic, strong) DDHAction *action;
 @property (nonatomic, assign) BOOL isCompleted;
@@ -62,6 +62,7 @@
   [self setAction:action];
   [self setIsCompleted:isCompleted];
   [self setIsPlanned:isPlanned];
+  [self setNeedsUpdateConfiguration];
 }
 
 - (void)updateConfigurationUsingState:(UICellConfigurationState *)state {
