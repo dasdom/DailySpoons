@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UILabel *stepperLabel;
 @property (nonatomic, strong) UIStepper *stepper;
+@property (nonatomic, strong) UISegmentedControl *typeSegmentedControl;
 @property (nonatomic, strong) UIButton *saveButton;
 - (void)update;
 @end

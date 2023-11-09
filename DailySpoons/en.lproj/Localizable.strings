@@ -44,3 +44,5 @@
 "actionInput.namePlaceholder" = "Action name";
 "actionInput.save" = "Save";
 "actionInput.spoonAmount" = "Spoons: %.0lf";
+"actionInput.typeSelection.sink" = "Spoon Sink";
+"actionInput.typeSelection.source" = "Spoon Source";

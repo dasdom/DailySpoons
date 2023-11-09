@@ -9,7 +9,8 @@
 typedef NS_ENUM(NSUInteger, DDHActionState) {
   DDHActionStateNone,
   DDHActionStatePlanned,
-  DDHActionStateCompleted
+  DDHActionStateCompleted,
+  DDHActionStateCompletedSource
 };
 
 #endif /* DDHActionState_h */

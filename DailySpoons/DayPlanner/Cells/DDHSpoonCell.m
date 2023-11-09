@@ -40,6 +40,9 @@
     case DDHActionStateCompleted:
       [[self imageView] setImage:[UIImage systemImageNamed:@"circle.slash"]];
       break;
+    case DDHActionStateCompletedSource:
+      [[self imageView] setImage:[UIImage systemImageNamed:@"circle.slash.fill"]];
+      break;
     default:
       [[self imageView] setImage:[UIImage systemImageNamed:@"circle.fill"]];
       break;

@@ -106,7 +106,9 @@
   }];
 
   NSData *data = [NSJSONSerialization dataWithJSONObject:jsonArray options:0 error:&jsonError];
-  NSLog(@"JSON error: %@", jsonError);
+  if (jsonError != nil) {
+    NSLog(@"JSON error: %@", jsonError);
+  }
   [data writeToURL:[self actionsURL] atomically:YES];
 }
 

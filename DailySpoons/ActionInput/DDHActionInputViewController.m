@@ -96,6 +96,9 @@
 - (void)save:(UIButton *)sender {
   NSString *name = [[[self contentView] textField] text];
   NSInteger spoons = (NSInteger)[[[self contentView] stepper] value];
+  if ([[[self contentView] typeSegmentedControl] selectedSegmentIndex] == 1) {
+    spoons = -spoons;
+  }
   DDHAction *action;
   if ([self editableAction]) {
     action = [self editableAction];

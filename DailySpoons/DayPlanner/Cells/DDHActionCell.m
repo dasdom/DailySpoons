@@ -72,26 +72,9 @@
 
   UIListContentConfiguration *valueConfiguration = [[UIListContentConfiguration valueCellConfiguration] updatedConfigurationForState:state];
 
-  NSArray<UIView *> *arrangedViews = [[self spoonsStackView] arrangedSubviews];
-  [arrangedViews enumerateObjectsUsingBlock:^(UIView * _Nonnull arrangeSubview, NSUInteger idx, BOOL * _Nonnull stop) {
-    [[self spoonsStackView] removeArrangedSubview:arrangeSubview];
-    [arrangeSubview removeFromSuperview];
-  }];
+  [self removeSpoonImageViews];
 
-  for (NSInteger i = 0; i < [[self action] spoons]; i++) {
-    UIImage *image;
-    if ([self isCompleted]) {
-      image = [UIImage systemImageNamed:@"circle.slash"];
-    } else {
-      image = [UIImage systemImageNamed:@"circle"];
-    }
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    [imageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-    [imageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-    [imageView setTintColor:[UIColor labelColor]];
-    [imageView setPreferredSymbolConfiguration:[UIImageSymbolConfiguration configurationWithFont:[[valueConfiguration textProperties] font] scale:UIImageSymbolScaleDefault]];
-    [[self spoonsStackView] addArrangedSubview:imageView];
-  }
+  [self addSpoonImageViews:[[self action] spoons] completed:[self isCompleted] valueConfiguration:valueConfiguration];
 
   if ([self isPlanned]) {
     [[contentConfig textProperties] setColor:[UIColor systemGrayColor]];
@@ -113,4 +96,40 @@
   [self setAccessibilityLabel:labelString];
   [self setAccessibilityTraits:UIAccessibilityTraitButton];
 }
+
+- (void)removeSpoonImageViews {
+  NSArray<UIView *> *arrangedViews = [[self spoonsStackView] arrangedSubviews];
+  [arrangedViews enumerateObjectsUsingBlock:^(UIView * _Nonnull arrangeSubview, NSUInteger idx, BOOL * _Nonnull stop) {
+    [[self spoonsStackView] removeArrangedSubview:arrangeSubview];
+    [arrangeSubview removeFromSuperview];
+  }];
+}
+
+- (void)addSpoonImageViews:(NSInteger)count completed:(BOOL)completed valueConfiguration:(UIListContentConfiguration *)valueConfiguration {
+  NSInteger normalizedCount = labs(count);
+  for (NSInteger i = 0; i < normalizedCount; i++) {
+    UIImage *image;
+    if (count > 0) {
+      if (completed) {
+        image = [UIImage systemImageNamed:@"circle.slash"];
+      } else {
+        image = [UIImage systemImageNamed:@"circle"];
+      }
+    } else {
+      if (completed) {
+        image = [UIImage systemImageNamed:@"circle.slash.fill"];
+      } else {
+        image = [UIImage systemImageNamed:@"circle.fill"];
+      }
+    }
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    [imageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [imageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [imageView setTintColor:[UIColor labelColor]];
+    [imageView setPreferredSymbolConfiguration:[UIImageSymbolConfiguration configurationWithFont:[[valueConfiguration textProperties] font] scale:UIImageSymbolScaleDefault]];
+    [[self spoonsStackView] addArrangedSubview:imageView];
+  }
+
+}
+
 @end

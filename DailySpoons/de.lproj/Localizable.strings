@@ -43,3 +43,5 @@
 "actionInput.namePlaceholder" = "Aktionsname";
 "actionInput.save" = "Speichern";
 "actionInput.spoonAmount" = "Löffel: %.0lf";
+"actionInput.typeSelection.sink" = "Löffelsenke";
+"actionInput.typeSelection.source" = "Löffelquelle";

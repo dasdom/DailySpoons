@@ -35,7 +35,6 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
     NSTimeInterval timeInterval = [[dictionary valueForKey:dateKey] doubleValue];
     _date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     _carryOverSpoons = [[dictionary valueForKey:carryOverSpoonsKey] integerValue];
-    [self setAmountOfSpoons:[[dictionary valueForKey:amountOfSpoonsKey] integerValue]];
 
     NSArray *rawComletedActions = [dictionary valueForKey:completedActionsKey];
     NSMutableArray *completedActions = [[NSMutableArray alloc] init];
@@ -52,6 +51,8 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
       [plannedActions addObject:action];
     }];
     _plannedActions = [plannedActions copy];
+
+    _unmodifiedAmountOfSpoons = [[dictionary valueForKey:amountOfSpoonsKey] integerValue];
   }
   return self;
 }
@@ -60,7 +61,8 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
   NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
   NSTimeInterval timeInterval = [[self date] timeIntervalSince1970];
   [dictionary setObject:[NSNumber numberWithDouble:timeInterval] forKey:dateKey];
-  [dictionary setObject:[NSNumber numberWithInteger:[self amountOfSpoons]] forKey:amountOfSpoonsKey];
+
+  [dictionary setObject:[NSNumber numberWithInteger:[self unmodifiedAmountOfSpoons]] forKey:amountOfSpoonsKey];
   [dictionary setObject:[NSNumber numberWithInteger:[self carryOverSpoons]] forKey:carryOverSpoonsKey];
 
   NSMutableArray *completedActions = [[NSMutableArray alloc] init];
@@ -83,14 +85,31 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
   for (NSInteger i = 0; i < amountOfSpoons - [self carryOverSpoons]; i++) {
     [spoonsIdentifiers addObject:[NSUUID UUID]];
   }
+  for (NSInteger i = 0; i < [self plannedSpoonSources]; i++) {
+    [spoonsIdentifiers addObject:[NSUUID UUID]];
+  }
   [self setSpoonsIdentifiers:spoonsIdentifiers];
-  _amountOfSpoons = amountOfSpoons;
+  _unmodifiedAmountOfSpoons = amountOfSpoons;
+}
+
+- (NSInteger)amountOfSpoons {
+  __block NSInteger amountOfSpoons = _unmodifiedAmountOfSpoons;
+  [[self plannedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    if ([obj spoons] < 0) {
+      NSInteger negativeSpoons = -[obj spoons];
+      amountOfSpoons += negativeSpoons;
+    }
+  }];
+
+  return amountOfSpoons;
 }
 
 - (NSInteger)completedSpoons {
   __block NSInteger completedSpoons = 0;
   [[self completedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
-    completedSpoons += [action spoons];
+    if ([action spoons] > 0) {
+      completedSpoons += [action spoons];
+    }
   }];
   return completedSpoons;
 }
@@ -98,7 +117,29 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
 - (NSInteger)plannedSpoons {
   __block NSInteger plannedSpoons = 0;
   [[self plannedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
-    plannedSpoons += [action spoons];
+    if ([action spoons] > 0) {
+      plannedSpoons += [action spoons];
+    }
+  }];
+  return plannedSpoons;
+}
+
+- (NSInteger)completedSpoonSources {
+  __block NSInteger completedSpoons = 0;
+  [[self completedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+    if ([action spoons] < 0) {
+      completedSpoons += -[action spoons];
+    }
+  }];
+  return completedSpoons;
+}
+
+- (NSInteger)plannedSpoonSources {
+  __block NSInteger plannedSpoons = 0;
+  [[self plannedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+    if ([action spoons] < 0) {
+      plannedSpoons += -[action spoons];
+    }
   }];
   return plannedSpoons;
 }
@@ -126,13 +167,14 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
 
 - (void)planAction:(DDHAction *)action {
   [self setPlannedActions:[[self plannedActions] arrayByAddingObject:action]];
+  [self setAmountOfSpoons:[self unmodifiedAmountOfSpoons]];
 }
 
 - (void)unplanAction:(DDHAction *)action {
   NSMutableArray<DDHAction *> *plannedActions = [[self plannedActions] mutableCopy];
   [plannedActions removeObject:action];
   [self setPlannedActions:[plannedActions copy]];
-  [self setAmountOfSpoons:[self amountOfSpoons]];
+  [self setAmountOfSpoons:[self unmodifiedAmountOfSpoons]];
 }
 
 - (void)movePlannedActionFromIndex:(NSInteger)initialIndex toFinalIndex:(NSInteger)finalIndex {

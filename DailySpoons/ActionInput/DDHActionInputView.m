@@ -26,15 +26,19 @@
     UIStackView *stepperStackView = [[UIStackView alloc] initWithArrangedSubviews:@[_stepperLabel, _stepper]];
     [stepperStackView setSpacing:10];
 
+    _typeSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"actionInput.typeSelection.sink", nil), NSLocalizedString(@"actionInput.typeSelection.source", nil)]];
+    [_typeSegmentedControl setSelectedSegmentIndex:0];
+
     UIButtonConfiguration *buttonConfiguration = [UIButtonConfiguration filledButtonConfiguration];
     _saveButton = [UIButton buttonWithConfiguration:buttonConfiguration primaryAction:nil];
     [_saveButton setTitle:NSLocalizedString(@"actionInput.save", nil) forState:UIControlStateNormal];
     [_saveButton setEnabled:NO];
 
-    UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_textField, stepperStackView, _saveButton]];
+    UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_textField, stepperStackView, _typeSegmentedControl, _saveButton]];
     [stackView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [stackView setAxis:UILayoutConstraintAxisVertical];
     [stackView setSpacing:10];
+    [stackView setCustomSpacing:20 afterView:_typeSegmentedControl];
 
     [self addSubview:stackView];
 

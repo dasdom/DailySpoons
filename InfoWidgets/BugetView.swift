@@ -21,6 +21,8 @@ struct BudgetView: View {
             Image(systemName: "circle.slash")
           } else if index < day.plannedSpoons() {
             Image(systemName: "circle")
+          } else if index < day.plannedSpoons() + day.completedSpoonSources() {
+            Image(systemName: "circle.slash.fill")
           } else {
             Image(systemName: "circle.fill")
           }

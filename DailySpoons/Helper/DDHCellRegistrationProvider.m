@@ -20,6 +20,8 @@
       [spoonCell updateWithActionState:DDHActionStateCompleted];
     } else if (index < [day plannedSpoons]) {
       [spoonCell updateWithActionState:DDHActionStatePlanned];
+    } else if (index < [day plannedSpoons] + [day completedSpoonSources]) {
+      [spoonCell updateWithActionState:DDHActionStateCompletedSource];
     } else {
       [spoonCell updateWithActionState:DDHActionStateNone];
     }

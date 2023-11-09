@@ -12,12 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DDHDay : NSObject
 @property (nonatomic, strong) NSDate *date;
+@property (nonatomic, assign) NSInteger unmodifiedAmountOfSpoons;
 @property (nonatomic, assign) NSInteger amountOfSpoons;
 @property (nonatomic, assign) NSInteger carryOverSpoons;
 @property (nonatomic, strong) NSArray<NSUUID *> *spoonsIdentifiers;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (NSInteger)completedSpoons;
 - (NSInteger)plannedSpoons;
+- (NSInteger)completedSpoonSources;
 - (NSInteger)availableSpoons;
 - (NSDictionary *)dictionary;
 - (void)planAction:(DDHAction *)action;
