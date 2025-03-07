@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger carryOverSpoons;
 @property (nonatomic, strong) NSArray<NSUUID *> *spoonsIdentifiers;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (instancetype)initAmountOfSpoons:(NSInteger)amountOfSpoons plannedActions:(NSArray<DDHAction *> *)plannedActions completedActions:(NSArray<DDHAction *> *)completedActions;
 - (NSInteger)completedSpoons;
 - (NSInteger)plannedSpoons;
 - (NSInteger)completedSpoonSources;

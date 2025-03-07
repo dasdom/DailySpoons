@@ -30,6 +30,19 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
   return self;
 }
 
+- (instancetype)initAmountOfSpoons:(NSInteger)amountOfSpoons plannedActions:(NSArray<DDHAction *> *)plannedActions completedActions:(NSArray<DDHAction *> *)completedActions {
+  if (self = [super init]) {
+    _date = [NSDate now];
+    _carryOverSpoons = 0;
+
+    [self setAmountOfSpoons:amountOfSpoons];
+
+    _plannedActions = plannedActions;
+    _completedActions = completedActions;
+  }
+  return self;
+}
+
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
   if (self = [super init]) {
     NSTimeInterval timeInterval = [[dictionary valueForKey:dateKey] doubleValue];

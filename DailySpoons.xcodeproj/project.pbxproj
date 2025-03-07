@@ -53,16 +53,20 @@
 		F2CA90E12A2C802100B8B47F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2CA90E02A2C802100B8B47F /* WidgetKit.framework */; };
 		F2CA90E32A2C802100B8B47F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2CA90E22A2C802100B8B47F /* SwiftUI.framework */; };
 		F2CA90E62A2C802100B8B47F /* InfoWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90E52A2C802100B8B47F /* InfoWidgetsBundle.swift */; };
-		F2CA90E82A2C802100B8B47F /* InfoWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90E72A2C802100B8B47F /* InfoWidgets.swift */; };
+		F2CA90E82A2C802100B8B47F /* DotsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90E72A2C802100B8B47F /* DotsWidget.swift */; };
 		F2CA90EA2A2C802200B8B47F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2CA90E92A2C802200B8B47F /* Assets.xcassets */; };
 		F2CA90EE2A2C802200B8B47F /* InfoWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F2CA90DE2A2C802100B8B47F /* InfoWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F2CA90F32A2C80E100B8B47F /* DDHDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C6329FBB7150023DAD9 /* DDHDataStore.m */; };
 		F2CA90F52A2C88BE00B8B47F /* DDHDay.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5129F717730023DAD9 /* DDHDay.m */; };
 		F2CA90F62A2C8DC000B8B47F /* DDHAction.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C4E29F716150023DAD9 /* DDHAction.m */; };
 		F2CA90F72A2C8DFA00B8B47F /* NSUserDefaults+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = F2469C5529F71B470023DAD9 /* NSUserDefaults+Helper.m */; };
-		F2CA90FA2A2CFB7300B8B47F /* BugetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90F92A2CFB7300B8B47F /* BugetView.swift */; };
+		F2CA90FA2A2CFB7300B8B47F /* DotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90F92A2CFB7300B8B47F /* DotsView.swift */; };
 		F2CA90FD2A2D044D00B8B47F /* WidgetReloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90FC2A2D044D00B8B47F /* WidgetReloader.swift */; };
 		F2CA91022A2D1D8500B8B47F /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = F2CA91012A2D1D8500B8B47F /* RevenueCat */; };
+		F2E384242D7B47E5007375BF /* RectanglesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E384232D7B47E5007375BF /* RectanglesView.swift */; };
+		F2E384272D7B4845007375BF /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E384262D7B4845007375BF /* Provider.swift */; };
+		F2E384292D7B4893007375BF /* DayEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E384282D7B4893007375BF /* DayEntry.swift */; };
+		F2E3842B2D7B4C07007375BF /* RectanglesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E3842A2D7B4C07007375BF /* RectanglesWidget.swift */; };
 		F2F49A182A2A25AE00874BA9 /* DDHViewControllerMock.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F49A172A2A25AE00874BA9 /* DDHViewControllerMock.m */; };
 		F2F49A1A2A2A262F00874BA9 /* DDHAppCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F49A192A2A262F00874BA9 /* DDHAppCoordinatorTests.m */; };
 /* End PBXBuildFile section */
@@ -194,17 +198,21 @@
 		F2CA90E02A2C802100B8B47F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F2CA90E22A2C802100B8B47F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F2CA90E52A2C802100B8B47F /* InfoWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWidgetsBundle.swift; sourceTree = "<group>"; };
-		F2CA90E72A2C802100B8B47F /* InfoWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWidgets.swift; sourceTree = "<group>"; };
+		F2CA90E72A2C802100B8B47F /* DotsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsWidget.swift; sourceTree = "<group>"; };
 		F2CA90E92A2C802200B8B47F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F2CA90EB2A2C802200B8B47F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2CA90F42A2C812700B8B47F /* InfoWidgets-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InfoWidgets-Bridging-Header.h"; sourceTree = "<group>"; };
 		F2CA90F82A2C8EAE00B8B47F /* InfoWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InfoWidgetsExtension.entitlements; sourceTree = "<group>"; };
-		F2CA90F92A2CFB7300B8B47F /* BugetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugetView.swift; sourceTree = "<group>"; };
+		F2CA90F92A2CFB7300B8B47F /* DotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsView.swift; sourceTree = "<group>"; };
 		F2CA90FC2A2D044D00B8B47F /* WidgetReloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetReloader.swift; sourceTree = "<group>"; };
 		F2CA90FE2A2D05C400B8B47F /* DailySpoons-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DailySpoons-Bridging-Header.h"; sourceTree = "<group>"; };
 		F2CA90FF2A2D185500B8B47F /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		F2CA91032A2D222100B8B47F /* StoreKitConfig.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKitConfig.storekit; sourceTree = "<group>"; };
 		F2D8ED9F2A31ED64000C6102 /* Screenshots.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Screenshots.xctestplan; sourceTree = "<group>"; };
+		F2E384232D7B47E5007375BF /* RectanglesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectanglesView.swift; sourceTree = "<group>"; };
+		F2E384262D7B4845007375BF /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		F2E384282D7B4893007375BF /* DayEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEntry.swift; sourceTree = "<group>"; };
+		F2E3842A2D7B4C07007375BF /* RectanglesWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectanglesWidget.swift; sourceTree = "<group>"; };
 		F2F49A162A2A25AE00874BA9 /* DDHViewControllerMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHViewControllerMock.h; sourceTree = "<group>"; };
 		F2F49A172A2A25AE00874BA9 /* DDHViewControllerMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHViewControllerMock.m; sourceTree = "<group>"; };
 		F2F49A192A2A262F00874BA9 /* DDHAppCoordinatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHAppCoordinatorTests.m; sourceTree = "<group>"; };
@@ -487,8 +495,12 @@
 			isa = PBXGroup;
 			children = (
 				F2CA90E52A2C802100B8B47F /* InfoWidgetsBundle.swift */,
-				F2CA90E72A2C802100B8B47F /* InfoWidgets.swift */,
-				F2CA90F92A2CFB7300B8B47F /* BugetView.swift */,
+				F2CA90E72A2C802100B8B47F /* DotsWidget.swift */,
+				F2E3842A2D7B4C07007375BF /* RectanglesWidget.swift */,
+				F2E384282D7B4893007375BF /* DayEntry.swift */,
+				F2E384262D7B4845007375BF /* Provider.swift */,
+				F2CA90F92A2CFB7300B8B47F /* DotsView.swift */,
+				F2E384232D7B47E5007375BF /* RectanglesView.swift */,
 				F2CA90E92A2C802200B8B47F /* Assets.xcassets */,
 				F2CA90EB2A2C802200B8B47F /* Info.plist */,
 			);
@@ -732,11 +744,15 @@
 			files = (
 				F2CA90E62A2C802100B8B47F /* InfoWidgetsBundle.swift in Sources */,
 				F2CA90F52A2C88BE00B8B47F /* DDHDay.m in Sources */,
-				F2CA90E82A2C802100B8B47F /* InfoWidgets.swift in Sources */,
-				F2CA90FA2A2CFB7300B8B47F /* BugetView.swift in Sources */,
+				F2E384242D7B47E5007375BF /* RectanglesView.swift in Sources */,
+				F2CA90E82A2C802100B8B47F /* DotsWidget.swift in Sources */,
+				F2E384272D7B4845007375BF /* Provider.swift in Sources */,
+				F2CA90FA2A2CFB7300B8B47F /* DotsView.swift in Sources */,
 				F2CA90F32A2C80E100B8B47F /* DDHDataStore.m in Sources */,
+				F2E3842B2D7B4C07007375BF /* RectanglesWidget.swift in Sources */,
 				F2CA90F62A2C8DC000B8B47F /* DDHAction.m in Sources */,
 				F2CA90F72A2C8DFA00B8B47F /* NSUserDefaults+Helper.m in Sources */,
+				F2E384292D7B4893007375BF /* DayEntry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -907,7 +923,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DailySpoons/DailySpoons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailySpoons/Info.plist;
@@ -919,7 +935,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
@@ -945,7 +961,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DailySpoons/DailySpoons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailySpoons/Info.plist;
@@ -957,7 +973,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
@@ -1056,7 +1072,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = InfoWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InfoWidgets/Info.plist;
@@ -1068,7 +1084,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons.InfoWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1089,7 +1105,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = InfoWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InfoWidgets/Info.plist;
@@ -1101,7 +1117,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons.InfoWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

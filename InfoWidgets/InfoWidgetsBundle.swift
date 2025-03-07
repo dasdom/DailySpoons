@@ -8,7 +8,8 @@ import SwiftUI
 
 @main
 struct InfoWidgetsBundle: WidgetBundle {
-    var body: some Widget {
-        InfoWidgets()
-    }
+  var body: some Widget {
+    DotsWidget()
+    RectanglesWidget()
+  }
 }
