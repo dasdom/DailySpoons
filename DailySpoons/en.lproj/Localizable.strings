@@ -34,13 +34,14 @@
 "dayPlanner.spoonsCompleted" = "spoons completed";
 "dayPlanner.spoonsUncompleted" = "spoons uncompleted";
 
-"actionStore.title" = "My spoon sinks";
+"actionStore.title" = "My spoon sinks/sources";
 "actionStore.unplanned" = "Unplanned";
 "actionStore.planned" = "Planned";
 "actionStore.edit" = "Edit";
 "actionStore.delete" = "Delete";
 
 "actionInput.title" = "New action";
+"actionInput.editTitle" = "Edit action";
 "actionInput.namePlaceholder" = "Action name";
 "actionInput.save" = "Save";
 "actionInput.spoonAmount" = "Spoons: %.0lf";

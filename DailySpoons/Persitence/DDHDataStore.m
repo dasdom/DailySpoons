@@ -21,25 +21,25 @@
 }
 
 - (void)addAction:(DDHAction *)action {
-  [self setActions:[[self actions] arrayByAddingObject:action]];
-  [self saveActions:[self actions]];
+  self.actions = [self.actions arrayByAddingObject:action];
+  [self saveActions:self.actions];
 }
 
 - (void)removeAction:(DDHAction *)action {
-  NSMutableArray<DDHAction *> *actions = [[self actions] mutableCopy];
+  NSMutableArray<DDHAction *> *actions = [self.actions mutableCopy];
   [actions removeObject:action];
-  [self setActions:[actions copy]];
+  self.actions = [actions copy];
 }
 
 - (void)saveData {
-  [self saveDay:[self day]];
-  [self saveActions:[self actions]];
+  [self saveDay:self.day];
+  [self saveActions:self.actions];
 }
 
 - (DDHAction *)actionForId:(NSUUID *)actionId {
   __block DDHAction *foundAction;
-  [[self actions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
-    if ([[action actionId] isEqual:actionId]) {
+  [self.actions enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+    if ([action.actionId isEqual:actionId]) {
       foundAction = action;
       *stop = YES;
     }
@@ -58,7 +58,9 @@
       DDHAction *action = [[DDHAction alloc] initWithDictionary:dictionary];
       [actions addObject:action];
     }];
-    NSLog(@"JSON error: %@", jsonError);
+    if (jsonError) {
+      NSLog(@"JSON error: %@", jsonError);
+    }
     return [actions copy];
   } else {
     return [[NSArray alloc] init];
@@ -75,7 +77,7 @@
 - (NSURL *)actionsURL {
   NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
   NSURL *url = [documentsURL URLByAppendingPathComponent:@"actions.json"];
-  NSLog(@"url: %@", url);
+//  NSLog(@"url: %@", url);
   return url;
 }
 
@@ -84,7 +86,9 @@
   if (data != nil) {
     NSError *jsonError = nil;
     NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-    NSLog(@"JSON error: %@", jsonError);
+    if (jsonError) {
+      NSLog(@"JSON error: %@", jsonError);
+    }
     return [[DDHDay alloc] initWithDictionary:jsonDictionary];
   } else {
     return [[DDHDay alloc] init];
@@ -94,7 +98,9 @@
 - (void)saveDay:(DDHDay *)day {
   NSError *jsonError = nil;
   NSData *data = [NSJSONSerialization dataWithJSONObject:[day dictionary] options:0 error:&jsonError];
-  NSLog(@"JSON error: %@", jsonError);
+  if (jsonError) {
+    NSLog(@"JSON error: %@", jsonError);
+  }
   [data writeToURL:[self dayURL] atomically:YES];
 }
 

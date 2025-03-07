@@ -33,13 +33,14 @@
 "dayPlanner.spoonsCompleted" = "Löffel erledigt";
 "dayPlanner.spoonsUncompleted" = "Löffel nicht erledigt";
 
-"actionStore.title" = "Meine Löffelsenken";
+"actionStore.title" = "Meine Löffelsenken/-quellen";
 "actionStore.unplanned" = "Ungeplant";
 "actionStore.planned" = "Geplant";
 "actionStore.edit" = "Ändern";
 "actionStore.delete" = "Löschen";
 
 "actionInput.title" = "Neue Aktion";
+"actionInput.editTitle" = "Aktion anpassen";
 "actionInput.namePlaceholder" = "Aktionsname";
 "actionInput.save" = "Speichern";
 "actionInput.spoonAmount" = "Löffel: %.0lf";

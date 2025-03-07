@@ -41,8 +41,14 @@
   [[contentView saveButton] addTarget:self action:@selector(save:) forControlEvents:UIControlEventTouchUpInside];
   [[contentView textField] setDelegate:self];
   if ([self editableAction]) {
+    NSInteger spoons = [[self editableAction] spoons];
+    if (spoons < 0) {
+      [[contentView stepper] setValue:-spoons];
+      [[contentView typeSegmentedControl] setSelectedSegmentIndex:1];
+    } else {
+      [[contentView stepper] setValue:spoons];
+    }
     [[contentView textField] setText:[[self editableAction] name]];
-    [[contentView stepper] setValue:[[self editableAction] spoons]];
   } else if ([[self name] length] > 0) {
     [[contentView textField] setText:[self name]];
   }
@@ -60,7 +66,11 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  [self setTitle:NSLocalizedString(@"actionInput.title", nil)];
+  if ([self editableAction]) {
+    [self setTitle:NSLocalizedString(@"actionInput.editTitle", nil)];
+  } else {
+    [self setTitle:NSLocalizedString(@"actionInput.title", nil)];
+  }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

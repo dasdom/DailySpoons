@@ -52,7 +52,8 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
     }];
     _plannedActions = [plannedActions copy];
 
-    _unmodifiedAmountOfSpoons = [[dictionary valueForKey:amountOfSpoonsKey] integerValue];
+    NSInteger amountOfSpoons = [[dictionary valueForKey:amountOfSpoonsKey] integerValue];
+    [self setAmountOfSpoons:amountOfSpoons];
   }
   return self;
 }

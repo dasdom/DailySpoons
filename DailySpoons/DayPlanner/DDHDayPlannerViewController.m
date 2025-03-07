@@ -39,31 +39,31 @@
 }
 
 - (void)loadView {
-  DDHDayPlannerView *contentView = [[DDHDayPlannerView alloc] initWithFrame:[[UIScreen mainScreen] bounds] collectionViewLayout:[DDHCollectionViewLayoutProvider layoutWithTrailingSwipeActionsConfigurationProvider:^UISwipeActionsConfiguration * _Nullable(NSIndexPath * _Nonnull indexPath) {
+  DDHDayPlannerView *contentView = [[DDHDayPlannerView alloc] initWithFrame:CGRectZero collectionViewLayout:[DDHCollectionViewLayoutProvider layoutWithTrailingSwipeActionsConfigurationProvider:^UISwipeActionsConfiguration * _Nullable(NSIndexPath * _Nonnull indexPath) {
 
-    NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
-    DDHAction *action = [[self dataStore] actionForId:actionId];
+    NSUUID *actionId = [self.dataSource itemIdentifierForIndexPath:indexPath];
+    DDHAction *action = [self.dataStore actionForId:actionId];
 
     return [UISwipeActionsConfiguration configurationWithActions:@[[self contextualUnplanActionWithAction:action], [self contextualEditActionWithAction:action]]];
   }]];
-  [self setView:contentView];
+  self.view = contentView;
 }
 
 - (DDHDayPlannerView *)contentView {
-  return (DDHDayPlannerView *)[self view];
+  return (DDHDayPlannerView *)self.view;
 }
 
 - (void)viewDidLoad {
   [super viewDidLoad];
 
   UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"arrow.counterclockwise"] style:UIBarButtonItemStylePlain target:self action:@selector(reset:)];
-  [resetButton setAccessibilityLabel:NSLocalizedString(@"dayPlanner.reset", nil)];
-  [[self navigationItem] setRightBarButtonItem:resetButton];
+  resetButton.accessibilityLabel = NSLocalizedString(@"dayPlanner.reset", nil);
+  self.navigationItem.rightBarButtonItem = resetButton;
 
   UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(didSelectSettings:)];
-  [[self navigationItem] setLeftBarButtonItem:settingsButton];
+  self.navigationItem.leftBarButtonItem = settingsButton;
 
-  UICollectionView *collectionView = [[self contentView] collectionView];
+  UICollectionView *collectionView = self.contentView.collectionView;
   [self setupCollectionView:collectionView];
 
   UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
@@ -73,80 +73,80 @@
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
 
-  DDHDay *day = [[self dataStore] day];
+  DDHDay *day = self.dataStore.day;
   NSCalendar *calendar = [NSCalendar currentCalendar];
-  if (NO == [calendar isDate:[day date] inSameDayAsDate:[NSDate now]]) {
-    [day resetWithDailySpoons:[[NSUserDefaults standardUserDefaults] dailySpoons]];
+  if (NO == [calendar isDate:day.date inSameDayAsDate:[NSDate now]]) {
+    [day resetWithDailySpoons:[NSUserDefaults.standardUserDefaults dailySpoons]];
   }
-  [self updateWithDay:[[self dataStore] day]];
+  [self updateWithDay:self.dataStore.day];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
 
-  if (NO == [[NSUserDefaults standardUserDefaults] onboardingShown]) {
+  if (NO == [NSUserDefaults.standardUserDefaults onboardingShown]) {
     [self showOverlay];
   }
 }
 
 - (void)showOverlay {
   DDHDayPlannerView *contentView = [self contentView];
-  _overlayView = [[DDHOnboardingOverlayView alloc] initWithFrame:[contentView frame]];
+  _overlayView = [[DDHOnboardingOverlayView alloc] initWithFrame:contentView.frame];
   [[_overlayView nextButton] addTarget:self action:@selector(nextOnboarding:) forControlEvents:UIControlEventTouchUpInside];
   [contentView addSubview:_overlayView];
 
   [self nextOnboarding:nil];
 
-  [[[self navigationController] navigationBar] setUserInteractionEnabled:NO];
-  [[[self navigationController] navigationBar] setAccessibilityElementsHidden:YES];
-  [[[self contentView] collectionView] setUserInteractionEnabled:NO];
-  [[[self contentView] collectionView] setAccessibilityElementsHidden:YES];
+  self.navigationController.navigationBar.userInteractionEnabled = NO;
+  self.navigationController.navigationBar.accessibilityElementsHidden = YES;
+  self.contentView.collectionView.userInteractionEnabled = NO;
+  self.contentView.collectionView.accessibilityElementsHidden = YES;
 }
 
 - (void)nextOnboarding:(UIButton *)sender {
   DDHDayPlannerView *contentView = [self contentView];
 
-  switch ([self onboardingState]) {
+  switch (self.onboardingState) {
     case DDHOnboardingStateSpoonBudget:
     {
-      DDHSpoonsFooterView *spoonsFooterView = (DDHSpoonsFooterView *)[[[self contentView] collectionView] supplementaryViewForElementKind:ELEMENT_KIND_SECTION_FOOTER atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-      CGFloat yPos = CGRectGetMaxY([spoonsFooterView frame]) + [contentView layoutMargins].top;
-      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.spoonBudget", nil) alignment:UIStackViewAlignmentCenter];
+      DDHSpoonsFooterView *spoonsFooterView = (DDHSpoonsFooterView *)[[self contentView].collectionView supplementaryViewForElementKind:ELEMENT_KIND_SECTION_FOOTER atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+      CGFloat yPos = CGRectGetMaxY(spoonsFooterView.frame) + contentView.layoutMargins.top;
+      [self.overlayView updateFrameWithSuperViewFrame:contentView.frame yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.spoonBudget", nil) alignment:UIStackViewAlignmentCenter];
       break;
     }
     case DDHOnboardingStateSettings:
     {
-      CGFloat yPos = [contentView layoutMargins].top;
-      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.settings", nil) alignment:UIStackViewAlignmentLeading];
+      CGFloat yPos = contentView.layoutMargins.top;
+      [self.overlayView updateFrameWithSuperViewFrame:contentView.frame yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.settings", nil) alignment:UIStackViewAlignmentLeading];
       break;
     }
     case DDHOnboardingStateActions:
     {
-      DDHActionsHeaderView *actionHeaderView = (DDHActionsHeaderView *)[[[self contentView] collectionView] supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
-      CGFloat yPos = CGRectGetMaxY([actionHeaderView frame]) + [contentView layoutMargins].top;
-      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.actions", nil) alignment:UIStackViewAlignmentTrailing];
+      DDHActionsHeaderView *actionHeaderView = (DDHActionsHeaderView *)[[self contentView].collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+      CGFloat yPos = CGRectGetMaxY(actionHeaderView.frame) + contentView.layoutMargins.top;
+      [self.overlayView updateFrameWithSuperViewFrame:contentView.frame yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.actions", nil) alignment:UIStackViewAlignmentTrailing];
       break;
     }
     case DDHOnboardingStateReload:
     {
-      CGFloat yPos = [contentView layoutMargins].top;
-      [[self overlayView] updateFrameWithSuperViewFrame:[contentView frame] yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.reload", nil) alignment:UIStackViewAlignmentTrailing];
-      [[[self overlayView] nextButton] setTitle:NSLocalizedString(@"onboarding.done", nil) forState:UIControlStateNormal];
+      CGFloat yPos = contentView.layoutMargins.top;
+      [self.overlayView updateFrameWithSuperViewFrame:contentView.frame yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.reload", nil) alignment:UIStackViewAlignmentTrailing];
+      [self.overlayView.nextButton setTitle:NSLocalizedString(@"onboarding.done", nil) forState:UIControlStateNormal];
       break;
     }
     default:
-      [[NSUserDefaults standardUserDefaults] setOnboardingShown:YES];
+      [NSUserDefaults.standardUserDefaults setOnboardingShown:YES];
 
       [UIView animateWithDuration:0.3 animations:^{
-        [[self overlayView] setAlpha:0];
+        self.overlayView.alpha = 0;
       } completion:^(BOOL finished) {
-        [[self overlayView] removeFromSuperview];
-        [self setOnboardingState:DDHOnboardingStateSpoonBudget];
+        [self.overlayView removeFromSuperview];
+        self.onboardingState = DDHOnboardingStateSpoonBudget;
 
-        [[[self navigationController] navigationBar] setUserInteractionEnabled:YES];
-        [[[self navigationController] navigationBar] setAccessibilityElementsHidden:NO];
-        [[[self contentView] collectionView] setUserInteractionEnabled:YES];
-        [[[self contentView] collectionView] setAccessibilityElementsHidden:NO];
+        self.navigationController.navigationBar.userInteractionEnabled = YES;
+        self.navigationController.navigationBar.accessibilityElementsHidden = NO;
+        self.contentView.collectionView.userInteractionEnabled = YES;
+        self.contentView.collectionView.accessibilityElementsHidden = NO;
       }];
       break;
   }
@@ -155,7 +155,7 @@
 }
 
 - (void)setupCollectionView:(UICollectionView *)collectionView {
-  [collectionView setDelegate:self];
+  collectionView.delegate = self;
 
   [collectionView registerClass:[DDHSpoonCell class] forCellWithReuseIdentifier:[DDHSpoonCell identifier]];
   [collectionView registerClass:[DDHActionCell class] forCellWithReuseIdentifier:[DDHActionCell identifier]];
@@ -163,15 +163,15 @@
   [collectionView registerClass:[DDHSpoonsFooterView class] forSupplementaryViewOfKind:ELEMENT_KIND_SECTION_FOOTER withReuseIdentifier:[DDHSpoonsFooterView identifier]];
   [collectionView registerClass:[DDHActionsHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[DDHActionsHeaderView identifier]];
 
-  DDHDay *day = [[self dataStore] day];
+  DDHDay *day = self.dataStore.day;
 
   UICollectionViewCellRegistration *spoonCellRegistration = [DDHCellRegistrationProvider spoonCellRegistration:day];
 
-  UICollectionViewCellRegistration *actionCellRegistration = [DDHCellRegistrationProvider actionCellRegistration:[self dataStore]];
+  UICollectionViewCellRegistration *actionCellRegistration = [DDHCellRegistrationProvider actionCellRegistration:self.dataStore];
 
   UICollectionViewDiffableDataSource *dataSource = [[UICollectionViewDiffableDataSource alloc] initWithCollectionView:collectionView cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id _Nonnull itemIdentifier) {
     UICollectionViewCell *cell;
-    switch ([indexPath section]) {
+    switch (indexPath.section) {
       case DDHDayPlannerSectionSpoons:
         cell = [collectionView dequeueConfiguredReusableCellWithRegistration:spoonCellRegistration forIndexPath:indexPath item:itemIdentifier];
         break;
@@ -181,38 +181,38 @@
     }
     return cell;
   }];
-  [self setDataSource:dataSource];
+  self.dataSource = dataSource;
 
   [dataSource setSupplementaryViewProvider:^UICollectionReusableView * _Nullable(UICollectionView * _Nonnull collectionView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
-    if ([indexPath section] == 0) {
+    if (indexPath.section == 0) {
       if ([elementKind isEqualToString:ELEMENT_KIND_SECTION_HEADER]) {
         DDHSpoonsHeaderView *spoonsHeaderView = [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:[DDHSpoonsHeaderView identifier] forIndexPath:indexPath];
         return spoonsHeaderView;
       } else {
         DDHSpoonsFooterView *spoonsFooterView = [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:[DDHSpoonsFooterView identifier] forIndexPath:indexPath];
-        [self setSpoonsAmountLabel:[spoonsFooterView label]];
+        self.spoonsAmountLabel = spoonsFooterView.label;
         [self updateSpoonsAmount];
         return spoonsFooterView;
       }
     } else {
       DDHActionsHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:[DDHActionsHeaderView identifier] forIndexPath:indexPath];
-      [[headerView addButton] removeTarget:self action:@selector(add:) forControlEvents:UIControlEventTouchUpInside];
-      [[headerView addButton] addTarget:self action:@selector(add:) forControlEvents:UIControlEventTouchUpInside];
+      [headerView.addButton removeTarget:self action:@selector(add:) forControlEvents:UIControlEventTouchUpInside];
+      [headerView.addButton addTarget:self action:@selector(add:) forControlEvents:UIControlEventTouchUpInside];
       return headerView;
     }
   }];
 
-  [[dataSource reorderingHandlers] setCanReorderItemHandler:^BOOL(id _Nonnull itemIdentifier) {
-    return (NO == [[day spoonsIdentifiers] containsObject:itemIdentifier]);
-  }];
+  dataSource.reorderingHandlers.canReorderItemHandler = ^BOOL(id _Nonnull itemIdentifier) {
+    return (NO == [day.spoonsIdentifiers containsObject:itemIdentifier]);
+  };
 
-  [[dataSource reorderingHandlers] setDidReorderHandler:^(NSDiffableDataSourceTransaction<NSNumber *, NSUUID *> * _Nonnull transaction) {
-    NSInteger numberOfSpoons = [[day spoonsIdentifiers] count];
+  dataSource.reorderingHandlers.didReorderHandler = ^(NSDiffableDataSourceTransaction<NSNumber *, NSUUID *> * _Nonnull transaction) {
+    NSInteger numberOfSpoons = [day.spoonsIdentifiers count];
     NSInteger finalIndex = transaction.difference.insertions.firstObject.index - numberOfSpoons;
     NSInteger initialIndex = transaction.difference.insertions.firstObject.associatedIndex - numberOfSpoons;
     [day movePlannedActionFromIndex:initialIndex toFinalIndex:finalIndex];
-    [[self dataStore] saveData];
-  }];
+    [self.dataStore saveData];
+  };
 }
 
 - (void)updateWithDay:(DDHDay *)day {
@@ -221,26 +221,26 @@
     [NSNumber numberWithInteger:DDHDayPlannerSectionSpoons],
     [NSNumber numberWithInteger:DDHDayPlannerSectionActions]
   ]];
-  [snapshot appendItemsWithIdentifiers:[day spoonsIdentifiers] intoSectionWithIdentifier:[NSNumber numberWithInteger:DDHDayPlannerSectionSpoons]];
-  [snapshot appendItemsWithIdentifiers:[day idsOfPlannedActions] intoSectionWithIdentifier:[NSNumber numberWithInteger:DDHDayPlannerSectionActions]];
-  [[self dataSource] applySnapshot:snapshot animatingDifferences:YES];
+  [snapshot appendItemsWithIdentifiers:day.spoonsIdentifiers intoSectionWithIdentifier:@(DDHDayPlannerSectionSpoons)];
+  [snapshot appendItemsWithIdentifiers:day.idsOfPlannedActions intoSectionWithIdentifier:@(DDHDayPlannerSectionActions)];
+  [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
   [self updateSpoonsAmount];
 }
 
 - (void)reload {
-  NSDiffableDataSourceSnapshot *snapshot = [[self dataSource] snapshot];
-  [snapshot reconfigureItemsWithIdentifiers:[snapshot itemIdentifiers]];
-  [[self dataSource] applySnapshot:snapshot animatingDifferences:YES];
+  NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
+  [snapshot reconfigureItemsWithIdentifiers:snapshot.itemIdentifiers];
+  [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
 
   [WidgetContentLoader reloadWidgetContent];
 }
 
 // MARK: - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-  if ([indexPath section] == 1) {
-    NSUUID *actionId = [[self dataSource] itemIdentifierForIndexPath:indexPath];
-    DDHAction *action = [[self dataStore] actionForId:actionId];
-    DDHDay *day = [[self dataStore] day];
+  if (indexPath.section == 1) {
+    NSUUID *actionId = [self.dataSource itemIdentifierForIndexPath:indexPath];
+    DDHAction *action = [self.dataStore actionForId:actionId];
+    DDHDay *day = self.dataStore.day;
     DDHActionState actionState = [day actionStateForAction:action];
     if (actionState == DDHActionStateCompleted) {
       [day uncompleteAction:action];
@@ -250,11 +250,11 @@
     UISelectionFeedbackGenerator *feedbackGenerator = [[UISelectionFeedbackGenerator alloc] init];
     [feedbackGenerator prepare];
     [feedbackGenerator selectionChanged];
-    [[self dataStore] saveData];
+    [self.dataStore saveData];
 
-    NSDiffableDataSourceSnapshot *snapshot = [[self dataSource] snapshot];
-    [snapshot reconfigureItemsWithIdentifiers:[snapshot itemIdentifiers]];
-    [[self dataSource] applySnapshot:snapshot animatingDifferences:NO];
+    NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
+    [snapshot reconfigureItemsWithIdentifiers:snapshot.itemIdentifiers];
+    [self.dataSource applySnapshot:snapshot animatingDifferences:NO];
 
     [self updateSpoonsAmount];
 
@@ -263,47 +263,47 @@
 }
 
 - (void)updateSpoonsAmount {
-  DDHDay *day = [[self dataStore] day];
+  DDHDay *day = self.dataStore.day;
   NSString *footerString;
-  if ([day carryOverSpoons] > 0) {
-    footerString = [NSString stringWithFormat:NSLocalizedString(@"dayPlanner.spoonAmounts.withCarryOver", nil), [day plannedSpoons], [day carryOverSpoons], [day amountOfSpoons], [day completedSpoons], [day carryOverSpoons], [day amountOfSpoons]];
+  if (day.carryOverSpoons > 0) {
+    footerString = [NSString stringWithFormat:NSLocalizedString(@"dayPlanner.spoonAmounts.withCarryOver", nil), day.plannedSpoons, day.carryOverSpoons, day.amountOfSpoons, day.completedSpoons, day.carryOverSpoons, day.amountOfSpoons];
   } else {
-    footerString = [NSString stringWithFormat:NSLocalizedString(@"dayPlanner.spoonAmounts.withoutCarryOver", nil), [day plannedSpoons], [day amountOfSpoons], [day completedSpoons], [day amountOfSpoons]];
+    footerString = [NSString stringWithFormat:NSLocalizedString(@"dayPlanner.spoonAmounts.withoutCarryOver", nil), day.plannedSpoons, day.amountOfSpoons, day.completedSpoons, day.amountOfSpoons];
   }
-  BOOL spoonDeficit = ([day plannedSpoons] - [day carryOverSpoons]) > [day amountOfSpoons];
+  BOOL spoonDeficit = (day.plannedSpoons - day.carryOverSpoons) > day.amountOfSpoons;
   if (spoonDeficit) {
-    [[self spoonsAmountLabel] setTextColor:[UIColor systemRedColor]];
+    self.spoonsAmountLabel.textColor = UIColor.systemRedColor;
   } else {
-    [[self spoonsAmountLabel] setTextColor:[UIColor labelColor]];
+    self.spoonsAmountLabel.textColor = UIColor.labelColor;
   }
-  [[self spoonsAmountLabel] setText:footerString];
+  self.spoonsAmountLabel.text = footerString;
 }
 
 // MARK: - Actions
 - (void)add:(UIButton *)sender {
-  [[self delegate] didSelectAddButtonInViewController:self];
+  [self.delegate didSelectAddButtonInViewController:self];
 }
 
 - (void)reset:(UIBarButtonItem *)sender {
-  DDHDay *day = [[self dataStore] day];
-  [day resetWithDailySpoons:[[NSUserDefaults standardUserDefaults] dailySpoons]];
+  DDHDay *day = self.dataStore.day;
+  [day resetWithDailySpoons:[NSUserDefaults.standardUserDefaults dailySpoons]];
 
-  [[self dataStore] saveData];
+  [self.dataStore saveData];
 
   [self updateWithDay:day];
 
-  NSDiffableDataSourceSnapshot *snapshot = [[self dataSource] snapshot];
-  [snapshot reconfigureItemsWithIdentifiers:[snapshot itemIdentifiers]];
-  [[self dataSource] applySnapshot:snapshot animatingDifferences:YES];
+  NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
+  [snapshot reconfigureItemsWithIdentifiers:snapshot.itemIdentifiers];
+  [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
 
   [self updateSpoonsAmount];
 }
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)sender {
 
-  UICollectionView *collectionView = [[self contentView] collectionView];
+  UICollectionView *collectionView = [self.contentView collectionView];
 
-  switch ([sender state]) {
+  switch (sender.state) {
     case UIGestureRecognizerStateBegan:
     {
       NSIndexPath *indexPath = [collectionView indexPathForItemAtPoint:[sender locationInView:collectionView]];
@@ -327,15 +327,15 @@
 }
 
 - (void)didSelectSettings:(UIBarButtonItem *)sender {
-  [[self delegate] didSelectSettingsButtonInViewController:self];
+  [self.delegate didSelectSettingsButtonInViewController:self];
 }
 
 - (UIContextualAction *)contextualUnplanActionWithAction:(DDHAction *)action {
   return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"dayPlanner.unplan", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
 
-    DDHDay *day = [[self dataStore] day];
+    DDHDay *day = self.dataStore.day;
     [day unplanAction:action];
-    [[self dataStore] saveData];
+    [self.dataStore saveData];
     [self updateWithDay:day];
 
     [WidgetContentLoader reloadWidgetContent];
@@ -345,7 +345,7 @@
 - (UIContextualAction *)contextualEditActionWithAction:(DDHAction *)action {
   return [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"dayPlanner.edit", nil) handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
 
-    [[self delegate] editActionFromViewController:self action:action];
+    [self.delegate editActionFromViewController:self action:action];
     completionHandler(true);
   }];
 }

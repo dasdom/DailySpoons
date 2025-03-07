@@ -20,25 +20,25 @@ NSString * const spoonsKey = @"spoonsKey";
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
   if (self = [super init]) {
-    NSString *actionIdString = [dictionary valueForKey:actionIdKey];
+    NSString *actionIdString = dictionary[actionIdKey];
     _actionId = [[NSUUID alloc] initWithUUIDString:actionIdString];
-    _name = [dictionary valueForKey:nameKey];
-    _spoons = [[dictionary valueForKey:spoonsKey] integerValue];
+    _name = dictionary[nameKey];
+    _spoons = [dictionary[spoonsKey] integerValue];
   }
   return self;
 }
 
 - (NSDictionary *)dictionary {
   NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
-  NSString *actionIdString = [[self actionId] UUIDString];
-  [dictionary setObject:actionIdString forKey:actionIdKey];
-  [dictionary setObject:[self name] forKey:nameKey];
-  [dictionary setObject:[NSNumber numberWithInteger:[self spoons]] forKey:spoonsKey];
+  NSString *actionIdString = [self.actionId UUIDString];
+  dictionary[actionIdKey] = actionIdString;
+  dictionary[nameKey] = self.name;
+  dictionary[spoonsKey] = @(self.spoons);
   return [dictionary copy];
 }
 
 - (BOOL)isEqual:(DDHAction *)object {
-  if (NO == [[self actionId] isEqual:[object actionId]]) {
+  if (NO == [self.actionId isEqual:object.actionId]) {
     return NO;
   }
   return YES;
@@ -46,9 +46,9 @@ NSString * const spoonsKey = @"spoonsKey";
 
 - (NSString *)description {
   return [@[
-    [NSString stringWithFormat:@"%@", [self actionId]],
-    [self name],
-    [NSString stringWithFormat:@"%ld", (long)[self spoons]]
+    [NSString stringWithFormat:@"%@", self.actionId],
+    self.name,
+    [NSString stringWithFormat:@"%ld", (long)self.spoons]
   ] componentsJoinedByString:@", "];
 }
 @end

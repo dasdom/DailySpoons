@@ -35,9 +35,10 @@ struct DayEntry: TimelineEntry {
 
 struct InfoWidgetsEntryView : View {
   var entry: Provider.Entry
+  @Environment(\.widgetFamily) var family
 
   var body: some View {
-    BudgetView(day: entry.day)
+    BudgetView(day: entry.day, numberOfColumns: family == .systemSmall ? 4 : 6)
   }
 }
 

@@ -27,17 +27,17 @@
 }
 
 - (void)start {
-  DDHDayPlannerViewController *next = [[DDHDayPlannerViewController alloc] initWithDelegate:self dataStore:[self dataStore]];
-  [[self navigationController] pushViewController:next animated:NO];
+  DDHDayPlannerViewController *next = [[DDHDayPlannerViewController alloc] initWithDelegate:self dataStore:self.dataStore];
+  [self.navigationController pushViewController:next animated:NO];
 }
 
 - (UIViewController *)currentViewController {
-  return [self navigationController];
+  return self.navigationController;
 }
 
 // MARK: - DDHDayPlannerViewControllerProtocol/DDHActionInputViewControllerProtocol
 - (void)didSelectAddButtonInViewController:(UIViewController *)viewController {
-  DDHActionStoreViewController *store = [[DDHActionStoreViewController alloc] initWithDelegate:self dataStore:[self dataStore]];
+  DDHActionStoreViewController *store = [[DDHActionStoreViewController alloc] initWithDelegate:self dataStore:self.dataStore];
   UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:store];
 
   UISheetPresentationController *sheet = navigationController.sheetPresentationController;
@@ -50,7 +50,7 @@
 }
 
 - (void)didSelectAddButtonInViewController:(UIViewController *)viewController name:(NSString *)name {
-  DDHActionInputViewController *input = [[DDHActionInputViewController alloc] initWithDelegate:self dataStore:[self dataStore] name:name];
+  DDHActionInputViewController *input = [[DDHActionInputViewController alloc] initWithDelegate:self dataStore:self.dataStore name:name];
   UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:input];
 
   UISheetPresentationController *sheet = navigationController.sheetPresentationController;
@@ -63,7 +63,7 @@
 }
 
 - (void)editActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action {
-  DDHActionInputViewController *input = [[DDHActionInputViewController alloc] initWithDelegate:self dataStore:[self dataStore] editableAction:action];
+  DDHActionInputViewController *input = [[DDHActionInputViewController alloc] initWithDelegate:self dataStore:self.dataStore editableAction:action];
   UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:input];
 
   UISheetPresentationController *sheet = navigationController.sheetPresentationController;
@@ -93,26 +93,28 @@
 // MARK: - DDHActionInputViewControllerProtocol
 - (void)addActionFromViewController:(UIViewController *)viewController action:(DDHAction *)action {
   if ([viewController isKindOfClass:[DDHActionInputViewController class]]) {
-    [[self dataStore] addAction:action];
+    [self.dataStore addAction:action];
   }
-  [[[self dataStore] day] planAction:action];
-  [[self dataStore] saveData];
+  [self.dataStore.day planAction:action];
+  [self.dataStore saveData];
 
-  DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)[[self navigationController] topViewController];
-  [dayPlanner updateWithDay:[[self dataStore] day]];
+  DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)self.navigationController.topViewController;
+  [dayPlanner updateWithDay:self.dataStore.day];
   [dayPlanner reload];
   [dayPlanner dismissViewControllerAnimated:true completion:nil];
 }
 
 - (void)editDoneInViewController:(UIViewController *)viewController action:(DDHAction *)action {
-  DDHDay *day = [[self dataStore] day];
-  if ([[day idsOfPlannedActions] containsObject:[action actionId]]) {
+  DDHDay *day = self.dataStore.day;
+  if ([day.idsOfPlannedActions containsObject:action.actionId]) {
     [day updateAction:action];
   }
-  [[self dataStore] saveData];
-  DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)[[self navigationController] topViewController];
+  [self.dataStore saveData];
+
+  DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)self.navigationController.topViewController;
   [dayPlanner reload];
-  UIViewController *presentedViewController = [(UINavigationController *)[dayPlanner presentedViewController] topViewController];
+
+  UIViewController *presentedViewController = ((UINavigationController *)dayPlanner.presentedViewController).topViewController;
   if ([presentedViewController respondsToSelector:@selector(reload)]) {
     [presentedViewController performSelector:@selector(reload)];
   }
@@ -123,16 +125,16 @@
 
 // MARK: - DDHSettingsViewControllerProtocol
 - (void)dailySpoonsChangedInViewController:(UIViewController *)viewController amountOfSpoons:(NSInteger)spoons {
-  DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)[[self navigationController] topViewController];
-  DDHDay *day = [[self dataStore] day];
+  DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)self.navigationController.topViewController;
+  DDHDay *day = self.dataStore.day;
   [day setAmountOfSpoons:spoons];
   [dayPlanner updateWithDay:day];
-  [[self dataStore] saveData];
+  [self.dataStore saveData];
   [dayPlanner reload];
 }
 
 - (void)onboardingDidResetInViewController:(UIViewController *)viewController {
-  DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)[[self navigationController] topViewController];
+  DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)self.navigationController.topViewController;
   [viewController dismissViewControllerAnimated:true completion:^{
     [dayPlanner showOverlay];
   }];

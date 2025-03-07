@@ -11,11 +11,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-  [[NSUserDefaults standardUserDefaults] registerDefaults:@{
-    ddh_dailySpoonsKey: [NSNumber numberWithInteger:12]
-  }];
+  [NSUserDefaults.standardUserDefaults registerDefaults:@{ddh_dailySpoonsKey: @12}];
 
-  NSString *apiKey = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"RevenueCatKey"];
+  NSString *apiKey = [NSBundle.mainBundle.infoDictionary valueForKey:@"RevenueCatKey"];
   if (apiKey) {
     [RCPurchases setLogLevel:RCLogLevelVerbose];
     [RCPurchases configureWithAPIKey:apiKey];

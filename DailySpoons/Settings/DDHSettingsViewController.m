@@ -23,34 +23,34 @@
 
 - (void)loadView {
   DDHSettingsView *contentView = [[DDHSettingsView alloc] init];
-  [[contentView dailySpoonsStepper] addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
-  [[contentView dailySpoonsStepper] setValue:[[NSUserDefaults standardUserDefaults] dailySpoons]];
-  [[contentView tipButton] addTarget:self action:@selector(purchase:) forControlEvents:UIControlEventTouchUpInside];
+  [contentView.dailySpoonsStepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
+  contentView.dailySpoonsStepper.value = NSUserDefaults.standardUserDefaults.dailySpoons;
+  [contentView.tipButton addTarget:self action:@selector(purchase:) forControlEvents:UIControlEventTouchUpInside];
   [contentView update];
-  [self setView:contentView];
+  self.view = contentView;
 }
 
 - (DDHSettingsView *)contentView {
-  return (DDHSettingsView *)[self view];
+  return (DDHSettingsView *)self.view;
 }
 
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  [self setTitle:NSLocalizedString(@"settings.title", nil)];
+  self.title = NSLocalizedString(@"settings.title", nil);
 
   UIBarButtonItem *showOnboardingButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"settings.howTo", nil) style:UIBarButtonItemStylePlain target:self action:@selector(showOnboarding:)];
-  [[self navigationItem] setLeftBarButtonItem:showOnboardingButton];
+  [self.navigationItem setLeftBarButtonItem:showOnboardingButton];
 
-  [[RCPurchases sharedPurchases] products:@[
+  [RCPurchases.sharedPurchases products:@[
     @"de.dasdom.dailyspoons.small_tip"
   ] completionHandler:^(NSArray<RCStoreProduct *> * _Nonnull products) {
     dispatch_async(dispatch_get_main_queue(), ^{
-      RCStoreProduct *product = [products firstObject];
-      NSString *buttonTitle = [NSString stringWithFormat:@"%@: %@", [product localizedTitle], [product localizedPriceString]];
-      [[[self contentView] tipButton] setTitle:buttonTitle forState:UIControlStateNormal];
+      RCStoreProduct *product = products.firstObject;
+      NSString *buttonTitle = [NSString stringWithFormat:@"%@: %@", product.localizedTitle, product.localizedPriceString];
+      [self.contentView.tipButton setTitle:buttonTitle forState:UIControlStateNormal];
       self.product = product;
-      [[[self contentView] tipButton] setHidden:NO];
+      self.contentView.tipButton.hidden = NO;
     });
   }];
 }
@@ -58,18 +58,18 @@
 // MARK: - Actions
 - (void)stepperValueChanged:(UIStepper *)stepper {
   NSInteger amountOfSpoons = [stepper value];
-  [[NSUserDefaults standardUserDefaults] setDailySpoons:amountOfSpoons];
-  [[self delegate] dailySpoonsChangedInViewController:self amountOfSpoons:amountOfSpoons];
-  [[self contentView] update];
+  [NSUserDefaults.standardUserDefaults setDailySpoons:amountOfSpoons];
+  [self.delegate dailySpoonsChangedInViewController:self amountOfSpoons:amountOfSpoons];
+  [self.contentView update];
 }
 
 - (void)showOnboarding:(UIBarButtonItem *)sender {
-  [[self delegate] onboardingDidResetInViewController:self];
+  [self.delegate onboardingDidResetInViewController:self];
 }
 
 - (void)purchase:(UIButton *)sender {
   if (self.product) {
-    [[RCPurchases sharedPurchases] purchaseProduct:self.product withCompletion:^(RCStoreTransaction * _Nullable transaction, RCCustomerInfo * _Nullable consumerInfo, NSError * _Nullable error, BOOL canceled) {
+    [RCPurchases.sharedPurchases purchaseProduct:self.product withCompletion:^(RCStoreTransaction * _Nullable transaction, RCCustomerInfo * _Nullable consumerInfo, NSError * _Nullable error, BOOL canceled) {
       dispatch_async(dispatch_get_main_queue(), ^{
         if (error) {
           if (error.code == RCPurchaseNotAllowedError) {
