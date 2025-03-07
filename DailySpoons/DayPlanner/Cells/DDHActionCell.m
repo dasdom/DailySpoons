@@ -66,33 +66,32 @@
 }
 
 - (void)updateConfigurationUsingState:(UICellConfigurationState *)state {
-  UIListContentConfiguration *contentConfig = [[self listContentConfiguration] updatedConfigurationForState:state];
-  [contentConfig setText:[[self action] name]];
-  [[contentConfig textProperties] setAlignment:UIListContentTextAlignmentJustified];
+  UIListContentConfiguration *contentConfig = [self.listContentConfiguration updatedConfigurationForState:state];
+  [contentConfig setText:self.action.name];
+  [contentConfig.textProperties setAlignment:UIListContentTextAlignmentJustified];
 
   UIListContentConfiguration *valueConfiguration = [[UIListContentConfiguration valueCellConfiguration] updatedConfigurationForState:state];
 
   [self removeSpoonImageViews];
 
-  [self addSpoonImageViews:[[self action] spoons] completed:[self isCompleted] valueConfiguration:valueConfiguration];
+  [self addSpoonImageViews:self.action.spoons planned:self.isPlanned completed:self.isCompleted valueConfiguration:valueConfiguration];
 
-  if ([self isPlanned]) {
-    [[contentConfig textProperties] setColor:[UIColor systemGrayColor]];
-    [[self spoonsStackView] setTintColor:[UIColor systemGrayColor]];
+  if (self.isPlanned || self.isCompleted) {
+    [contentConfig.textProperties setColor:[UIColor systemGray3Color]];
   }
 
-  [[self listContentView] setConfiguration:contentConfig];
+  [self.listContentView setConfiguration:contentConfig];
 
-  [[self leadingSpoonConstraint] setConstant:[valueConfiguration textToSecondaryTextHorizontalPadding]];
-  [[self trailingSpoonConstraint] setConstant:-[contentConfig directionalLayoutMargins].trailing];
+  [self.leadingSpoonConstraint setConstant:valueConfiguration.textToSecondaryTextHorizontalPadding];
+  [self.trailingSpoonConstraint setConstant:-contentConfig.directionalLayoutMargins.trailing];
 
   NSString *typOfAction;
-  if ([self isCompleted]) {
+  if (self.isCompleted) {
     typOfAction = NSLocalizedString(@"dayPlanner.spoonsCompleted", nil);
   } else {
     typOfAction = NSLocalizedString(@"dayPlanner.spoonsUncompleted", nil);
   }
-  NSString *labelString = [NSString stringWithFormat:@"%@, %ld %@", [[self action] name], (long)[[self action] spoons], typOfAction];
+  NSString *labelString = [NSString stringWithFormat:@"%@, %ld %@", self.action.name, (long)self.action.spoons, typOfAction];
   [self setAccessibilityLabel:labelString];
   [self setAccessibilityTraits:UIAccessibilityTraitButton];
 }
@@ -105,7 +104,7 @@
   }];
 }
 
-- (void)addSpoonImageViews:(NSInteger)count completed:(BOOL)completed valueConfiguration:(UIListContentConfiguration *)valueConfiguration {
+- (void)addSpoonImageViews:(NSInteger)count planned:(BOOL)planned completed:(BOOL)completed valueConfiguration:(UIListContentConfiguration *)valueConfiguration {
   NSInteger normalizedCount = labs(count);
   for (NSInteger i = 0; i < normalizedCount; i++) {
     UIImage *image;
@@ -125,7 +124,8 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     [imageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [imageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-    [imageView setTintColor:[UIColor labelColor]];
+    UIColor *color = (planned || completed) ? [UIColor systemGray3Color] : [UIColor labelColor];
+    [imageView setTintColor:color];
     [imageView setPreferredSymbolConfiguration:[UIImageSymbolConfiguration configurationWithFont:[[valueConfiguration textProperties] font] scale:UIImageSymbolScaleDefault]];
     [[self spoonsStackView] addArrangedSubview:imageView];
   }
