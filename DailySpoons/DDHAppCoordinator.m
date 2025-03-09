@@ -139,4 +139,8 @@
     [dayPlanner showOverlay];
   }];
 }
+
+- (void)doneInViewController:(UIViewController *)viewController {
+  [viewController dismissViewControllerAnimated:YES completion:nil];
+}
 @end

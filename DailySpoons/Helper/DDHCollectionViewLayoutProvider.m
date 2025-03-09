@@ -30,12 +30,14 @@ NSString * const ELEMENT_KIND_LAYOUT_FOOTER = @"layout-footer-element-kind";
       NSCollectionLayoutItem *item = [NSCollectionLayoutItem itemWithLayoutSize:itemSize];
 
       NSCollectionLayoutDimension *unityWidthDimension = [NSCollectionLayoutDimension fractionalWidthDimension:1.0];
+      NSCollectionLayoutDimension *automaticHeightDimension = [NSCollectionLayoutDimension estimatedDimension:20];
 
-      NSCollectionLayoutSize *groupSize = [NSCollectionLayoutSize sizeWithWidthDimension:unityWidthDimension heightDimension:oneOverSixWidthDimension];
+      NSCollectionLayoutSize *groupSize = [NSCollectionLayoutSize sizeWithWidthDimension:unityWidthDimension heightDimension:automaticHeightDimension];
 
       NSCollectionLayoutGroup *group = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:groupSize subitems:@[item]];
 
       section = [NSCollectionLayoutSection sectionWithGroup:group];
+      section.interGroupSpacing = 10;
 
       NSCollectionLayoutSize *headerFooterSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.0] heightDimension:[NSCollectionLayoutDimension estimatedDimension:30.0]];
 
@@ -49,7 +51,7 @@ NSString * const ELEMENT_KIND_LAYOUT_FOOTER = @"layout-footer-element-kind";
 
       [section setDecorationItems: @[sectionBackground]];
 
-      [section setContentInsets:NSDirectionalEdgeInsetsMake(0, 20, 0, 20)];
+      [section setContentInsets:NSDirectionalEdgeInsetsMake(10, 20, 10, 20)];
 
     } else if (sectionIndex == 1) {
 

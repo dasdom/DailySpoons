@@ -42,6 +42,9 @@
   UIBarButtonItem *showOnboardingButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"settings.howTo", nil) style:UIBarButtonItemStylePlain target:self action:@selector(showOnboarding:)];
   [self.navigationItem setLeftBarButtonItem:showOnboardingButton];
 
+  UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
+  [self.navigationItem setRightBarButtonItem:doneButton];
+
   [RCPurchases.sharedPurchases products:@[
     @"de.dasdom.dailyspoons.small_tip"
   ] completionHandler:^(NSArray<RCStoreProduct *> * _Nonnull products) {
@@ -65,6 +68,10 @@
 
 - (void)showOnboarding:(UIBarButtonItem *)sender {
   [self.delegate onboardingDidResetInViewController:self];
+}
+
+- (void)done:(UIBarButtonItem *)sender {
+  [self.delegate doneInViewController:self];
 }
 
 - (void)purchase:(UIButton *)sender {

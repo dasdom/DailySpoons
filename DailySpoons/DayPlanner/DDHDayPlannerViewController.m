@@ -252,6 +252,8 @@
     [feedbackGenerator selectionChanged];
     [self.dataStore saveData];
 
+    [self updateWithDay:self.dataStore.day];
+
     NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
     [snapshot reconfigureItemsWithIdentifiers:snapshot.itemIdentifiers];
     [self.dataSource applySnapshot:snapshot animatingDifferences:NO];

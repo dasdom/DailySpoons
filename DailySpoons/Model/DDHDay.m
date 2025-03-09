@@ -210,17 +210,30 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
 }
 
 - (NSArray<NSUUID *> *)idsOfCompletedActions {
-  NSMutableArray<NSUUID *> *ids = [[NSMutableArray alloc] initWithCapacity:[[self completedActions] count]];
-  [[self completedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
-    [ids addObject:[action actionId]];
+  NSMutableArray<NSUUID *> *ids = [[NSMutableArray alloc] initWithCapacity:[self.completedActions count]];
+  [self.completedActions enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+    [ids addObject:action.actionId];
   }];
   return [ids copy];
 }
 
 - (NSArray<NSUUID *> *)idsOfPlannedActions {
-  NSMutableArray<NSUUID *> *ids = [[NSMutableArray alloc] initWithCapacity:[[self plannedActions] count]];
-  [[self plannedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
-    [ids addObject:[action actionId]];
+  NSMutableArray<NSUUID *> *ids = [[NSMutableArray alloc] initWithCapacity:[self.plannedActions count]];
+  NSArray<DDHAction *> *sortedPlannedActions = [self.plannedActions sortedArrayUsingComparator:^NSComparisonResult(DDHAction * _Nonnull obj1, DDHAction * _Nonnull obj2) {
+    if ([self.completedActions containsObject:obj1]) {
+      if ([self.completedActions containsObject:obj2]) {
+        return [obj1.name compare:obj2.name];
+      } else {
+        return NSOrderedDescending;
+      }
+    } else if ([self.completedActions containsObject:obj2]) {
+      return NSOrderedAscending;
+    } else {
+      return [obj1.name compare:obj2.name];
+    }
+  }];
+  [sortedPlannedActions enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+    [ids addObject:action.actionId];
   }];
   return [ids copy];
 }
