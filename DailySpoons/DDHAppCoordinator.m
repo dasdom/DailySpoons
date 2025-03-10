@@ -124,7 +124,7 @@
 }
 
 // MARK: - DDHSettingsViewControllerProtocol
-- (void)dailySpoonsChangedInViewController:(UIViewController *)viewController amountOfSpoons:(NSInteger)spoons {
+- (void)viewController:(UIViewController *)viewController didChangeAmountOfSpoonsTo:(NSInteger)spoons {
   DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)self.navigationController.topViewController;
   DDHDay *day = self.dataStore.day;
   [day setAmountOfSpoons:spoons];
@@ -142,5 +142,12 @@
 
 - (void)doneInViewController:(UIViewController *)viewController {
   [viewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)viewController:(UIViewController *)viewController didChangeShowStepsTo:(BOOL)showSteps {
+  if (showSteps) {
+    DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)self.navigationController.topViewController;
+    [dayPlanner fetchStepsIfNeeded];
+  }
 }
 @end

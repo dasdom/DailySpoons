@@ -17,7 +17,9 @@
 #import "NSUserDefaults+Helper.h"
 #import "DDHOnboardingOverlayView.h"
 #import "DDHCollectionViewLayoutProvider.h"
+#import "DDHHealthDataCell.h"
 #import "DailySpoons-Swift.h"
+#import <HealthKit/HealthKit.h>
 
 @interface DDHDayPlannerViewController () <UICollectionViewDelegate>
 @property (nonatomic, weak) id<DDHDayPlannerViewControllerProtocol> delegate;
@@ -26,6 +28,9 @@
 @property (nonatomic, weak) UILabel *spoonsAmountLabel;
 @property (nonatomic, strong) DDHOnboardingOverlayView *overlayView;
 @property (nonatomic, assign) DDHOnboardingState onboardingState;
+@property (nonatomic, strong) HKHealthStore *healthStore;
+@property (nonatomic) NSInteger stepsYesterday;
+@property (nonatomic) NSInteger stepsToday;
 @end
 
 @implementation DDHDayPlannerViewController
@@ -45,7 +50,7 @@
     DDHAction *action = [self.dataStore actionForId:actionId];
 
     return [UISwipeActionsConfiguration configurationWithActions:@[[self contextualUnplanActionWithAction:action], [self contextualEditActionWithAction:action]]];
-  }]];
+  } showSteps:[NSUserDefaults.standardUserDefaults showSteps]]];
   self.view = contentView;
 }
 
@@ -73,12 +78,7 @@
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
 
-  DDHDay *day = self.dataStore.day;
-  NSCalendar *calendar = [NSCalendar currentCalendar];
-  if (NO == [calendar isDate:day.date inSameDayAsDate:[NSDate now]]) {
-    [day resetWithDailySpoons:[NSUserDefaults.standardUserDefaults dailySpoons]];
-  }
-  [self updateWithDay:self.dataStore.day];
+  [self resetIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -87,6 +87,16 @@
   if (NO == [NSUserDefaults.standardUserDefaults onboardingShown]) {
     [self showOverlay];
   }
+}
+
+- (void)resetIfNeeded {
+  DDHDay *day = self.dataStore.day;
+  NSCalendar *calendar = [NSCalendar currentCalendar];
+  if (NO == [calendar isDate:day.date inSameDayAsDate:[NSDate now]]) {
+    [day resetWithDailySpoons:[NSUserDefaults.standardUserDefaults dailySpoons]];
+  }
+  [self fetchStepsIfNeeded];
+  [self updateWithDay:self.dataStore.day];
 }
 
 - (void)showOverlay {
@@ -157,8 +167,6 @@
 - (void)setupCollectionView:(UICollectionView *)collectionView {
   collectionView.delegate = self;
 
-  [collectionView registerClass:[DDHSpoonCell class] forCellWithReuseIdentifier:[DDHSpoonCell identifier]];
-  [collectionView registerClass:[DDHActionCell class] forCellWithReuseIdentifier:[DDHActionCell identifier]];
   [collectionView registerClass:[DDHSpoonsHeaderView class] forSupplementaryViewOfKind:ELEMENT_KIND_SECTION_HEADER withReuseIdentifier:[DDHSpoonsHeaderView identifier]];
   [collectionView registerClass:[DDHSpoonsFooterView class] forSupplementaryViewOfKind:ELEMENT_KIND_SECTION_FOOTER withReuseIdentifier:[DDHSpoonsFooterView identifier]];
   [collectionView registerClass:[DDHActionsHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[DDHActionsHeaderView identifier]];
@@ -166,14 +174,21 @@
   DDHDay *day = self.dataStore.day;
 
   UICollectionViewCellRegistration *spoonCellRegistration = [DDHCellRegistrationProvider spoonCellRegistration:day];
-
+  UICollectionViewCellRegistration *healthCellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[DDHHealthDataCell class] configurationHandler:^(__kindof UICollectionViewCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
+    DDHHealthDataCell *healthCell = (DDHHealthDataCell *)cell;
+    [healthCell updateWithStepsYesterday:self.stepsYesterday today:self.stepsToday];
+  }];
   UICollectionViewCellRegistration *actionCellRegistration = [DDHCellRegistrationProvider actionCellRegistration:self.dataStore];
 
   UICollectionViewDiffableDataSource *dataSource = [[UICollectionViewDiffableDataSource alloc] initWithCollectionView:collectionView cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id _Nonnull itemIdentifier) {
     UICollectionViewCell *cell;
-    switch (indexPath.section) {
+    NSNumber *sectionIdentifier = [self.dataSource sectionIdentifierForIndex:indexPath.section];
+    switch ([sectionIdentifier integerValue]) {
       case DDHDayPlannerSectionSpoons:
         cell = [collectionView dequeueConfiguredReusableCellWithRegistration:spoonCellRegistration forIndexPath:indexPath item:itemIdentifier];
+        break;
+      case DDHDayPlannerSectionHealth:
+        cell = [collectionView dequeueConfiguredReusableCellWithRegistration:healthCellRegistration forIndexPath:indexPath item:itemIdentifier];
         break;
       case DDHDayPlannerSectionActions:
         cell = [collectionView dequeueConfiguredReusableCellWithRegistration:actionCellRegistration forIndexPath:indexPath item:itemIdentifier];
@@ -184,21 +199,35 @@
   self.dataSource = dataSource;
 
   [dataSource setSupplementaryViewProvider:^UICollectionReusableView * _Nullable(UICollectionView * _Nonnull collectionView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
-    if (indexPath.section == 0) {
-      if ([elementKind isEqualToString:ELEMENT_KIND_SECTION_HEADER]) {
-        DDHSpoonsHeaderView *spoonsHeaderView = [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:[DDHSpoonsHeaderView identifier] forIndexPath:indexPath];
-        return spoonsHeaderView;
-      } else {
-        DDHSpoonsFooterView *spoonsFooterView = [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:[DDHSpoonsFooterView identifier] forIndexPath:indexPath];
-        self.spoonsAmountLabel = spoonsFooterView.label;
-        [self updateSpoonsAmount];
-        return spoonsFooterView;
+
+    NSNumber *sectionIdentifier = [self.dataSource sectionIdentifierForIndex:indexPath.section];
+
+    switch ([sectionIdentifier integerValue]) {
+      case DDHDayPlannerSectionSpoons:
+        if ([elementKind isEqualToString:ELEMENT_KIND_SECTION_HEADER]) {
+          DDHSpoonsHeaderView *spoonsHeaderView = [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:[DDHSpoonsHeaderView identifier] forIndexPath:indexPath];
+          return spoonsHeaderView;
+        } else {
+          DDHSpoonsFooterView *spoonsFooterView = [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:[DDHSpoonsFooterView identifier] forIndexPath:indexPath];
+          self.spoonsAmountLabel = spoonsFooterView.label;
+          [self updateSpoonsAmount];
+          return spoonsFooterView;
+        }
+        break;
+      case DDHDayPlannerSectionActions: {
+        DDHActionsHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:[DDHActionsHeaderView identifier] forIndexPath:indexPath];
+        [headerView.addButton removeTarget:self action:@selector(add:) forControlEvents:UIControlEventTouchUpInside];
+        [headerView.addButton addTarget:self action:@selector(add:) forControlEvents:UIControlEventTouchUpInside];
+        return headerView;
       }
-    } else {
-      DDHActionsHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:[DDHActionsHeaderView identifier] forIndexPath:indexPath];
-      [headerView.addButton removeTarget:self action:@selector(add:) forControlEvents:UIControlEventTouchUpInside];
-      [headerView.addButton addTarget:self action:@selector(add:) forControlEvents:UIControlEventTouchUpInside];
-      return headerView;
+      default: {
+        DDHActionsHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:[DDHActionsHeaderView identifier] forIndexPath:indexPath];
+        [headerView.addButton removeTarget:self action:@selector(add:) forControlEvents:UIControlEventTouchUpInside];
+        [headerView.addButton addTarget:self action:@selector(add:) forControlEvents:UIControlEventTouchUpInside];
+        return headerView;
+      }
+        return nil;
+        break;
     }
   }];
 
@@ -217,10 +246,12 @@
 
 - (void)updateWithDay:(DDHDay *)day {
   NSDiffableDataSourceSnapshot *snapshot = [[NSDiffableDataSourceSnapshot alloc] init];
-  [snapshot appendSectionsWithIdentifiers:@[
-    [NSNumber numberWithInteger:DDHDayPlannerSectionSpoons],
-    [NSNumber numberWithInteger:DDHDayPlannerSectionActions]
-  ]];
+  [snapshot appendSectionsWithIdentifiers:@[@(DDHDayPlannerSectionSpoons)]];
+  if ([NSUserDefaults.standardUserDefaults showSteps]) {
+    [snapshot appendSectionsWithIdentifiers:@[@(DDHDayPlannerSectionHealth)]];
+    [snapshot appendItemsWithIdentifiers:@[[NSUUID UUID]] intoSectionWithIdentifier:@(DDHDayPlannerSectionHealth)];
+  }
+  [snapshot appendSectionsWithIdentifiers:@[[NSNumber numberWithInteger:DDHDayPlannerSectionActions]]];
   [snapshot appendItemsWithIdentifiers:day.spoonsIdentifiers intoSectionWithIdentifier:@(DDHDayPlannerSectionSpoons)];
   [snapshot appendItemsWithIdentifiers:day.idsOfPlannedActions intoSectionWithIdentifier:@(DDHDayPlannerSectionActions)];
   [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
@@ -237,7 +268,8 @@
 
 // MARK: - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-  if (indexPath.section == 1) {
+  NSNumber *sectionIdentifier = [self.dataSource sectionIdentifierForIndex:indexPath.section];
+  if ([sectionIdentifier integerValue] == DDHDayPlannerSectionActions) {
     NSUUID *actionId = [self.dataSource itemIdentifierForIndexPath:indexPath];
     DDHAction *action = [self.dataStore actionForId:actionId];
     DDHDay *day = self.dataStore.day;
@@ -350,6 +382,54 @@
     [self.delegate editActionFromViewController:self action:action];
     completionHandler(true);
   }];
+}
+
+// MARK: - HealthKit
+- (void)fetchStepsIfNeeded {
+  if ([HKHealthStore isHealthDataAvailable] && [NSUserDefaults.standardUserDefaults showSteps]) {
+    _healthStore = [[HKHealthStore alloc] init];
+
+    HKQuantityType *stepType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    NSSet<HKObjectType *> *types = [[NSSet alloc] initWithObjects:stepType, nil];
+
+    [_healthStore requestAuthorizationToShareTypes:nil readTypes:types completion:^(BOOL success, NSError * _Nullable error) {
+      if (success) {
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDate *startOfToday = [calendar startOfDayForDate:[NSDate date]];
+        NSDate *startDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:startOfToday options:0];
+        NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startOfToday options:0];
+
+        NSPredicate *todayPredicate = [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:0];
+        NSDateComponents *day = [[NSDateComponents alloc] init];
+        day.day = 1;
+
+        HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:stepType quantitySamplePredicate:todayPredicate options:HKStatisticsOptionCumulativeSum anchorDate:startDate intervalComponents:day];
+
+        query.initialResultsHandler = ^(HKStatisticsCollectionQuery * _Nonnull query, HKStatisticsCollection * _Nullable result, NSError * _Nullable error) {
+          NSLog(@"result: %@", result);
+          self.stepsYesterday = [[result.statistics.firstObject sumQuantity] doubleValueForUnit:[HKUnit countUnit]];
+          self.stepsToday = [[result.statistics.lastObject sumQuantity] doubleValueForUnit:[HKUnit countUnit]];
+          dispatch_async(dispatch_get_main_queue(), ^{
+            [self reload];
+          });
+        };
+
+//        HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:stepType predicate:todayPredicate limit:HKObjectQueryNoLimit sortDescriptors:nil resultsHandler:^(HKSampleQuery * _Nonnull query, NSArray<__kindof HKSample *> * _Nullable results, NSError * _Nullable error) {
+//          if (nil == error && nil != results) {
+//            NSLog(@"results: %@", results);
+//            self.steps = ((HKQuantitySample *)results.firstObject).count;
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//              [self reload];
+//            });
+//          } else {
+//            NSLog(@"error: %@", error);
+//          }
+//        }];
+
+        [self.healthStore executeQuery:query];
+      }
+    }];
+  }
 }
 
 @end

@@ -5,9 +5,9 @@
 
 #import "UICellConfigurationState+ActionCellAdditions.h"
 
-NSString* const UICONFIGURATIONSTATECUSTOMKEY_ACTION = @"de.dasdom.DailySpoons.action";
-NSString* const UICONFIGURATIONSTATECUSTOMKEY_IS_COMPLETED = @"de.dasdom.DailySpoons.isCompleted";
-NSString* const UICONFIGURATIONSTATECUSTOMKEY_IS_PLANNED = @"de.dasdom.DailySpoons.isPlanned";
+NSString * const UICONFIGURATIONSTATECUSTOMKEY_ACTION = @"de.dasdom.DailySpoons.action";
+NSString * const UICONFIGURATIONSTATECUSTOMKEY_IS_COMPLETED = @"de.dasdom.DailySpoons.isCompleted";
+NSString * const UICONFIGURATIONSTATECUSTOMKEY_IS_PLANNED = @"de.dasdom.DailySpoons.isPlanned";
 
 @implementation UICellConfigurationState
 - (DDHAction *)action {

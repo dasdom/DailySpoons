@@ -8,7 +8,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol DDHSettingsViewControllerProtocol <NSObject>
-- (void)dailySpoonsChangedInViewController:(UIViewController *)viewController amountOfSpoons:(NSInteger)spoons;
+- (void)viewController:(UIViewController *)viewController didChangeAmountOfSpoonsTo:(NSInteger)spoons;
+- (void)viewController:(UIViewController *)viewController didChangeShowStepsTo:(BOOL)showSteps;
 - (void)onboardingDidResetInViewController:(UIViewController *)viewController;
 - (void)doneInViewController:(UIViewController *)viewController;
 @end

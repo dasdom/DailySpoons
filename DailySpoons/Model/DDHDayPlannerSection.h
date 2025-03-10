@@ -8,6 +8,7 @@
 
 typedef NS_ENUM(NSUInteger, DDHDayPlannerSection) {
   DDHDayPlannerSectionSpoons,
+  DDHDayPlannerSectionHealth,
   DDHDayPlannerSectionActions,
 };
 

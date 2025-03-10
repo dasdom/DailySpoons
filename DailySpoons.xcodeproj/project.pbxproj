@@ -48,6 +48,7 @@
 		F25F7D4729F5ABEF00EF395F /* DDHDayPlannerViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */; };
 		F2AE97482A31B83200B0D792 /* DailySpoonsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2AE97472A31B83200B0D792 /* DailySpoonsUITests.m */; };
 		F2AE97532A31BD2200B0D792 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F2AE97552A31BD2200B0D792 /* Localizable.strings */; };
+		F2C90A882D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90A872D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.m */; };
 		F2CA90D52A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */; };
 		F2CA90D82A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90D72A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m */; };
 		F2CA90E12A2C802100B8B47F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2CA90E02A2C802100B8B47F /* WidgetKit.framework */; };
@@ -67,6 +68,7 @@
 		F2E384272D7B4845007375BF /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E384262D7B4845007375BF /* Provider.swift */; };
 		F2E384292D7B4893007375BF /* DayEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E384282D7B4893007375BF /* DayEntry.swift */; };
 		F2E3842B2D7B4C07007375BF /* RectanglesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E3842A2D7B4C07007375BF /* RectanglesWidget.swift */; };
+		F2E384312D7F4DD2007375BF /* DDHHealthDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2E384302D7F4DD2007375BF /* DDHHealthDataCell.m */; };
 		F2F49A182A2A25AE00874BA9 /* DDHViewControllerMock.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F49A172A2A25AE00874BA9 /* DDHViewControllerMock.m */; };
 		F2F49A1A2A2A262F00874BA9 /* DDHAppCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F49A192A2A262F00874BA9 /* DDHAppCoordinatorTests.m */; };
 /* End PBXBuildFile section */
@@ -189,6 +191,8 @@
 		F2AE97542A31BD2200B0D792 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F2AE97562A31BD2600B0D792 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F2AE97582A31BD3500B0D792 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		F2C90A862D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICellConfigurationState+HealthInfo.h"; sourceTree = "<group>"; };
+		F2C90A872D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICellConfigurationState+HealthInfo.m"; sourceTree = "<group>"; };
 		F2CA90D32A2BA4FB00B8B47F /* DDHOnboardingOverlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHOnboardingOverlayView.h; sourceTree = "<group>"; };
 		F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHOnboardingOverlayView.m; sourceTree = "<group>"; };
 		F2CA90D62A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHCollectionViewLayoutProvider.h; sourceTree = "<group>"; };
@@ -213,6 +217,8 @@
 		F2E384262D7B4845007375BF /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		F2E384282D7B4893007375BF /* DayEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEntry.swift; sourceTree = "<group>"; };
 		F2E3842A2D7B4C07007375BF /* RectanglesWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectanglesWidget.swift; sourceTree = "<group>"; };
+		F2E3842F2D7F4DD2007375BF /* DDHHealthDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHHealthDataCell.h; sourceTree = "<group>"; };
+		F2E384302D7F4DD2007375BF /* DDHHealthDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHHealthDataCell.m; sourceTree = "<group>"; };
 		F2F49A162A2A25AE00874BA9 /* DDHViewControllerMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHViewControllerMock.h; sourceTree = "<group>"; };
 		F2F49A172A2A25AE00874BA9 /* DDHViewControllerMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHViewControllerMock.m; sourceTree = "<group>"; };
 		F2F49A192A2A262F00874BA9 /* DDHAppCoordinatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHAppCoordinatorTests.m; sourceTree = "<group>"; };
@@ -307,8 +313,12 @@
 				F2469C5829F9855C0023DAD9 /* DDHSpoonCell.m */,
 				F2469C5B29F988D30023DAD9 /* DDHActionCell.h */,
 				F2469C5C29F988D30023DAD9 /* DDHActionCell.m */,
+				F2E3842F2D7F4DD2007375BF /* DDHHealthDataCell.h */,
+				F2E384302D7F4DD2007375BF /* DDHHealthDataCell.m */,
 				F2573E0D2A3337BF008E5429 /* UICellConfigurationState+ActionCellAdditions.h */,
 				F2573E0E2A3337BF008E5429 /* UICellConfigurationState+ActionCellAdditions.m */,
+				F2C90A862D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.h */,
+				F2C90A872D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -682,6 +692,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2469C8E29FE84710023DAD9 /* DDHSpoonsBackgroundView.m in Sources */,
+				F2C90A882D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.m in Sources */,
 				F2469C8B29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m in Sources */,
 				F2CA90D82A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m in Sources */,
 				F2573E0F2A3337BF008E5429 /* UICellConfigurationState+ActionCellAdditions.m in Sources */,
@@ -699,6 +710,7 @@
 				F2469C8529FE76AB0023DAD9 /* DDHSpoonsHeaderView.m in Sources */,
 				F25F7D2829F596EB00EF395F /* main.m in Sources */,
 				F2469C4F29F716150023DAD9 /* DDHAction.m in Sources */,
+				F2E384312D7F4DD2007375BF /* DDHHealthDataCell.m in Sources */,
 				F2469C6429FBB7150023DAD9 /* DDHDataStore.m in Sources */,
 				F2469C6E29FC3A9D0023DAD9 /* DDHActionInputView.m in Sources */,
 				F2469C6729FBCE0E0023DAD9 /* DDHActionsHeaderView.m in Sources */,
@@ -927,6 +939,7 @@
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailySpoons/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Health data is used to show your steps count in the overview.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -965,6 +978,7 @@
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailySpoons/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Health data is used to show your steps count in the overview.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

@@ -4,6 +4,7 @@
 
 #import "SceneDelegate.h"
 #import "DDHAppCoordinator.h"
+#import "DDHDayPlannerViewController.h"
 
 @interface SceneDelegate ()
 @property (nonatomic, strong) DDHAppCoordinator *appCoordinator;
@@ -19,4 +20,11 @@
   [_window setRootViewController:[_appCoordinator currentViewController]];
   [_window makeKeyAndVisible];
 }
+
+- (void)sceneWillEnterForeground:(UIScene *)scene {
+  UINavigationController *navigationController = (UINavigationController *)[self.appCoordinator currentViewController];
+  DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)[navigationController topViewController];
+  [dayPlanner resetIfNeeded];
+}
+
 @end

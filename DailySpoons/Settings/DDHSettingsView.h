@@ -10,6 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DDHSettingsView : UIView
 @property (nonatomic, strong) UILabel *dailySpoonsStepperLabel;
 @property (nonatomic, strong) UIStepper *dailySpoonsStepper;
+@property (nonatomic, strong) UISwitch *showSteps;
 @property (nonatomic, strong) UIButton *tipButton;
 - (void)update;
 @end

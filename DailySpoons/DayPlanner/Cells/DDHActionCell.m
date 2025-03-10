@@ -31,25 +31,25 @@
     _spoonsStackView = [[UIStackView alloc] init];
     [_spoonsStackView setTranslatesAutoresizingMaskIntoConstraints:NO];
 
-    [[self contentView] addSubview:_listContentView];
-    [[self contentView] addSubview:_spoonsStackView];
+    [self.contentView addSubview:_listContentView];
+    [self.contentView addSubview:_spoonsStackView];
 
-    _leadingSpoonConstraint = [[_spoonsStackView leadingAnchor] constraintEqualToAnchor:[_listContentView trailingAnchor]];
-    _trailingSpoonConstraint = [[_spoonsStackView trailingAnchor] constraintEqualToAnchor:[[self contentView] trailingAnchor]];
+    _leadingSpoonConstraint = [_spoonsStackView.leadingAnchor constraintEqualToAnchor:_listContentView.trailingAnchor];
+    _trailingSpoonConstraint = [_spoonsStackView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor];
 
     [NSLayoutConstraint activateConstraints:@[
-      [[_listContentView topAnchor] constraintEqualToAnchor:[[self contentView] topAnchor]],
-      [[_listContentView bottomAnchor] constraintEqualToAnchor:[[self contentView] bottomAnchor]],
-      [[_listContentView leadingAnchor] constraintEqualToAnchor:[[self contentView] leadingAnchor]],
+      [_listContentView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor],
+      [_listContentView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
+      [_listContentView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
 
 //      [[_spoonsStackView topAnchor] constraintEqualToAnchor:[_listContentView topAnchor]],
 //      [[_spoonsStackView bottomAnchor] constraintEqualToAnchor:[_listContentView bottomAnchor]],
-      [[_spoonsStackView centerYAnchor] constraintEqualToAnchor:[[self contentView] centerYAnchor]],
+      [_spoonsStackView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
       _leadingSpoonConstraint,
       _trailingSpoonConstraint
     ]];
 
-    [self setTintColor:[UIColor labelColor]];
+    self.tintColor = [UIColor labelColor];
   }
   return self;
 }

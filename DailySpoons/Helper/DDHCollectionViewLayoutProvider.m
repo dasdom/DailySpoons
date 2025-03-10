@@ -14,7 +14,7 @@ NSString * const ELEMENT_KIND_LAYOUT_HEADER = @"layout-header-element-kind";
 NSString * const ELEMENT_KIND_LAYOUT_FOOTER = @"layout-footer-element-kind";
 
 @implementation DDHCollectionViewLayoutProvider
-+ (UICollectionViewLayout *)layoutWithTrailingSwipeActionsConfigurationProvider:(UICollectionLayoutListSwipeActionsConfigurationProvider)trailingSwipeActionsConfigurationProvider {
++ (UICollectionViewLayout *)layoutWithTrailingSwipeActionsConfigurationProvider:(UICollectionLayoutListSwipeActionsConfigurationProvider)trailingSwipeActionsConfigurationProvider showSteps:(BOOL)showSteps {
 
   UICollectionViewCompositionalLayout *layout = [[UICollectionViewCompositionalLayout alloc] initWithSectionProvider:^NSCollectionLayoutSection * _Nullable(NSInteger sectionIndex, id<NSCollectionLayoutEnvironment>  _Nonnull layoutEnvironment) {
 
@@ -53,12 +53,22 @@ NSString * const ELEMENT_KIND_LAYOUT_FOOTER = @"layout-footer-element-kind";
 
       [section setContentInsets:NSDirectionalEdgeInsetsMake(10, 20, 10, 20)];
 
-    } else if (sectionIndex == 1) {
+    } else {
 
       UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearancePlain];
-      [listConfiguration setHeaderMode:UICollectionLayoutListHeaderModeSupplementary];
+
+      if (showSteps && sectionIndex == 1) {
+        [listConfiguration setHeaderMode:UICollectionLayoutListHeaderModeNone];
+      } else {
+        [listConfiguration setHeaderMode:UICollectionLayoutListHeaderModeSupplementary];
+      }
       [listConfiguration setTrailingSwipeActionsConfigurationProvider:trailingSwipeActionsConfigurationProvider];
       section = [NSCollectionLayoutSection sectionWithListConfiguration:listConfiguration layoutEnvironment:layoutEnvironment];
+
+//      NSDirectionalEdgeInsets insets = section.contentInsets;
+//      insets.top = 0;
+//      insets.bottom = 0;
+//      section.contentInsets = insets;
     }
     return section;
   }];

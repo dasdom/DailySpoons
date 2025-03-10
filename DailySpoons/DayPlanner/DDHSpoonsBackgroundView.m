@@ -9,7 +9,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
-    [self setBackgroundColor:[UIColor systemGray5Color]];
+    [self setBackgroundColor:[UIColor systemGray6Color]];
   }
   return self;
 }

@@ -8,6 +8,7 @@
 
 "settings.smallTip" = "Small Tip";
 "settings.dailySpoons" = "Daily spoons: %.0lf";
+"settings.showSteps" = "Show steps";
 "settings.title" = "Settings";
 "settings.howTo" = "How to";
 "settings.error" = "Error";
@@ -33,6 +34,7 @@
 "dayPlanner.planActions" = "Plan actions";
 "dayPlanner.spoonsCompleted" = "spoons completed";
 "dayPlanner.spoonsUncompleted" = "spoons uncompleted";
+"dayPlanner.steps" = "%ld yesterday, %ld today";
 
 "actionStore.title" = "My spoon sinks/sources";
 "actionStore.unplanned" = "Unplanned";

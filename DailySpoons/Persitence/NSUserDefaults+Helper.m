@@ -6,6 +6,7 @@
 
 NSString * const ddh_dailySpoonsKey = @"ddh_dailySpoonsKey";
 NSString * const ddh_onboardingShown = @"ddh_onboardingShown";
+NSString * const ddh_showSteps = @"ddh_showSteps";
 
 @implementation NSUserDefaults (Helper)
 - (NSInteger)dailySpoons {
@@ -22,5 +23,13 @@ NSString * const ddh_onboardingShown = @"ddh_onboardingShown";
 
 - (void)setOnboardingShown:(BOOL)onboardingShown {
   [self setBool:onboardingShown forKey:ddh_onboardingShown];
+}
+
+- (BOOL)showSteps {
+  return [self boolForKey:ddh_showSteps];
+}
+
+- (void)setShowSteps:(BOOL)showSteps {
+  [self setBool:showSteps forKey:ddh_showSteps];
 }
 @end

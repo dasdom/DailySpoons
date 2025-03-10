@@ -15,7 +15,7 @@ extern NSString * const ELEMENT_KIND_LAYOUT_HEADER;
 extern NSString * const ELEMENT_KIND_LAYOUT_FOOTER;
 
 @interface DDHCollectionViewLayoutProvider : NSObject
-+ (UICollectionViewLayout *)layoutWithTrailingSwipeActionsConfigurationProvider:(UICollectionLayoutListSwipeActionsConfigurationProvider)trailingSwipeActionsConfigurationProvider;
++ (UICollectionViewLayout *)layoutWithTrailingSwipeActionsConfigurationProvider:(UICollectionLayoutListSwipeActionsConfigurationProvider)trailingSwipeActionsConfigurationProvider showSteps:(BOOL)showSteps;
 @end
 
 NS_ASSUME_NONNULL_END

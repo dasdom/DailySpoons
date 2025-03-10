@@ -27,9 +27,9 @@
     [self addSubview:stackView];
 
     [NSLayoutConstraint activateConstraints:@[
-      [[stackView topAnchor] constraintEqualToAnchor:[self topAnchor] constant:10],
+      [[stackView topAnchor] constraintEqualToAnchor:[self topAnchor] constant:0],
       [[stackView leadingAnchor] constraintEqualToAnchor:[self leadingAnchor] constant:20],
-      [[stackView bottomAnchor] constraintEqualToAnchor:[self bottomAnchor] constant:-10],
+      [[stackView bottomAnchor] constraintEqualToAnchor:[self bottomAnchor] constant:0],
       [[stackView trailingAnchor] constraintEqualToAnchor:[self trailingAnchor] constant:-7],
 
       [[_addButton widthAnchor] constraintEqualToConstant:44],

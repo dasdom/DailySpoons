@@ -8,6 +8,7 @@
 
 "settings.smallTip" = "Kleines Trinkgeld";
 "settings.dailySpoons" = "Tägliche Löffel: %.0lf";
+"settings.showSteps" = "Schritte anzeigen";
 "settings.title" = "Einstellungen";
 "settings.howTo" = "How to";
 "settings.purchaseNotAllowed" = "Kauf auf diesem Gerät nicht erlaubt.";
@@ -32,6 +33,7 @@
 "dayPlanner.planActions" = "Aktionen planen";
 "dayPlanner.spoonsCompleted" = "Löffel erledigt";
 "dayPlanner.spoonsUncompleted" = "Löffel nicht erledigt";
+"dayPlanner.steps" = "%ld gestern, %ld heute";
 
 "actionStore.title" = "Meine Löffelsenken/-quellen";
 "actionStore.unplanned" = "Ungeplant";

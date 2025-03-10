@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateWithDay:(DDHDay *)day;
 - (void)reload;
 - (void)showOverlay;
+- (void)resetIfNeeded;
+- (void)fetchStepsIfNeeded;
 @end
 
 NS_ASSUME_NONNULL_END

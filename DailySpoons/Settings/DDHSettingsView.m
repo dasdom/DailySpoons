@@ -23,7 +23,16 @@
     UIStackView *dailySpoonsStepperStackView = [[UIStackView alloc] initWithArrangedSubviews:@[_dailySpoonsStepperLabel, _dailySpoonsStepper]];
     dailySpoonsStepperStackView.spacing = 10;
 
-    UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[dailySpoonsStepperStackView]];
+
+    UILabel *showStepsLabel = [[UILabel alloc] init];
+    showStepsLabel.text = NSLocalizedString(@"settings.showSteps", nil);
+
+    _showSteps = [[UISwitch alloc] init];
+
+    UIStackView *showStepsStackView = [[UIStackView alloc] initWithArrangedSubviews:@[showStepsLabel, _showSteps]];
+    showStepsStackView.spacing = 10;
+
+    UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[dailySpoonsStepperStackView, showStepsStackView]];
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
     stackView.axis = UILayoutConstraintAxisVertical;
     stackView.spacing = 20;

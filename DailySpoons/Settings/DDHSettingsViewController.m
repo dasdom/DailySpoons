@@ -23,9 +23,14 @@
 
 - (void)loadView {
   DDHSettingsView *contentView = [[DDHSettingsView alloc] init];
+
   [contentView.dailySpoonsStepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
   contentView.dailySpoonsStepper.value = NSUserDefaults.standardUserDefaults.dailySpoons;
+
+  [contentView.showSteps addTarget:self action:@selector(showStepsChanged:) forControlEvents:UIControlEventValueChanged];
+
   [contentView.tipButton addTarget:self action:@selector(purchase:) forControlEvents:UIControlEventTouchUpInside];
+
   [contentView update];
   self.view = contentView;
 }
@@ -56,13 +61,15 @@
       self.contentView.tipButton.hidden = NO;
     });
   }];
+
+  [self contentView].showSteps.on = [NSUserDefaults.standardUserDefaults showSteps];
 }
 
 // MARK: - Actions
 - (void)stepperValueChanged:(UIStepper *)stepper {
   NSInteger amountOfSpoons = [stepper value];
   [NSUserDefaults.standardUserDefaults setDailySpoons:amountOfSpoons];
-  [self.delegate dailySpoonsChangedInViewController:self amountOfSpoons:amountOfSpoons];
+  [self.delegate viewController:self didChangeAmountOfSpoonsTo:amountOfSpoons];
   [self.contentView update];
 }
 
@@ -72,6 +79,11 @@
 
 - (void)done:(UIBarButtonItem *)sender {
   [self.delegate doneInViewController:self];
+}
+
+- (void)showStepsChanged:(UISwitch *)sender {
+  [NSUserDefaults.standardUserDefaults setShowSteps:sender.isOn];
+  [self.delegate viewController:self didChangeShowStepsTo:sender.isOn];
 }
 
 - (void)purchase:(UIButton *)sender {
