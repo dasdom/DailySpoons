@@ -249,6 +249,7 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
 }
 
 - (void)resetWithDailySpoons:(NSInteger)dailySpoons {
+#warning "Save day to data base. sqlite?"
   NSInteger carryOverSpoons = [self completedSpoons] - ([self amountOfSpoons] - [self carryOverSpoons]);
   [self setCarryOverSpoons:MAX(0, carryOverSpoons)];
   [self setDate:[NSDate now]];

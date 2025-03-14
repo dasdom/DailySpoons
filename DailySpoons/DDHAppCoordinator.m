@@ -145,9 +145,10 @@
 }
 
 - (void)viewController:(UIViewController *)viewController didChangeShowStepsTo:(BOOL)showSteps {
+  DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)self.navigationController.topViewController;
   if (showSteps) {
-    DDHDayPlannerViewController *dayPlanner = (DDHDayPlannerViewController *)self.navigationController.topViewController;
     [dayPlanner fetchStepsIfNeeded];
   }
+  [dayPlanner showStepsChanged:showSteps];
 }
 @end

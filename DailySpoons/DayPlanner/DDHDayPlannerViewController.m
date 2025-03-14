@@ -44,14 +44,19 @@
 }
 
 - (void)loadView {
-  DDHDayPlannerView *contentView = [[DDHDayPlannerView alloc] initWithFrame:CGRectZero collectionViewLayout:[DDHCollectionViewLayoutProvider layoutWithTrailingSwipeActionsConfigurationProvider:^UISwipeActionsConfiguration * _Nullable(NSIndexPath * _Nonnull indexPath) {
+  UICollectionViewLayout *layout = [self layoutWithSteps:[NSUserDefaults.standardUserDefaults showSteps]];
+  DDHDayPlannerView *contentView = [[DDHDayPlannerView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+  self.view = contentView;
+}
+
+- (UICollectionViewLayout *)layoutWithSteps:(BOOL)showSteps {
+  return [DDHCollectionViewLayoutProvider layoutWithTrailingSwipeActionsConfigurationProvider:^UISwipeActionsConfiguration * _Nullable(NSIndexPath * _Nonnull indexPath) {
 
     NSUUID *actionId = [self.dataSource itemIdentifierForIndexPath:indexPath];
     DDHAction *action = [self.dataStore actionForId:actionId];
 
     return [UISwipeActionsConfiguration configurationWithActions:@[[self contextualUnplanActionWithAction:action], [self contextualEditActionWithAction:action]]];
-  } showSteps:[NSUserDefaults.standardUserDefaults showSteps]]];
-  self.view = contentView;
+  } showSteps:showSteps];
 }
 
 - (DDHDayPlannerView *)contentView {
@@ -237,6 +242,9 @@
 
   dataSource.reorderingHandlers.didReorderHandler = ^(NSDiffableDataSourceTransaction<NSNumber *, NSUUID *> * _Nonnull transaction) {
     NSInteger numberOfSpoons = [day.spoonsIdentifiers count];
+    if ([NSUserDefaults.standardUserDefaults showSteps]) {
+      numberOfSpoons += 1;
+    }
     NSInteger finalIndex = transaction.difference.insertions.firstObject.index - numberOfSpoons;
     NSInteger initialIndex = transaction.difference.insertions.firstObject.associatedIndex - numberOfSpoons;
     [day movePlannedActionFromIndex:initialIndex toFinalIndex:finalIndex];
@@ -245,16 +253,28 @@
 }
 
 - (void)updateWithDay:(DDHDay *)day {
+  [self updateWithDay:day reconfigure:@[]];
+}
+
+- (void)updateWithDay:(DDHDay *)day reconfigure:(NSArray<NSUUID *> *)idsToReconfigure {
   NSDiffableDataSourceSnapshot *snapshot = [[NSDiffableDataSourceSnapshot alloc] init];
-  [snapshot appendSectionsWithIdentifiers:@[@(DDHDayPlannerSectionSpoons)]];
+  [snapshot appendSectionsWithIdentifiers:@[@(DDHDayPlannerSectionSpoons), @(DDHDayPlannerSectionHealth), @(DDHDayPlannerSectionActions)]];
   if ([NSUserDefaults.standardUserDefaults showSteps]) {
-    [snapshot appendSectionsWithIdentifiers:@[@(DDHDayPlannerSectionHealth)]];
     [snapshot appendItemsWithIdentifiers:@[[NSUUID UUID]] intoSectionWithIdentifier:@(DDHDayPlannerSectionHealth)];
   }
-  [snapshot appendSectionsWithIdentifiers:@[[NSNumber numberWithInteger:DDHDayPlannerSectionActions]]];
   [snapshot appendItemsWithIdentifiers:day.spoonsIdentifiers intoSectionWithIdentifier:@(DDHDayPlannerSectionSpoons)];
   [snapshot appendItemsWithIdentifiers:day.idsOfPlannedActions intoSectionWithIdentifier:@(DDHDayPlannerSectionActions)];
-  [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+
+  NSMutableArray *mutableIdsToReconfigure = [idsToReconfigure mutableCopy];
+  if ([mutableIdsToReconfigure count] < 1) {
+    mutableIdsToReconfigure = [snapshot.itemIdentifiers mutableCopy];
+  } else {
+    [mutableIdsToReconfigure addObjectsFromArray:day.spoonsIdentifiers];
+  }
+  [snapshot reconfigureItemsWithIdentifiers:mutableIdsToReconfigure];
+
+  BOOL animate = [idsToReconfigure count] < 1;
+  [self.dataSource applySnapshot:snapshot animatingDifferences:animate];
   [self updateSpoonsAmount];
 }
 
@@ -284,15 +304,20 @@
     [feedbackGenerator selectionChanged];
     [self.dataStore saveData];
 
-    [self updateWithDay:self.dataStore.day];
-
-    NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
-    [snapshot reconfigureItemsWithIdentifiers:snapshot.itemIdentifiers];
-    [self.dataSource applySnapshot:snapshot animatingDifferences:NO];
+    [self updateWithDay:self.dataStore.day reconfigure:@[actionId]];
 
     [self updateSpoonsAmount];
 
     [WidgetContentLoader reloadWidgetContent];
+  }
+}
+
+- (NSIndexPath *)collectionView:(UICollectionView *)collectionView targetIndexPathForMoveOfItemFromOriginalIndexPath:(NSIndexPath *)originalIndexPath atCurrentIndexPath:(NSIndexPath *)currentIndexPath toProposedIndexPath:(NSIndexPath *)proposedIndexPath {
+
+  if (currentIndexPath.section != proposedIndexPath.section) {
+    return currentIndexPath;
+  } else {
+    return proposedIndexPath;
   }
 }
 
@@ -410,7 +435,7 @@
           self.stepsYesterday = [[result.statistics.firstObject sumQuantity] doubleValueForUnit:[HKUnit countUnit]];
           self.stepsToday = [[result.statistics.lastObject sumQuantity] doubleValueForUnit:[HKUnit countUnit]];
           dispatch_async(dispatch_get_main_queue(), ^{
-            [self reload];
+            [self updateWithDay:self.dataStore.day reconfigure:@[]];
           });
         };
 
@@ -429,6 +454,12 @@
         [self.healthStore executeQuery:query];
       }
     }];
+  }
+}
+
+- (void)showStepsChanged:(BOOL)showSteps {
+  if (false == showSteps) {
+    [self updateWithDay:self.dataStore.day reconfigure:@[]];
   }
 }
 

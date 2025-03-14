@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showOverlay;
 - (void)resetIfNeeded;
 - (void)fetchStepsIfNeeded;
+- (void)showStepsChanged:(BOOL)showSteps;
 @end
 
 NS_ASSUME_NONNULL_END

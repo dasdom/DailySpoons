@@ -57,7 +57,7 @@ NSString * const ELEMENT_KIND_LAYOUT_FOOTER = @"layout-footer-element-kind";
 
       UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearancePlain];
 
-      if (showSteps && sectionIndex == 1) {
+      if (sectionIndex == 1) {
         [listConfiguration setHeaderMode:UICollectionLayoutListHeaderModeNone];
       } else {
         [listConfiguration setHeaderMode:UICollectionLayoutListHeaderModeSupplementary];
