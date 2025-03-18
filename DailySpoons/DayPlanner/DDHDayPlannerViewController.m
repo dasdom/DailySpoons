@@ -66,9 +66,13 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
+  [self.dataStore createHistoryDatabaseIfNeeded];
+
   UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"arrow.counterclockwise"] style:UIBarButtonItemStylePlain target:self action:@selector(reset:)];
   resetButton.accessibilityLabel = NSLocalizedString(@"dayPlanner.reset", nil);
-  self.navigationItem.rightBarButtonItem = resetButton;
+
+  UIBarButtonItem *historyButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"calendar"] style:UIBarButtonItemStylePlain target:self action:@selector((history:))];
+  self.navigationItem.rightBarButtonItems = @[resetButton, historyButton];
 
   UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(didSelectSettings:)];
   self.navigationItem.leftBarButtonItem = settingsButton;
@@ -98,7 +102,9 @@
   DDHDay *day = self.dataStore.day;
   NSCalendar *calendar = [NSCalendar currentCalendar];
   if (NO == [calendar isDate:day.date inSameDayAsDate:[NSDate now]]) {
+    [self.dataStore insertHistoryDay:day];
     [day resetWithDailySpoons:[NSUserDefaults.standardUserDefaults dailySpoons]];
+    [self.dataStore saveData];
   }
   [self fetchStepsIfNeeded];
   [self updateWithDay:self.dataStore.day];
@@ -276,6 +282,8 @@
   BOOL animate = [idsToReconfigure count] < 1;
   [self.dataSource applySnapshot:snapshot animatingDifferences:animate];
   [self updateSpoonsAmount];
+
+  [WidgetContentLoader reloadWidgetContent];
 }
 
 - (void)reload {
@@ -307,8 +315,6 @@
     [self updateWithDay:self.dataStore.day reconfigure:@[actionId]];
 
     [self updateSpoonsAmount];
-
-    [WidgetContentLoader reloadWidgetContent];
   }
 }
 
@@ -358,6 +364,10 @@
   [self updateSpoonsAmount];
 }
 
+- (void)history:(UIBarButtonItem *)sender {
+  [self.delegate didSelectHistoryInViewController:self];
+}
+
 - (void)handleLongPress:(UILongPressGestureRecognizer *)sender {
 
   UICollectionView *collectionView = [self.contentView collectionView];
@@ -396,8 +406,6 @@
     [day unplanAction:action];
     [self.dataStore saveData];
     [self updateWithDay:day];
-
-    [WidgetContentLoader reloadWidgetContent];
   }];
 }
 

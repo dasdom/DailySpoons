@@ -13,7 +13,7 @@ NSString * const completedActionsKey = @"completedActionsKey";
 NSString * const plannedActionsKey = @"plannedActionsKey";
 
 @interface DDHDay ()
-@property (nonatomic, strong) NSArray<DDHAction *> *completedActions;
+//@property (nonatomic, strong) NSArray<DDHAction *> *completedActions;
 @property (nonatomic, strong) NSArray<DDHAction *> *plannedActions;
 @end
 
@@ -219,19 +219,6 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
 
 - (NSArray<NSUUID *> *)idsOfPlannedActions {
   NSMutableArray<NSUUID *> *ids = [[NSMutableArray alloc] initWithCapacity:[self.plannedActions count]];
-//  NSArray<DDHAction *> *sortedPlannedActions = [self.plannedActions sortedArrayUsingComparator:^NSComparisonResult(DDHAction * _Nonnull obj1, DDHAction * _Nonnull obj2) {
-//    if ([self.completedActions containsObject:obj1]) {
-//      if ([self.completedActions containsObject:obj2]) {
-//        return [obj1.name compare:obj2.name];
-//      } else {
-//        return NSOrderedDescending;
-//      }
-//    } else if ([self.completedActions containsObject:obj2]) {
-//      return NSOrderedAscending;
-//    } else {
-//      return [obj1.name compare:obj2.name];
-//    }
-//  }];
   [self.plannedActions enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
     [ids addObject:action.actionId];
   }];
@@ -249,7 +236,6 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
 }
 
 - (void)resetWithDailySpoons:(NSInteger)dailySpoons {
-#warning "Save day to data base. sqlite?"
   NSInteger carryOverSpoons = [self completedSpoons] - ([self amountOfSpoons] - [self carryOverSpoons]);
   [self setCarryOverSpoons:MAX(0, carryOverSpoons)];
   [self setDate:[NSDate now]];

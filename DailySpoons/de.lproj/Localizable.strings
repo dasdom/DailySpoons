@@ -48,3 +48,9 @@
 "actionInput.spoonAmount" = "Löffel: %.0lf";
 "actionInput.typeSelection.sink" = "Löffelsenke";
 "actionInput.typeSelection.source" = "Löffelquelle";
+
+"history.title" = "Vergangenheit";
+"history.amount" = "Löffel: \t%ld";
+"history.planned" = "Geplant: \t%ld";
+"history.completed" = "Verbraucht: \t%ld";
+"history.stateOfMind" = "Gemütszustand";

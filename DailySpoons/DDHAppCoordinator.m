@@ -10,6 +10,7 @@
 #import "DDHDay.h"
 #import "DDHAction.h"
 #import "DDHSettingsViewController.h"
+#import "DDHHistoryListViewController.h"
 
 @interface DDHAppCoordinator () <DDHDayPlannerViewControllerProtocol, DDHActionStoreViewControllerProtocol, DDHActionInputViewControllerProtocol, DDHSettingsViewControllerProtocol>
 @property (nonatomic, strong) UINavigationController *navigationController;
@@ -87,6 +88,13 @@
   [sheet setWidthFollowsPreferredContentSizeWhenEdgeAttached:YES];
   [sheet setPrefersGrabberVisible:YES];
 
+  [viewController presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)didSelectHistoryInViewController:(UIViewController *)viewController {
+  DDHHistoryListViewController *next = [[DDHHistoryListViewController alloc] init];
+
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:next];
   [viewController presentViewController:navigationController animated:YES completion:nil];
 }
 

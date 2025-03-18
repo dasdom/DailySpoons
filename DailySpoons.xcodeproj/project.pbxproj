@@ -49,6 +49,13 @@
 		F2AE97482A31B83200B0D792 /* DailySpoonsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2AE97472A31B83200B0D792 /* DailySpoonsUITests.m */; };
 		F2AE97532A31BD2200B0D792 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F2AE97552A31BD2200B0D792 /* Localizable.strings */; };
 		F2C90A882D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90A872D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.m */; };
+		F2C90B3C2D84D6CD00525DD0 /* DDHHistoryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90B3B2D84D6CD00525DD0 /* DDHHistoryEntry.m */; };
+		F2C90B3D2D84D6CD00525DD0 /* DDHHistoryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90B3B2D84D6CD00525DD0 /* DDHHistoryEntry.m */; };
+		F2C90B432D86CB8800525DD0 /* DDHHistoryListView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90B422D86CB8800525DD0 /* DDHHistoryListView.m */; };
+		F2C90B472D86CB9900525DD0 /* NSFileManager+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90B452D86CB9900525DD0 /* NSFileManager+Extension.m */; };
+		F2C90B4B2D86CC9200525DD0 /* DDHHistoryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90B4A2D86CC9200525DD0 /* DDHHistoryListViewController.m */; };
+		F2C90B4E2D86E21900525DD0 /* DDHHistoryEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90B4D2D86E21900525DD0 /* DDHHistoryEntryCell.m */; };
+		F2C90BFE2D876B9100525DD0 /* DDHHistoryListDiffableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90BFD2D876B9100525DD0 /* DDHHistoryListDiffableDataSource.m */; };
 		F2CA90D52A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */; };
 		F2CA90D82A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90D72A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m */; };
 		F2CA90E12A2C802100B8B47F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2CA90E02A2C802100B8B47F /* WidgetKit.framework */; };
@@ -193,6 +200,18 @@
 		F2AE97582A31BD3500B0D792 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F2C90A862D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICellConfigurationState+HealthInfo.h"; sourceTree = "<group>"; };
 		F2C90A872D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICellConfigurationState+HealthInfo.m"; sourceTree = "<group>"; };
+		F2C90B3A2D84D6CD00525DD0 /* DDHHistoryEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHHistoryEntry.h; sourceTree = "<group>"; };
+		F2C90B3B2D84D6CD00525DD0 /* DDHHistoryEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHHistoryEntry.m; sourceTree = "<group>"; };
+		F2C90B412D86CB8800525DD0 /* DDHHistoryListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHHistoryListView.h; sourceTree = "<group>"; };
+		F2C90B422D86CB8800525DD0 /* DDHHistoryListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHHistoryListView.m; sourceTree = "<group>"; };
+		F2C90B442D86CB9900525DD0 /* NSFileManager+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+Extension.h"; sourceTree = "<group>"; };
+		F2C90B452D86CB9900525DD0 /* NSFileManager+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Extension.m"; sourceTree = "<group>"; };
+		F2C90B492D86CC9200525DD0 /* DDHHistoryListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHHistoryListViewController.h; sourceTree = "<group>"; };
+		F2C90B4A2D86CC9200525DD0 /* DDHHistoryListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHHistoryListViewController.m; sourceTree = "<group>"; };
+		F2C90B4C2D86E21900525DD0 /* DDHHistoryEntryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHHistoryEntryCell.h; sourceTree = "<group>"; };
+		F2C90B4D2D86E21900525DD0 /* DDHHistoryEntryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHHistoryEntryCell.m; sourceTree = "<group>"; };
+		F2C90BFC2D876B9100525DD0 /* DDHHistoryListDiffableDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHHistoryListDiffableDataSource.h; sourceTree = "<group>"; };
+		F2C90BFD2D876B9100525DD0 /* DDHHistoryListDiffableDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHHistoryListDiffableDataSource.m; sourceTree = "<group>"; };
 		F2CA90D32A2BA4FB00B8B47F /* DDHOnboardingOverlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHOnboardingOverlayView.h; sourceTree = "<group>"; };
 		F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHOnboardingOverlayView.m; sourceTree = "<group>"; };
 		F2CA90D62A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHCollectionViewLayoutProvider.h; sourceTree = "<group>"; };
@@ -333,6 +352,8 @@
 				F2469C5A29F987390023DAD9 /* DDHActionState.h */,
 				F2469C5F29FBA4F40023DAD9 /* DDHDayPlannerSection.h */,
 				F21B217E2A0550F100518B8E /* DDHActionStoreSection.h */,
+				F2C90B3A2D84D6CD00525DD0 /* DDHHistoryEntry.h */,
+				F2C90B3B2D84D6CD00525DD0 /* DDHHistoryEntry.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -428,9 +449,11 @@
 				F2469C6F29FC3DE80023DAD9 /* Persitence */,
 				F2469C6129FBB6DA0023DAD9 /* Model */,
 				F25F7D3429F5997E00EF395F /* DayPlanner */,
+				F2C90B482D86CBA800525DD0 /* History */,
 				F2469C7B29FC5CD30023DAD9 /* ActionStore */,
 				F2469C6B29FC3A780023DAD9 /* ActionInput */,
 				F2469C8229FCE0270023DAD9 /* Helper */,
+				F2C90B462D86CB9900525DD0 /* Extensions */,
 				F25F7D2129F596EB00EF395F /* Assets.xcassets */,
 				F25F7D2329F596EB00EF395F /* LaunchScreen.storyboard */,
 				F25F7D2629F596EB00EF395F /* Info.plist */,
@@ -489,6 +512,30 @@
 				F2AE97472A31B83200B0D792 /* DailySpoonsUITests.m */,
 			);
 			path = DailySpoonsUITests;
+			sourceTree = "<group>";
+		};
+		F2C90B462D86CB9900525DD0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F2C90B442D86CB9900525DD0 /* NSFileManager+Extension.h */,
+				F2C90B452D86CB9900525DD0 /* NSFileManager+Extension.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F2C90B482D86CBA800525DD0 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				F2C90B412D86CB8800525DD0 /* DDHHistoryListView.h */,
+				F2C90B422D86CB8800525DD0 /* DDHHistoryListView.m */,
+				F2C90B492D86CC9200525DD0 /* DDHHistoryListViewController.h */,
+				F2C90B4A2D86CC9200525DD0 /* DDHHistoryListViewController.m */,
+				F2C90BFC2D876B9100525DD0 /* DDHHistoryListDiffableDataSource.h */,
+				F2C90BFD2D876B9100525DD0 /* DDHHistoryListDiffableDataSource.m */,
+				F2C90B4C2D86E21900525DD0 /* DDHHistoryEntryCell.h */,
+				F2C90B4D2D86E21900525DD0 /* DDHHistoryEntryCell.m */,
+			);
+			path = History;
 			sourceTree = "<group>";
 		};
 		F2CA90DF2A2C802100B8B47F /* Frameworks */ = {
@@ -691,12 +738,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2C90B4E2D86E21900525DD0 /* DDHHistoryEntryCell.m in Sources */,
 				F2469C8E29FE84710023DAD9 /* DDHSpoonsBackgroundView.m in Sources */,
 				F2C90A882D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.m in Sources */,
 				F2469C8B29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m in Sources */,
 				F2CA90D82A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m in Sources */,
 				F2573E0F2A3337BF008E5429 /* UICellConfigurationState+ActionCellAdditions.m in Sources */,
+				F2C90B3C2D84D6CD00525DD0 /* DDHHistoryEntry.m in Sources */,
 				F2469C8129FCE01D0023DAD9 /* DDHCellRegistrationProvider.m in Sources */,
+				F2C90B432D86CB8800525DD0 /* DDHHistoryListView.m in Sources */,
 				F2469C6A29FC27620023DAD9 /* DDHActionInputViewController.m in Sources */,
 				F2CA90FD2A2D044D00B8B47F /* WidgetReloader.swift in Sources */,
 				F22737F52A2A4229001B15B6 /* DDHSettingsViewController.m in Sources */,
@@ -706,6 +756,8 @@
 				F2469C5629F71B470023DAD9 /* NSUserDefaults+Helper.m in Sources */,
 				F2469C5D29F988D30023DAD9 /* DDHActionCell.m in Sources */,
 				F25F7D1729F596EA00EF395F /* AppDelegate.m in Sources */,
+				F2C90BFE2D876B9100525DD0 /* DDHHistoryListDiffableDataSource.m in Sources */,
+				F2C90B4B2D86CC9200525DD0 /* DDHHistoryListViewController.m in Sources */,
 				F22737F92A2A4372001B15B6 /* DDHSettingsView.m in Sources */,
 				F2469C8529FE76AB0023DAD9 /* DDHSpoonsHeaderView.m in Sources */,
 				F25F7D2829F596EB00EF395F /* main.m in Sources */,
@@ -713,6 +765,7 @@
 				F2E384312D7F4DD2007375BF /* DDHHealthDataCell.m in Sources */,
 				F2469C6429FBB7150023DAD9 /* DDHDataStore.m in Sources */,
 				F2469C6E29FC3A9D0023DAD9 /* DDHActionInputView.m in Sources */,
+				F2C90B472D86CB9900525DD0 /* NSFileManager+Extension.m in Sources */,
 				F2469C6729FBCE0E0023DAD9 /* DDHActionsHeaderView.m in Sources */,
 				F2469C5929F9855C0023DAD9 /* DDHSpoonCell.m in Sources */,
 				F2469C7E29FC5D830023DAD9 /* DDHActionStoreView.m in Sources */,
@@ -754,6 +807,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2C90B3D2D84D6CD00525DD0 /* DDHHistoryEntry.m in Sources */,
 				F2CA90E62A2C802100B8B47F /* InfoWidgetsBundle.swift in Sources */,
 				F2CA90F52A2C88BE00B8B47F /* DDHDay.m in Sources */,
 				F2E384242D7B47E5007375BF /* RectanglesView.swift in Sources */,

@@ -49,3 +49,9 @@
 "actionInput.spoonAmount" = "Spoons: %.0lf";
 "actionInput.typeSelection.sink" = "Spoon Sink";
 "actionInput.typeSelection.source" = "Spoon Source";
+
+"history.title" = "History";
+"history.amount" = "Spoons: \t%ld";
+"history.planned" = "Planned: \t%ld";
+"history.completed" = "Completed: \t%ld";
+"history.stateOfMind" = "State Of Mind";

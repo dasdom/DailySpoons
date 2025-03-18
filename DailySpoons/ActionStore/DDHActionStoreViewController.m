@@ -192,4 +192,10 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
   [self setSearchText:searchText];
 }
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+  if ([self.dataSource.snapshot.itemIdentifiers count] < 1) {
+    [self add:nil];
+  }
+}
 @end
