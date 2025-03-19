@@ -526,6 +526,14 @@
 		F2C90B482D86CBA800525DD0 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				F2C90BFF2D8B172D00525DD0 /* List */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		F2C90BFF2D8B172D00525DD0 /* List */ = {
+			isa = PBXGroup;
+			children = (
 				F2C90B412D86CB8800525DD0 /* DDHHistoryListView.h */,
 				F2C90B422D86CB8800525DD0 /* DDHHistoryListView.m */,
 				F2C90B492D86CC9200525DD0 /* DDHHistoryListViewController.h */,
@@ -535,7 +543,7 @@
 				F2C90B4C2D86E21900525DD0 /* DDHHistoryEntryCell.h */,
 				F2C90B4D2D86E21900525DD0 /* DDHHistoryEntryCell.m */,
 			);
-			path = History;
+			path = List;
 			sourceTree = "<group>";
 		};
 		F2CA90DF2A2C802100B8B47F /* Frameworks */ = {
