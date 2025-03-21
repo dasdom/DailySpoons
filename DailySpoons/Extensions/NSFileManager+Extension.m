@@ -25,4 +25,12 @@
   NSURL *url = [[self documentsURL] URLByAppendingPathComponent:@"history.sq"];
   return url;
 }
+
+- (NSURL *)csvExportURLForDate:(NSDate *)date {
+  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  dateFormatter.dateFormat = @"yyyy_MM_dd";
+  NSString *fileName = [NSString stringWithFormat:@"daily_spoons_%@.csv", [dateFormatter stringFromDate:date]];
+  NSURL *url = [[self documentsURL] URLByAppendingPathComponent:fileName];
+  return url;
+}
 @end

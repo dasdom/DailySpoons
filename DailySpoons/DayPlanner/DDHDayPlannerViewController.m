@@ -68,13 +68,16 @@
 
   [self.dataStore createHistoryDatabaseIfNeeded];
 
-  UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"arrow.counterclockwise"] style:UIBarButtonItemStylePlain target:self action:@selector(reset:)];
-  resetButton.accessibilityLabel = NSLocalizedString(@"dayPlanner.reset", nil);
+//  UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"arrow.counterclockwise"] style:UIBarButtonItemStylePlain target:self action:@selector(reset:)];
+//  resetButton.accessibilityLabel = NSLocalizedString(@"dayPlanner.reset", nil);
 
   UIBarButtonItem *historyButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"calendar"] style:UIBarButtonItemStylePlain target:self action:@selector((history:))];
-  self.navigationItem.rightBarButtonItems = @[resetButton, historyButton];
+  historyButton.accessibilityLabel = NSLocalizedString(@"history.title", nil);
+//  self.navigationItem.rightBarButtonItems = @[resetButton, historyButton];
+  self.navigationItem.rightBarButtonItem = historyButton;
 
   UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(didSelectSettings:)];
+  settingsButton.accessibilityLabel = NSLocalizedString(@"dayPlanner.settings", nil);
   self.navigationItem.leftBarButtonItem = settingsButton;
 
   UICollectionView *collectionView = self.contentView.collectionView;
@@ -143,7 +146,7 @@
     }
     case DDHOnboardingStateActions:
     {
-      DDHActionsHeaderView *actionHeaderView = (DDHActionsHeaderView *)[[self contentView].collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+      DDHActionsHeaderView *actionHeaderView = (DDHActionsHeaderView *)[[self contentView].collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:2]];
       CGFloat yPos = CGRectGetMaxY(actionHeaderView.frame) + contentView.layoutMargins.top;
       [self.overlayView updateFrameWithSuperViewFrame:contentView.frame yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.actions", nil) alignment:UIStackViewAlignmentTrailing];
       break;
@@ -151,7 +154,7 @@
     case DDHOnboardingStateReload:
     {
       CGFloat yPos = contentView.layoutMargins.top;
-      [self.overlayView updateFrameWithSuperViewFrame:contentView.frame yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.reload", nil) alignment:UIStackViewAlignmentTrailing];
+      [self.overlayView updateFrameWithSuperViewFrame:contentView.frame yPos:yPos arrowName:@"arrow.up" description:NSLocalizedString(@"onboarding.history", nil) alignment:UIStackViewAlignmentTrailing];
       [self.overlayView.nextButton setTitle:NSLocalizedString(@"onboarding.done", nil) forState:UIControlStateNormal];
       break;
     }
@@ -349,20 +352,20 @@
   [self.delegate didSelectAddButtonInViewController:self];
 }
 
-- (void)reset:(UIBarButtonItem *)sender {
-  DDHDay *day = self.dataStore.day;
-  [day resetWithDailySpoons:[NSUserDefaults.standardUserDefaults dailySpoons]];
-
-  [self.dataStore saveData];
-
-  [self updateWithDay:day];
-
-  NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
-  [snapshot reconfigureItemsWithIdentifiers:snapshot.itemIdentifiers];
-  [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
-
-  [self updateSpoonsAmount];
-}
+//- (void)reset:(UIBarButtonItem *)sender {
+//  DDHDay *day = self.dataStore.day;
+//  [day resetWithDailySpoons:[NSUserDefaults.standardUserDefaults dailySpoons]];
+//
+//  [self.dataStore saveData];
+//
+//  [self updateWithDay:day];
+//
+//  NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
+//  [snapshot reconfigureItemsWithIdentifiers:snapshot.itemIdentifiers];
+//  [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+//
+//  [self updateSpoonsAmount];
+//}
 
 - (void)history:(UIBarButtonItem *)sender {
   [self.delegate didSelectHistoryInViewController:self];
@@ -466,9 +469,7 @@
 }
 
 - (void)showStepsChanged:(BOOL)showSteps {
-  if (false == showSteps) {
-    [self updateWithDay:self.dataStore.day reconfigure:@[]];
-  }
+  [self updateWithDay:self.dataStore.day reconfigure:@[]];
 }
 
 @end

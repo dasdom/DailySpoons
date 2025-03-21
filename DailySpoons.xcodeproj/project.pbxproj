@@ -56,6 +56,8 @@
 		F2C90B4B2D86CC9200525DD0 /* DDHHistoryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90B4A2D86CC9200525DD0 /* DDHHistoryListViewController.m */; };
 		F2C90B4E2D86E21900525DD0 /* DDHHistoryEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90B4D2D86E21900525DD0 /* DDHHistoryEntryCell.m */; };
 		F2C90BFE2D876B9100525DD0 /* DDHHistoryListDiffableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90BFD2D876B9100525DD0 /* DDHHistoryListDiffableDataSource.m */; };
+		F2C90C002D8BF39A00525DD0 /* NSFileManager+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90B452D86CB9900525DD0 /* NSFileManager+Extension.m */; };
+		F2C90C032D8DD4A100525DD0 /* DDHHistoryEmptyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90C022D8DD4A100525DD0 /* DDHHistoryEmptyCell.m */; };
 		F2CA90D52A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */; };
 		F2CA90D82A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CA90D72A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m */; };
 		F2CA90E12A2C802100B8B47F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2CA90E02A2C802100B8B47F /* WidgetKit.framework */; };
@@ -212,6 +214,8 @@
 		F2C90B4D2D86E21900525DD0 /* DDHHistoryEntryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHHistoryEntryCell.m; sourceTree = "<group>"; };
 		F2C90BFC2D876B9100525DD0 /* DDHHistoryListDiffableDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHHistoryListDiffableDataSource.h; sourceTree = "<group>"; };
 		F2C90BFD2D876B9100525DD0 /* DDHHistoryListDiffableDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHHistoryListDiffableDataSource.m; sourceTree = "<group>"; };
+		F2C90C012D8DD4A100525DD0 /* DDHHistoryEmptyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHHistoryEmptyCell.h; sourceTree = "<group>"; };
+		F2C90C022D8DD4A100525DD0 /* DDHHistoryEmptyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHHistoryEmptyCell.m; sourceTree = "<group>"; };
 		F2CA90D32A2BA4FB00B8B47F /* DDHOnboardingOverlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHOnboardingOverlayView.h; sourceTree = "<group>"; };
 		F2CA90D42A2BA4FB00B8B47F /* DDHOnboardingOverlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHOnboardingOverlayView.m; sourceTree = "<group>"; };
 		F2CA90D62A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHCollectionViewLayoutProvider.h; sourceTree = "<group>"; };
@@ -542,6 +546,8 @@
 				F2C90BFD2D876B9100525DD0 /* DDHHistoryListDiffableDataSource.m */,
 				F2C90B4C2D86E21900525DD0 /* DDHHistoryEntryCell.h */,
 				F2C90B4D2D86E21900525DD0 /* DDHHistoryEntryCell.m */,
+				F2C90C012D8DD4A100525DD0 /* DDHHistoryEmptyCell.h */,
+				F2C90C022D8DD4A100525DD0 /* DDHHistoryEmptyCell.m */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -747,6 +753,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2C90B4E2D86E21900525DD0 /* DDHHistoryEntryCell.m in Sources */,
+				F2C90C032D8DD4A100525DD0 /* DDHHistoryEmptyCell.m in Sources */,
 				F2469C8E29FE84710023DAD9 /* DDHSpoonsBackgroundView.m in Sources */,
 				F2C90A882D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.m in Sources */,
 				F2469C8B29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m in Sources */,
@@ -816,6 +823,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2C90B3D2D84D6CD00525DD0 /* DDHHistoryEntry.m in Sources */,
+				F2C90C002D8BF39A00525DD0 /* NSFileManager+Extension.m in Sources */,
 				F2CA90E62A2C802100B8B47F /* InfoWidgetsBundle.swift in Sources */,
 				F2CA90F52A2C88BE00B8B47F /* DDHDay.m in Sources */,
 				F2E384242D7B47E5007375BF /* RectanglesView.swift in Sources */,
@@ -997,7 +1005,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DailySpoons/DailySpoons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailySpoons/Info.plist;
@@ -1011,7 +1019,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
@@ -1037,7 +1045,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DailySpoons/DailySpoons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailySpoons/Info.plist;
@@ -1051,7 +1059,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
@@ -1150,7 +1158,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = InfoWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InfoWidgets/Info.plist;
@@ -1162,7 +1170,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons.InfoWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1183,7 +1191,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = InfoWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InfoWidgets/Info.plist;
@@ -1195,7 +1203,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons.InfoWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

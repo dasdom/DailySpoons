@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL *)dayURL;
 - (NSURL *)actionsURL;
 - (NSURL *)historyURL;
+- (NSURL *)csvExportURLForDate:(NSDate *)date;
 @end
 
 NS_ASSUME_NONNULL_END

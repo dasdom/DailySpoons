@@ -83,9 +83,9 @@
 - (void)updateWithHistoryEntry:(DDHHistoryEntry *)entry dateFormatter:(NSDateFormatter *)dateFormatter {
   self.dateLabel.text = [dateFormatter stringFromDate:entry.date];
 
-  self.amountLabel.text = [NSString stringWithFormat:NSLocalizedString(@"history.amount", nil), entry.amountOfSpoons];
-  self.plannedLabel.text = [NSString stringWithFormat:NSLocalizedString(@"history.planned", nil), entry.plannedSpoons];
-  self.completedLabel.text = [NSString stringWithFormat:NSLocalizedString(@"history.completed", nil), entry.completedSpoons];
+  self.amountLabel.text = [NSString stringWithFormat:NSLocalizedString(@"history.amountOfSpoons", nil), entry.amountOfSpoons];
+  self.plannedLabel.text = [NSString stringWithFormat:NSLocalizedString(@"history.plannedSpoons", nil), entry.plannedSpoons];
+  self.completedLabel.text = [NSString stringWithFormat:NSLocalizedString(@"history.completedSpoons", nil), entry.completedSpoons];
 }
 
 - (void)updateMood:(NSString *)moodClassification valence:(double)valence {

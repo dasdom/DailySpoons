@@ -19,7 +19,7 @@
 "onboarding.spoonBudget" = "Dies ist dein Löffel-Budget für den Tag. Ein Löffel representiert die minimale Energie die du während des Tages 'ausgeben' kannst.";
 "onboarding.settings" = "Du kannst die Anzahl der täglich verfügbaren Löffel in den Einstellungen anpassen.";
 "onboarding.actions" = "Füge Aktionen und deren Löffelverbrauch für deinen Tag hinzu. Zum Beispiel Aufstehen könnte einen Löffel verbrauchen. Wähle die Aktion in der Liste aus, um die entsprechende Anzahl an Löffeln auszugeben.";
-"onboarding.reload" = "Setze die Anzeige zurück um von neuem zu starten.";
+"onboarding.history" = "Hier findest du die geplanten und verbrauchten Löffel der letzten 100 Tage.";
 "onboarding.next" = "Nächste";
 "onboarding.done" = "Fertig";
 
@@ -34,6 +34,7 @@
 "dayPlanner.spoonsCompleted" = "Löffel erledigt";
 "dayPlanner.spoonsUncompleted" = "Löffel nicht erledigt";
 "dayPlanner.steps" = "%ld gestern, %ld heute";
+"dayPlanner.settings" = "Einstellungen";
 
 "actionStore.title" = "Meine Löffelsenken/-quellen";
 "actionStore.unplanned" = "Ungeplant";
@@ -50,7 +51,12 @@
 "actionInput.typeSelection.source" = "Löffelquelle";
 
 "history.title" = "Vergangenheit";
-"history.amount" = "Löffel: \t%ld";
-"history.planned" = "Geplant: \t%ld";
-"history.completed" = "Verbraucht: \t%ld";
+"history.emptyInfo" = "Noch keine vergangenen Einträge. Schau morgen nochmal rein.";
+"history.amountOfSpoons" = "Löffel: \t\t%ld";
+"history.plannedSpoons" = "Geplant: \t%ld";
+"history.completedSpoons" = "Verbraucht: %ld";
 "history.stateOfMind" = "Gemütszustand";
+"history.spoons" = "Löffel";
+"history.planned" = "Geplant";
+"history.completed" = "Verbraucht";
+"history.date" = "Datum";

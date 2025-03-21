@@ -20,7 +20,7 @@
 "onboarding.spoonBudget" = "This is your spoon budget for the day. One spoon represents the minimal energy you can spend during the day.";
 "onboarding.settings" = "You can change the amount of spoons per day in the settings.";
 "onboarding.actions" = "Add actions for your day and set their spoon amount. For example getting out of bed could take one spoon. Select the action in this list to spend the spoon.";
-"onboarding.reload" = "Reset the view to start over.";
+"onboarding.history" = "See the planned and completed spoons of the last 100 days.";
 "onboarding.next" = "Next";
 "onboarding.done" = "Done";
 
@@ -35,6 +35,7 @@
 "dayPlanner.spoonsCompleted" = "spoons completed";
 "dayPlanner.spoonsUncompleted" = "spoons uncompleted";
 "dayPlanner.steps" = "%ld yesterday, %ld today";
+"dayPlanner.settings" = "Settings";
 
 "actionStore.title" = "My spoon sinks/sources";
 "actionStore.unplanned" = "Unplanned";
@@ -51,7 +52,12 @@
 "actionInput.typeSelection.source" = "Spoon Source";
 
 "history.title" = "History";
-"history.amount" = "Spoons: \t%ld";
-"history.planned" = "Planned: \t%ld";
-"history.completed" = "Completed: \t%ld";
+"history.emptyInfo" = "No passt entries yet. Come back tomorrow.";
+"history.amountOfSpoons" = "Spoons: \t%ld";
+"history.plannedSpoons" = "Planned: \t%ld";
+"history.completedSpoons" = "Completed: \t%ld";
 "history.stateOfMind" = "State Of Mind";
+"history.spoons" = "Spoon";
+"history.planned" = "Planned";
+"history.completed" = "Completed";
+"history.date" = "Date";

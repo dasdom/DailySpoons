@@ -6,10 +6,12 @@
 #import "DDHHistoryListViewController.h"
 #import "DDHHistoryListView.h"
 #import "DDHHistoryEntryCell.h"
+#import "DDHHistoryEmptyCell.h"
 #import "DDHHistoryEntry.h"
 #import "DDHDataStore.h"
 #import "DDHHistoryListDiffableDataSource.h"
 #import <HealthKit/HealthKit.h>
+#import "NSFileManager+Extension.h"
 
 @interface DDHHistoryListViewController ()
 @property (nonatomic, strong) DDHHistoryListDiffableDataSource *dataSource;
@@ -19,6 +21,7 @@
 @property (nonatomic, weak, readonly) DDHHistoryListView *contentView;
 @property (nonatomic, strong) DDHDataStore *dataStore;
 @property (nonatomic, strong) HKHealthStore *healthStore;
+@property (nonatomic, strong) NSUUID *emptyStateUUID;
 @end
 
 API_AVAILABLE(ios(18.0))
@@ -54,35 +57,77 @@ API_AVAILABLE(ios(18.0))
 
   self.title = NSLocalizedString(@"history.title", nil);
 
+  UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
+  self.navigationItem.rightBarButtonItem = closeButton;
+
+  UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(export:)];
+  self.navigationItem.leftBarButtonItem = exportButton;
+
   UITableView *tableView = self.contentView.tableView;
 
   tableView.delegate = self;
 
+  [tableView registerClass:[DDHHistoryEmptyCell class] forCellReuseIdentifier:[DDHHistoryEmptyCell identifier]];
   [tableView registerClass:[DDHHistoryEntryCell class] forCellReuseIdentifier:[DDHHistoryEntryCell identifier]];
 
   _dataSource = [[DDHHistoryListDiffableDataSource alloc] initWithTableView:tableView cellProvider:^UITableViewCell * _Nullable(UITableView * _Nonnull tableView, NSIndexPath * _Nonnull indexPath, NSUUID * _Nonnull itemIdentifier) {
-    DDHHistoryEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:[DDHHistoryEntryCell identifier] forIndexPath:indexPath];
-    NSUInteger index = [self.historyEntries indexOfObjectPassingTest:^BOOL(DDHHistoryEntry * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-      return [obj.uuid isEqual:itemIdentifier];
-    }];
-    if (index != NSNotFound) {
-      DDHHistoryEntry *entry = self.historyEntries[index];
-      [cell updateWithHistoryEntry:entry dateFormatter:self.dayDateFormatter];
-      if (@available(iOS 18.0, *)) {
-        HKStateOfMind *stateOfMind = [self stateOfMindForDate:entry.date];
-        if (nil != stateOfMind) {
-          NSString *classificationString = [self classificationStringFromStateOfMind:stateOfMind];
-          [cell updateMood:classificationString valence:stateOfMind.valence];
+    UITableViewCell *cell;
+    if (nil != self.emptyStateUUID) {
+      DDHHistoryEmptyCell *emptyCell = [tableView dequeueReusableCellWithIdentifier:[DDHHistoryEmptyCell identifier] forIndexPath:indexPath];
+      cell = emptyCell;
+    } else {
+      DDHHistoryEntryCell *entryCell = [tableView dequeueReusableCellWithIdentifier:[DDHHistoryEntryCell identifier] forIndexPath:indexPath];
+      NSUInteger index = [self.historyEntries indexOfObjectPassingTest:^BOOL(DDHHistoryEntry * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        return [obj.uuid isEqual:itemIdentifier];
+      }];
+      if (index != NSNotFound) {
+        DDHHistoryEntry *entry = self.historyEntries[index];
+        [entryCell updateWithHistoryEntry:entry dateFormatter:self.dayDateFormatter];
+        if (@available(iOS 18.0, *)) {
+          HKStateOfMind *stateOfMind = [self stateOfMindForDate:entry.date];
+          if (nil != stateOfMind) {
+            NSString *classificationString = [self classificationStringFromStateOfMind:stateOfMind];
+            [entryCell updateMood:classificationString valence:stateOfMind.valence];
+          }
+#if TARGET_IPHONE_SIMULATOR
+          int valenceInt = rand() % 200;
+          double valence = (double)valenceInt/100.0 - 1.0;
+          if (rand() % 100 < 60) {
+            [entryCell updateMood:@"" valence:valence];
+          }
+#endif
         }
       }
+      cell = entryCell;
     }
     return cell;
   }];
 
   NSArray<DDHHistoryEntry *> *historyEntries = [self.dataStore history];
+//#if TARGET_IPHONE_SIMULATOR
+//  historyEntries = [historyEntries arrayByAddingObjectsFromArray:@[
+//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60] amountOfSpoons:12 plannedSpoons:11 completedSpoons:10 completedActionsString:@""],
+//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-2 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:11 completedSpoons:11 completedActionsString:@""],
+//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-3 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-4 * 24 * 60 * 60] amountOfSpoons:13 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
+//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-5 * 24 * 60 * 60] amountOfSpoons:13 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
+//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-6 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-7 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
+//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-8 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-9 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-10 * 24 * 60 * 60] amountOfSpoons:11 plannedSpoons:11 completedSpoons:11 completedActionsString:@""],
+//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-11 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+//  ]];
+//#endif
+  if ([historyEntries count] < 1) {
+    _emptyStateUUID = [NSUUID UUID];
+  }
   [self updateWithHistoryEntries:historyEntries];
 
+#if TARGET_IPHONE_SIMULATOR
+#else
   [self fetchStateOfMindIfNeeded];
+#endif
 }
 
 - (void)updateWithHistoryEntries:(NSArray<DDHHistoryEntry *> *)historyEntries {
@@ -96,7 +141,7 @@ API_AVAILABLE(ios(18.0))
     if (nil == currentSectionIdentifier) {
       currentSectionIdentifier = monthString;
     }
-    if (monthString != currentSectionIdentifier) {
+    if (NO == [monthString isEqualToString:currentSectionIdentifier]) {
       [snapshot appendSectionsWithIdentifiers:@[currentSectionIdentifier]];
       [snapshot appendItemsWithIdentifiers:itemIds intoSectionWithIdentifier:currentSectionIdentifier];
 
@@ -112,6 +157,11 @@ API_AVAILABLE(ios(18.0))
     [snapshot appendItemsWithIdentifiers:itemIds intoSectionWithIdentifier:currentSectionIdentifier];
   }
 
+  if ([snapshot.sectionIdentifiers count] < 1 && nil != self.emptyStateUUID) {
+    [snapshot appendSectionsWithIdentifiers:@[@"---"]];
+    [snapshot appendItemsWithIdentifiers:@[self.emptyStateUUID]];
+  }
+
   [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
 }
 
@@ -124,6 +174,39 @@ API_AVAILABLE(ios(18.0))
   if (index != NSNotFound) {
     DDHHistoryEntry *entry = self.historyEntries[index];
   }
+}
+
+// MARK: - Actions
+- (void)close:(UIBarButtonItem *)sender {
+  [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)export:(UIBarButtonItem *)sender {
+  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  dateFormatter.timeStyle = NSDateFormatterNoStyle;
+  dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+
+  NSMutableArray<NSString *> *outputArray = [[NSMutableArray alloc] initWithCapacity:[self.historyEntries count] + 1];
+  [outputArray addObject:[NSString stringWithFormat:@"%@,%@,%@,%@,%@,%@", NSLocalizedString(@"history.date", nil), NSLocalizedString(@"history.spoons", nil), NSLocalizedString(@"history.planned", nil), NSLocalizedString(@"history.completed", nil), NSLocalizedString(@"history.stateOfMind", nil), NSLocalizedString(@"dayPlanner.actions", nil)]];
+  for (DDHHistoryEntry *entry in self.historyEntries) {
+    double valence = 0;
+    if (@available(iOS 18.0, *)) {
+      HKStateOfMind *stateOfMind = [self stateOfMindForDate:entry.date];
+      if (nil != stateOfMind) {
+        valence = stateOfMind.valence;
+      }
+    }
+    NSString *line = [NSString stringWithFormat:@"%@,%ld,%ld,%ld,%lf,%@", [dateFormatter stringFromDate:entry.date], entry.amountOfSpoons, entry.plannedSpoons, entry.completedSpoons, valence, entry.completedActionsString];
+    [outputArray addObject:line];
+  }
+  NSString *output = [outputArray componentsJoinedByString:@"\n"];
+  NSLog(@"output: %@", output);
+  NSData *outputData = [output dataUsingEncoding:NSUTF8StringEncoding];
+  NSURL *fileURL = [[NSFileManager defaultManager] csvExportURLForDate:[NSDate date]];
+  [outputData writeToURL:fileURL atomically:YES];
+
+  UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[fileURL] applicationActivities:nil];
+  [self presentViewController:activityViewController animated:YES completion:nil];
 }
 
 // MARK: - HealthKit

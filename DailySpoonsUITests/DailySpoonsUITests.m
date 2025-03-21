@@ -76,8 +76,12 @@
 
   [self tapCellWithName:@"Commute home" inApp:app];
 
-  [[self buttonWithName:@"settings" inApp:app] tap];
-  [self takeScreenshotWithName:@"04_settings"];
+  [[self buttonWithName:@"History" inApp:app] tap];
+  [self takeScreenshotWithName:@"04_history"];
+  [[self buttonWithName:@"Done" inApp:app] tap];
+
+  [[self buttonWithName:@"Settings" inApp:app] tap];
+  [self takeScreenshotWithName:@"05_settings"];
 }
 
 - (void)test_makeScreenshots_de {
@@ -137,8 +141,12 @@
 
   [self tapCellWithName:@"Weg nach Hause" inApp:app];
 
+  [[self buttonWithName:@"Vergangenheit" inApp:app] tap];
+  [self takeScreenshotWithName:@"04_history_de"];
+  [[self buttonWithName:@"Fertig" inApp:app] tap];
+
   [[self buttonWithName:@"Einstellungen" inApp:app] tap];
-  [self takeScreenshotWithName:@"04_einstellungen_de"];
+  [self takeScreenshotWithName:@"05_einstellungen_de"];
 }
 
 - (XCUIElement *)buttonWithName:(NSString *)name inApp:(XCUIApplication *)app {
