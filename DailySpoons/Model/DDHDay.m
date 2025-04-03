@@ -45,19 +45,19 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
   if (self = [super init]) {
-    NSTimeInterval timeInterval = [[dictionary valueForKey:dateKey] doubleValue];
+    NSTimeInterval timeInterval = [dictionary[dateKey] doubleValue];
     _date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
-    _carryOverSpoons = [[dictionary valueForKey:carryOverSpoonsKey] integerValue];
+    _carryOverSpoons = [dictionary[carryOverSpoonsKey] integerValue];
 
-    NSArray *rawComletedActions = [dictionary valueForKey:completedActionsKey];
+    NSArray *rawCompletedActions = dictionary[completedActionsKey];
     NSMutableArray *completedActions = [[NSMutableArray alloc] init];
-    [rawComletedActions enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull dictionary, NSUInteger idx, BOOL * _Nonnull stop) {
+    [rawCompletedActions enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull dictionary, NSUInteger idx, BOOL * _Nonnull stop) {
       DDHAction *action = [[DDHAction alloc] initWithDictionary:dictionary];
       [completedActions addObject:action];
     }];
     _completedActions = [completedActions copy];
 
-    NSArray *rawPlannedActions = [dictionary valueForKey:plannedActionsKey];
+    NSArray *rawPlannedActions = dictionary[plannedActionsKey];
     NSMutableArray *plannedActions = [[NSMutableArray alloc] init];
     [rawPlannedActions enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull dictionary, NSUInteger idx, BOOL * _Nonnull stop) {
       DDHAction *action = [[DDHAction alloc] initWithDictionary:dictionary];
@@ -65,7 +65,7 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
     }];
     _plannedActions = [plannedActions copy];
 
-    NSInteger amountOfSpoons = [[dictionary valueForKey:amountOfSpoonsKey] integerValue];
+    NSInteger amountOfSpoons = [dictionary[amountOfSpoonsKey] integerValue];
     [self setAmountOfSpoons:amountOfSpoons];
   }
   return self;
@@ -74,105 +74,105 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
 - (NSDictionary *)dictionary {
   NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
   NSTimeInterval timeInterval = [[self date] timeIntervalSince1970];
-  [dictionary setObject:[NSNumber numberWithDouble:timeInterval] forKey:dateKey];
+  dictionary[dateKey] = @(timeInterval);
 
-  [dictionary setObject:[NSNumber numberWithInteger:[self unmodifiedAmountOfSpoons]] forKey:amountOfSpoonsKey];
-  [dictionary setObject:[NSNumber numberWithInteger:[self carryOverSpoons]] forKey:carryOverSpoonsKey];
+  dictionary[amountOfSpoonsKey] = @(self.unmodifiedAmountOfSpoons);
+  dictionary[carryOverSpoonsKey] = @(self.carryOverSpoons);
 
   NSMutableArray *completedActions = [[NSMutableArray alloc] init];
   [[self completedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
     [completedActions addObject:[action dictionary]];
   }];
-  [dictionary setObject:[completedActions copy] forKey:completedActionsKey];
+  dictionary[completedActionsKey] = [completedActions copy];
 
   NSMutableArray *plannedActions = [[NSMutableArray alloc] init];
   [[self plannedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
     [plannedActions addObject:[action dictionary]];
   }];
-  [dictionary setObject:[plannedActions copy] forKey:plannedActionsKey];
+  dictionary[plannedActionsKey] = [plannedActions copy];
 
   return [dictionary copy];
 }
 
 - (void)setAmountOfSpoons:(NSInteger)amountOfSpoons {
   NSMutableArray<NSUUID *> *spoonsIdentifiers = [[NSMutableArray alloc] initWithCapacity:amountOfSpoons];
-  for (NSInteger i = 0; i < amountOfSpoons - [self carryOverSpoons]; i++) {
+  for (NSInteger i = 0; i < amountOfSpoons - self.carryOverSpoons; i++) {
     [spoonsIdentifiers addObject:[NSUUID UUID]];
   }
   for (NSInteger i = 0; i < [self plannedSpoonSources]; i++) {
     [spoonsIdentifiers addObject:[NSUUID UUID]];
   }
-  [self setSpoonsIdentifiers:spoonsIdentifiers];
+  self.spoonsIdentifiers = spoonsIdentifiers;
   _unmodifiedAmountOfSpoons = amountOfSpoons;
 }
 
 - (NSInteger)amountOfSpoons {
-  __block NSInteger amountOfSpoons = _unmodifiedAmountOfSpoons;
-  [[self plannedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-    if ([obj spoons] < 0) {
-      NSInteger negativeSpoons = -[obj spoons];
+  NSInteger amountOfSpoons = _unmodifiedAmountOfSpoons;
+  for (DDHAction *action in self.plannedActions) {
+    if (action.spoons < 0) {
+      NSInteger negativeSpoons = -action.spoons;
       amountOfSpoons += negativeSpoons;
     }
-  }];
+  }
 
   return amountOfSpoons;
 }
 
 - (NSInteger)completedSpoons {
-  __block NSInteger completedSpoons = 0;
-  [[self completedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
-    if ([action spoons] > 0) {
-      completedSpoons += [action spoons];
+  NSInteger completedSpoons = 0;
+  for (DDHAction *action in self.completedActions) {
+    if (action.spoons > 0) {
+      completedSpoons += action.spoons;
     }
-  }];
+  }
   return completedSpoons;
 }
 
 - (NSInteger)plannedSpoons {
-  __block NSInteger plannedSpoons = 0;
-  [[self plannedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
-    if ([action spoons] > 0) {
-      plannedSpoons += [action spoons];
+  NSInteger plannedSpoons = 0;
+  for (DDHAction *action in self.plannedActions) {
+    if (action.spoons > 0) {
+      plannedSpoons += action.spoons;
     }
-  }];
+  }
   return plannedSpoons;
 }
 
 - (NSInteger)completedSpoonSources {
-  __block NSInteger completedSpoons = 0;
-  [[self completedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
-    if ([action spoons] < 0) {
-      completedSpoons += -[action spoons];
+  NSInteger completedSpoons = 0;
+  for (DDHAction *action in self.completedActions) {
+    if (action.spoons < 0) {
+      completedSpoons += -action.spoons;
     }
-  }];
+  }
   return completedSpoons;
 }
 
 - (NSInteger)plannedSpoonSources {
-  __block NSInteger plannedSpoons = 0;
-  [[self plannedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
-    if ([action spoons] < 0) {
-      plannedSpoons += -[action spoons];
+  NSInteger plannedSpoons = 0;
+  for (DDHAction *action in self.plannedActions) {
+    if (action.spoons < 0) {
+      plannedSpoons += -action.spoons;
     }
-  }];
+  }
   return plannedSpoons;
 }
 
-- (void)updateAction:(DDHAction *)action {
-  [[self plannedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-    if ([[obj actionId] isEqual:[action actionId]]) {
-      [obj setName:[action name]];
-      [obj setSpoons:[action spoons]];
-      *stop = YES;
+- (void)updateAction:(DDHAction *)actionToUpdate {
+  for (DDHAction *action in self.plannedActions) {
+    if ([action.actionId isEqual:actionToUpdate.actionId]) {
+      action.name = actionToUpdate.name;
+      action.spoons = actionToUpdate.spoons;
+      break;
     }
-  }];
-  [[self completedActions] enumerateObjectsUsingBlock:^(DDHAction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-    if ([[obj actionId] isEqual:[action actionId]]) {
-      [obj setName:[action name]];
-      [obj setSpoons:[action spoons]];
-      *stop = YES;
+  }
+  for (DDHAction *action in self.completedActions) {
+    if ([action.actionId isEqual:actionToUpdate.actionId]) {
+      action.name = actionToUpdate.name;
+      action.spoons = actionToUpdate.spoons;
+      break;
     }
-  }];
+  }
 }
 
 - (NSInteger)availableSpoons {
@@ -180,55 +180,55 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
 }
 
 - (void)planAction:(DDHAction *)action {
-  [self setPlannedActions:[[self plannedActions] arrayByAddingObject:action]];
-  [self setAmountOfSpoons:[self unmodifiedAmountOfSpoons]];
+  self.plannedActions = [self.plannedActions arrayByAddingObject:action];
+  [self setAmountOfSpoons:self.unmodifiedAmountOfSpoons];
 }
 
 - (void)unplanAction:(DDHAction *)action {
-  NSMutableArray<DDHAction *> *plannedActions = [[self plannedActions] mutableCopy];
+  NSMutableArray<DDHAction *> *plannedActions = [self.plannedActions mutableCopy];
   [plannedActions removeObject:action];
-  [self setPlannedActions:[plannedActions copy]];
-  [self setAmountOfSpoons:[self unmodifiedAmountOfSpoons]];
+  self.plannedActions = [plannedActions copy];
+  [self setAmountOfSpoons:self.unmodifiedAmountOfSpoons];
 }
 
 - (void)movePlannedActionFromIndex:(NSInteger)initialIndex toFinalIndex:(NSInteger)finalIndex {
-  NSMutableArray<DDHAction *> *plannedActions = [[self plannedActions] mutableCopy];
-  DDHAction *action = [plannedActions objectAtIndex:initialIndex];
+  NSMutableArray<DDHAction *> *plannedActions = [self.plannedActions mutableCopy];
+  DDHAction *action = plannedActions[initialIndex];
   [plannedActions removeObjectAtIndex:initialIndex];
   [plannedActions insertObject:action atIndex:finalIndex];
-  [self setPlannedActions:[plannedActions copy]];
+  self.plannedActions = [plannedActions copy];
 }
 
 - (void)completeAction:(DDHAction *)action {
-  [self setCompletedActions:[[self completedActions] arrayByAddingObject:action]];
+  self.completedActions = [self.completedActions arrayByAddingObject:action];
 }
 
 - (void)uncompleteAction:(DDHAction *)action {
-  NSMutableArray<DDHAction *> *completedActions = [[self completedActions] mutableCopy];
+  NSMutableArray<DDHAction *> *completedActions = [self.completedActions mutableCopy];
   [completedActions removeObject:action];
-  [self setCompletedActions:[completedActions copy]];
+  self.completedActions = [completedActions copy];
 }
 
 - (NSArray<NSUUID *> *)idsOfCompletedActions {
   NSMutableArray<NSUUID *> *ids = [[NSMutableArray alloc] initWithCapacity:[self.completedActions count]];
-  [self.completedActions enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+  for (DDHAction *action in self.completedActions) {
     [ids addObject:action.actionId];
-  }];
+  }
   return [ids copy];
 }
 
 - (NSArray<NSUUID *> *)idsOfPlannedActions {
   NSMutableArray<NSUUID *> *ids = [[NSMutableArray alloc] initWithCapacity:[self.plannedActions count]];
-  [self.plannedActions enumerateObjectsUsingBlock:^(DDHAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+  for (DDHAction *action in self.plannedActions) {
     [ids addObject:action.actionId];
-  }];
+  }
   return [ids copy];
 }
 
 - (DDHActionState)actionStateForAction:(DDHAction *)action {
-  if ([[self completedActions] containsObject:action]) {
+  if ([self.completedActions containsObject:action]) {
     return DDHActionStateCompleted;
-  } else if ([[self plannedActions] containsObject:action]) {
+  } else if ([self.plannedActions containsObject:action]) {
     return DDHActionStatePlanned;
   } else {
     return DDHActionStateNone;
@@ -236,10 +236,10 @@ NSString * const plannedActionsKey = @"plannedActionsKey";
 }
 
 - (void)resetWithDailySpoons:(NSInteger)dailySpoons {
-  NSInteger carryOverSpoons = [self completedSpoons] - ([self amountOfSpoons] - [self carryOverSpoons]);
-  [self setCarryOverSpoons:MAX(0, carryOverSpoons)];
-  [self setDate:[NSDate now]];
-  [self setCompletedActions:[[NSArray alloc] init]];
+  NSInteger carryOverSpoons = self.completedSpoons - (self.amountOfSpoons - self.carryOverSpoons);
+  self.carryOverSpoons = MAX(0, carryOverSpoons);
+  self.date = [NSDate now];
+  self.completedActions = [[NSArray alloc] init];
   [self setAmountOfSpoons:dailySpoons];
 }
 @end

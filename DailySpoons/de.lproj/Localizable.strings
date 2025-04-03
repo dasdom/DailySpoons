@@ -34,6 +34,7 @@
 "dayPlanner.spoonsCompleted" = "Löffel erledigt";
 "dayPlanner.spoonsUncompleted" = "Löffel nicht erledigt";
 "dayPlanner.steps" = "%ld gestern, %ld heute";
+//"dayPlanner.steps" = "%ld gestern, %ld heute, RHR: %ld";
 "dayPlanner.settings" = "Einstellungen";
 
 "actionStore.title" = "Meine Löffelsenken/-quellen";
@@ -60,3 +61,10 @@
 "history.planned" = "Geplant";
 "history.completed" = "Verbraucht";
 "history.date" = "Datum";
+"history.classification.veryUnpleasant" = "sehr unangenehm";
+"history.classification.unpleasant" = "unangenehm";
+"history.classification.slightlyUnpleasant" = "etwas unangenehm";
+"history.classification.neutral" = "neutral";
+"history.classification.slightlyPleasant" = "etwas angenehm";
+"history.classification.pleasant" = "angenehm";
+"history.classification.veryPleasant" = "sehr angenehm";

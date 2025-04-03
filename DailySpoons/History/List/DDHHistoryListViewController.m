@@ -104,21 +104,21 @@ API_AVAILABLE(ios(18.0))
   }];
 
   NSArray<DDHHistoryEntry *> *historyEntries = [self.dataStore history];
-//#if TARGET_IPHONE_SIMULATOR
-//  historyEntries = [historyEntries arrayByAddingObjectsFromArray:@[
-//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60] amountOfSpoons:12 plannedSpoons:11 completedSpoons:10 completedActionsString:@""],
-//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-2 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:11 completedSpoons:11 completedActionsString:@""],
-//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-3 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
-//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-4 * 24 * 60 * 60] amountOfSpoons:13 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
-//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-5 * 24 * 60 * 60] amountOfSpoons:13 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
-//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-6 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
-//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-7 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
-//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-8 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
-//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-9 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
-//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-10 * 24 * 60 * 60] amountOfSpoons:11 plannedSpoons:11 completedSpoons:11 completedActionsString:@""],
-//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-11 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
-//  ]];
-//#endif
+#if TARGET_IPHONE_SIMULATOR
+  historyEntries = [historyEntries arrayByAddingObjectsFromArray:@[
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60] amountOfSpoons:12 plannedSpoons:11 completedSpoons:10 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-2 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:11 completedSpoons:11 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-3 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-4 * 24 * 60 * 60] amountOfSpoons:13 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-5 * 24 * 60 * 60] amountOfSpoons:13 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-6 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-7 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-8 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-9 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-10 * 24 * 60 * 60] amountOfSpoons:11 plannedSpoons:11 completedSpoons:11 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-11 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+  ]];
+#endif
   if ([historyEntries count] < 1) {
     _emptyStateUUID = [NSUUID UUID];
   }
@@ -187,7 +187,7 @@ API_AVAILABLE(ios(18.0))
   dateFormatter.dateStyle = NSDateFormatterMediumStyle;
 
   NSMutableArray<NSString *> *outputArray = [[NSMutableArray alloc] initWithCapacity:[self.historyEntries count] + 1];
-  [outputArray addObject:[NSString stringWithFormat:@"%@,%@,%@,%@,%@,%@", NSLocalizedString(@"history.date", nil), NSLocalizedString(@"history.spoons", nil), NSLocalizedString(@"history.planned", nil), NSLocalizedString(@"history.completed", nil), NSLocalizedString(@"history.stateOfMind", nil), NSLocalizedString(@"dayPlanner.actions", nil)]];
+  [outputArray addObject:[NSString stringWithFormat:@"%@,%@,%@,%@,%@", NSLocalizedString(@"history.date", nil), NSLocalizedString(@"history.spoons", nil), NSLocalizedString(@"history.planned", nil), NSLocalizedString(@"history.completed", nil), NSLocalizedString(@"history.stateOfMind", nil)]];
   for (DDHHistoryEntry *entry in self.historyEntries) {
     double valence = 0;
     if (@available(iOS 18.0, *)) {
@@ -196,7 +196,7 @@ API_AVAILABLE(ios(18.0))
         valence = stateOfMind.valence;
       }
     }
-    NSString *line = [NSString stringWithFormat:@"%@,%ld,%ld,%ld,%lf,%@", [dateFormatter stringFromDate:entry.date], entry.amountOfSpoons, entry.plannedSpoons, entry.completedSpoons, valence, entry.completedActionsString];
+    NSString *line = [NSString stringWithFormat:@"%@,%ld,%ld,%ld,%lf", [dateFormatter stringFromDate:entry.date], entry.amountOfSpoons, entry.plannedSpoons, entry.completedSpoons, valence];
     [outputArray addObject:line];
   }
   NSString *output = [outputArray componentsJoinedByString:@"\n"];
@@ -261,7 +261,7 @@ API_AVAILABLE(ios(18.0))
   return stateOfMindToReturn;
 }
 
-- (NSString *)classificationStringFromStateOfMind:(HKStateOfMind *)stateOfMind  API_AVAILABLE(ios(18.0)) {
+- (NSString *)classificationStringFromStateOfMind:(HKStateOfMind *)stateOfMind API_AVAILABLE(ios(18.0)) {
   NSString *classificationString;
   switch (stateOfMind.valenceClassification) {
     case HKStateOfMindValenceClassificationVeryUnpleasant:

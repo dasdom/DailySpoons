@@ -31,6 +31,7 @@
 @property (nonatomic, strong) HKHealthStore *healthStore;
 @property (nonatomic) NSInteger stepsYesterday;
 @property (nonatomic) NSInteger stepsToday;
+@property (nonatomic) NSInteger rhr;
 @end
 
 @implementation DDHDayPlannerViewController
@@ -334,9 +335,9 @@
   DDHDay *day = self.dataStore.day;
   NSString *footerString;
   if (day.carryOverSpoons > 0) {
-    footerString = [NSString stringWithFormat:NSLocalizedString(@"dayPlanner.spoonAmounts.withCarryOver", nil), day.plannedSpoons, day.carryOverSpoons, day.amountOfSpoons, day.completedSpoons, day.carryOverSpoons, day.amountOfSpoons];
+    footerString = [NSString stringWithFormat:NSLocalizedString(@"dayPlanner.spoonAmounts.withCarryOver", nil), day.plannedSpoons, day.carryOverSpoons, day.amountOfSpoons, day.completedSpoons, day.carryOverSpoons, day.plannedSpoons];
   } else {
-    footerString = [NSString stringWithFormat:NSLocalizedString(@"dayPlanner.spoonAmounts.withoutCarryOver", nil), day.plannedSpoons, day.amountOfSpoons, day.completedSpoons, day.amountOfSpoons];
+    footerString = [NSString stringWithFormat:NSLocalizedString(@"dayPlanner.spoonAmounts.withoutCarryOver", nil), day.plannedSpoons, day.amountOfSpoons, day.completedSpoons, day.plannedSpoons];
   }
   BOOL spoonDeficit = (day.plannedSpoons - day.carryOverSpoons) > day.amountOfSpoons;
   if (spoonDeficit) {
@@ -426,6 +427,7 @@
     _healthStore = [[HKHealthStore alloc] init];
 
     HKQuantityType *stepType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+//    HKQuantityType *restingHeartRateType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierRestingHeartRate];
     NSSet<HKObjectType *> *types = [[NSSet alloc] initWithObjects:stepType, nil];
 
     [_healthStore requestAuthorizationToShareTypes:nil readTypes:types completion:^(BOOL success, NSError * _Nullable error) {
@@ -443,19 +445,33 @@
 
         query.initialResultsHandler = ^(HKStatisticsCollectionQuery * _Nonnull query, HKStatisticsCollection * _Nullable result, NSError * _Nullable error) {
           NSLog(@"result: %@", result);
-          self.stepsYesterday = [[result.statistics.firstObject sumQuantity] doubleValueForUnit:[HKUnit countUnit]];
-          self.stepsToday = [[result.statistics.lastObject sumQuantity] doubleValueForUnit:[HKUnit countUnit]];
+          HKStatistics *yesterdayStatistics = result.statistics.firstObject;
+          if ([calendar isDate:yesterdayStatistics.startDate inSameDayAsDate:startDate]) {
+            self.stepsYesterday = [[yesterdayStatistics sumQuantity] doubleValueForUnit:[HKUnit countUnit]];
+          }
+          HKStatistics *todayStatistics = result.statistics.lastObject;
+          if ([calendar isDate:todayStatistics.startDate inSameDayAsDate:startOfToday]) {
+            self.stepsToday = [[todayStatistics sumQuantity] doubleValueForUnit:[HKUnit countUnit]];
+          }
           dispatch_async(dispatch_get_main_queue(), ^{
             [self updateWithDay:self.dataStore.day reconfigure:@[]];
           });
         };
 
-//        HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:stepType predicate:todayPredicate limit:HKObjectQueryNoLimit sortDescriptors:nil resultsHandler:^(HKSampleQuery * _Nonnull query, NSArray<__kindof HKSample *> * _Nullable results, NSError * _Nullable error) {
+//        NSDate *now = [NSDate date];
+//        NSDate *startDateRHR = [calendar dateByAddingUnit:NSCalendarUnitHour value:-5 toDate:now options:0];
+//        NSDate *endDateRHR = now;
+//
+//        NSPredicate *lastHourPredicate = [HKQuery predicateForSamplesWithStartDate:startDateRHR endDate:endDateRHR options:0];
+//
+//        HKSampleQuery *rhrQuery = [[HKSampleQuery alloc] initWithSampleType:restingHeartRateType predicate:lastHourPredicate limit:HKObjectQueryNoLimit sortDescriptors:nil resultsHandler:^(HKSampleQuery * _Nonnull query, NSArray<__kindof HKSample *> * _Nullable results, NSError * _Nullable error) {
 //          if (nil == error && nil != results) {
 //            NSLog(@"results: %@", results);
-//            self.steps = ((HKQuantitySample *)results.firstObject).count;
+//            double rate = [((HKQuantitySample *)results.lastObject).quantity doubleValueForUnit:[HKUnit hertzUnit]];
+//            NSLog(@"rate: %lf", rate);
+////            self.steps = ((HKQuantitySample *)results.firstObject).count;
 //            dispatch_async(dispatch_get_main_queue(), ^{
-//              [self reload];
+//              self.rhr = (NSInteger)rate * 60;
 //            });
 //          } else {
 //            NSLog(@"error: %@", error);
@@ -463,6 +479,7 @@
 //        }];
 
         [self.healthStore executeQuery:query];
+//        [self.healthStore executeQuery:rhrQuery];
       }
     }];
   }

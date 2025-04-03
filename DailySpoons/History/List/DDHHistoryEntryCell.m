@@ -13,6 +13,7 @@
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UISlider *stateOfMindSlider;
 @property (nonatomic, strong) UIStackView *stateOfMindStackView;
+@property (nonatomic, strong) UILabel *stateOfMindClassificationLabel;
 @end
 
 @implementation DDHHistoryEntryCell
@@ -50,15 +51,19 @@
     moodKeyLabel.text = NSLocalizedString(@"history.stateOfMind", nil);
     moodKeyLabel.textAlignment = NSTextAlignmentCenter;
 
-    _stateOfMindStackView = [[UIStackView alloc] initWithArrangedSubviews:@[_stateOfMindSlider, moodKeyLabel]];
+    _stateOfMindClassificationLabel = [[UILabel alloc] init];
+    _stateOfMindClassificationLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+    _stateOfMindClassificationLabel.textAlignment = NSTextAlignmentCenter;
+
+    _stateOfMindStackView = [[UIStackView alloc] initWithArrangedSubviews:@[moodKeyLabel, _stateOfMindSlider, _stateOfMindClassificationLabel]];
     _stateOfMindStackView.axis = UILayoutConstraintAxisVertical;
-    _stateOfMindStackView.spacing = 5;
     _stateOfMindStackView.hidden = YES;
 
     UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_dateLabel, textStackView, _stateOfMindStackView]];
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
-    stackView.spacing = 20;
+    stackView.spacing = 16;
     stackView.alignment = UIStackViewAlignmentCenter;
+    [stackView setCustomSpacing:24 afterView:textStackView];
 
     [self.contentView addSubview:stackView];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -86,10 +91,17 @@
   self.amountLabel.text = [NSString stringWithFormat:NSLocalizedString(@"history.amountOfSpoons", nil), entry.amountOfSpoons];
   self.plannedLabel.text = [NSString stringWithFormat:NSLocalizedString(@"history.plannedSpoons", nil), entry.plannedSpoons];
   self.completedLabel.text = [NSString stringWithFormat:NSLocalizedString(@"history.completedSpoons", nil), entry.completedSpoons];
+
+  if (entry.completedSpoons >= entry.amountOfSpoons) {
+    self.backgroundColor = [UIColor secondarySystemFillColor];
+  } else {
+    self.backgroundColor = nil;
+  }
 }
 
 - (void)updateMood:(NSString *)moodClassification valence:(double)valence {
   self.stateOfMindSlider.value = valence;
+  self.stateOfMindClassificationLabel.text = moodClassification;
   self.stateOfMindStackView.hidden = NO;
 }
 @end

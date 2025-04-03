@@ -35,16 +35,20 @@
 - (void)updateWithActionState:(DDHActionState)actionState {
   switch (actionState) {
     case DDHActionStatePlanned:
-      [[self imageView] setImage:[UIImage systemImageNamed:@"circle"]];
+      [self.imageView setImage:[UIImage systemImageNamed:@"circle"]];
+      [self.imageView setTintColor:[UIColor labelColor]];
       break;
     case DDHActionStateCompleted:
-      [[self imageView] setImage:[UIImage systemImageNamed:@"circle.slash"]];
+      [self.imageView setImage:[UIImage systemImageNamed:@"circle.slash"]];
+      [self.imageView setTintColor:[UIColor systemGray3Color]];
       break;
     case DDHActionStateCompletedSource:
-      [[self imageView] setImage:[UIImage systemImageNamed:@"circle.slash.fill"]];
+      [self.imageView setImage:[UIImage systemImageNamed:@"circle.slash.fill"]];
+      [self.imageView setTintColor:[UIColor labelColor]];
       break;
     default:
-      [[self imageView] setImage:[UIImage systemImageNamed:@"circle.fill"]];
+      [self.imageView setImage:[UIImage systemImageNamed:@"circle.fill"]];
+      [self.imageView setTintColor:[UIColor labelColor]];
       break;
   }
 }
