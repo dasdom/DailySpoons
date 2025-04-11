@@ -16,41 +16,5 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4B444DBB-09CD-4070-A770-60C6F188AD0C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "Yes"
-            filePath = "DailySpoons/Persitence/DDHDataStore.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
-            landmarkName = "-history"
-            landmarkType = "7">
-            <Actions>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "e [history addObject:(DDHHistoryEntry *)[[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate date] amountOfSpoons:16 plannedSpoons:10 completedSpoons:6 mood:5]];">
-                  </ActionContent>
-               </BreakpointActionProxy>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "e [history addObject:(DDHHistoryEntry *)[[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60] amountOfSpoons:14 plannedSpoons:12 completedSpoons:8 mood:0]];">
-                  </ActionContent>
-               </BreakpointActionProxy>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "e [history addObject:(DDHHistoryEntry *)[[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-2 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:14 mood:0]];">
-                  </ActionContent>
-               </BreakpointActionProxy>
-            </Actions>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

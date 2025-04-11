@@ -155,7 +155,8 @@
       sqlite3_bind_int(statement, 5, (int)[day completedSpoons]);
       NSMutableArray<NSString *> *actionsStringArray = [[NSMutableArray alloc] init];
       for (DDHAction *action in day.completedActions) {
-        [actionsStringArray addObject:[NSString stringWithFormat:@"%@(%ld)", action.name, action.spoons]];
+        NSString *actionNameWithoutSlash = [action.name stringByReplacingOccurrencesOfString:@"/" withString:@"slash"];
+        [actionsStringArray addObject:[NSString stringWithFormat:@"%@(%ld)", actionNameWithoutSlash, action.spoons]];
       }
       NSString *actionsString = [actionsStringArray componentsJoinedByString:@"/"];
       sqlite3_bind_text(statement, 6, [actionsString UTF8String], -1, SQLITE_TRANSIENT);

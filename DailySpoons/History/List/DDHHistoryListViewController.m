@@ -105,7 +105,7 @@ API_AVAILABLE(ios(18.0))
 
   NSArray<DDHHistoryEntry *> *historyEntries = [self.dataStore history];
 #if TARGET_IPHONE_SIMULATOR
-  historyEntries = [historyEntries arrayByAddingObjectsFromArray:@[
+  historyEntries = @[
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60] amountOfSpoons:12 plannedSpoons:11 completedSpoons:10 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-2 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:11 completedSpoons:11 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-3 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
@@ -117,7 +117,7 @@ API_AVAILABLE(ios(18.0))
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-9 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-10 * 24 * 60 * 60] amountOfSpoons:11 plannedSpoons:11 completedSpoons:11 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-11 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
-  ]];
+  ];
 #endif
   if ([historyEntries count] < 1) {
     _emptyStateUUID = [NSUUID UUID];
@@ -141,7 +141,8 @@ API_AVAILABLE(ios(18.0))
     if (nil == currentSectionIdentifier) {
       currentSectionIdentifier = monthString;
     }
-    if (NO == [monthString isEqualToString:currentSectionIdentifier]) {
+    if (NO == [monthString isEqualToString:currentSectionIdentifier] &&
+        NO == [snapshot.sectionIdentifiers containsObject:currentSectionIdentifier]) {
       [snapshot appendSectionsWithIdentifiers:@[currentSectionIdentifier]];
       [snapshot appendItemsWithIdentifiers:itemIds intoSectionWithIdentifier:currentSectionIdentifier];
 
