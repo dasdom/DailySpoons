@@ -14,6 +14,7 @@
 #import "NSFileManager+Extension.h"
 
 @interface DDHHistoryListViewController ()
+@property (nonatomic, weak) id<DDHHistoryListViewControllerProtocol> delegate;
 @property (nonatomic, strong) DDHHistoryListDiffableDataSource *dataSource;
 @property (nonatomic, strong) NSArray<DDHHistoryEntry *> *historyEntries;
 @property (nonatomic, strong) NSDateFormatter *dayDateFormatter;
@@ -31,8 +32,10 @@ API_AVAILABLE(ios(18.0))
 
 @implementation DDHHistoryListViewController
 
-- (instancetype)init {
+- (instancetype)initWithDelegate:(id<DDHHistoryListViewControllerProtocol>)delegate {
   if (self = [super init]) {
+    _delegate = delegate;
+
     _dayDateFormatter = [[NSDateFormatter alloc] init];
     _dayDateFormatter.dateFormat = @"dd";
 
@@ -58,7 +61,8 @@ API_AVAILABLE(ios(18.0))
   self.title = NSLocalizedString(@"history.title", nil);
 
   UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
-  self.navigationItem.rightBarButtonItem = closeButton;
+  UIBarButtonItem *chartButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"chart.bar.xaxis.ascending"] style:UIBarButtonItemStylePlain target:self action:@selector(chart:)];
+  self.navigationItem.rightBarButtonItems = @[closeButton, chartButton];
 
   UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(export:)];
   self.navigationItem.leftBarButtonItem = exportButton;
@@ -108,15 +112,20 @@ API_AVAILABLE(ios(18.0))
   historyEntries = @[
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60] amountOfSpoons:12 plannedSpoons:11 completedSpoons:10 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-2 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:11 completedSpoons:11 completedActionsString:@""],
-    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-3 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-3 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-4 * 24 * 60 * 60] amountOfSpoons:13 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-5 * 24 * 60 * 60] amountOfSpoons:13 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
-    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-6 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-6 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:14 completedSpoons:13 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-7 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-8 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-9 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-10 * 24 * 60 * 60] amountOfSpoons:11 plannedSpoons:11 completedSpoons:11 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-11 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-12 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-13 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-14 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-15 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
+    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-16 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
   ];
 #endif
   if ([historyEntries count] < 1) {
@@ -180,6 +189,28 @@ API_AVAILABLE(ios(18.0))
 // MARK: - Actions
 - (void)close:(UIBarButtonItem *)sender {
   [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)chart:(UIBarButtonItem *)sender {
+  if (@available(iOS 18.0, *)) {
+    for (DDHHistoryEntry *entry in self.historyEntries) {
+#if TARGET_IPHONE_SIMULATOR
+      int valenceInt = rand() % 200;
+      double valence = (double)valenceInt/100.0 - 1.0;
+      if (rand() % 100 < 60) {
+        entry.mood = valence;
+      }
+#else
+      HKStateOfMind *stateOfMind = [self stateOfMindForDate:entry.date];
+      if (nil != stateOfMind) {
+        entry.mood = stateOfMind.valence;
+      } else {
+        entry.mood = CGFLOAT_MIN;
+      }
+#endif
+    }
+  }
+  [self.delegate didSelectChart:self entries:self.historyEntries];
 }
 
 - (void)export:(UIBarButtonItem *)sender {

@@ -7,8 +7,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DDHHistoryListViewController : UIViewController
+@class DDHHistoryEntry;
 
+@protocol DDHHistoryListViewControllerProtocol <NSObject>
+- (void)didSelectChart:(UIViewController *)viewController entries:(NSArray<DDHHistoryEntry *> *)entries;
+@end
+
+@interface DDHHistoryListViewController : UIViewController
+- (instancetype)initWithDelegate:(id<DDHHistoryListViewControllerProtocol>)delegate;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -46,6 +46,8 @@
 		F25F7D3329F5997800EF395F /* DDHDayPlannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D3229F5997800EF395F /* DDHDayPlannerView.m */; };
 		F25F7D4329F59A1700EF395F /* DDHDayPlannerViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D4229F59A1700EF395F /* DDHDayPlannerViewControllerTests.m */; };
 		F25F7D4729F5ABEF00EF395F /* DDHDayPlannerViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */; };
+		F262A0122DA9657800F83A42 /* DDHHistoryChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = F262A0112DA9657800F83A42 /* DDHHistoryChartView.m */; };
+		F262A0152DA966C600F83A42 /* DDHHistoryChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F262A0142DA966C600F83A42 /* DDHHistoryChartViewController.m */; };
 		F2AE97482A31B83200B0D792 /* DailySpoonsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2AE97472A31B83200B0D792 /* DailySpoonsUITests.m */; };
 		F2AE97532A31BD2200B0D792 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F2AE97552A31BD2200B0D792 /* Localizable.strings */; };
 		F2C90A882D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C90A872D7F84C800525DD0 /* UICellConfigurationState+HealthInfo.m */; };
@@ -194,6 +196,10 @@
 		F25F7D4229F59A1700EF395F /* DDHDayPlannerViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDayPlannerViewControllerTests.m; sourceTree = "<group>"; };
 		F25F7D4429F5A8F900EF395F /* DailySpoons.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailySpoons.xctestplan; sourceTree = "<group>"; };
 		F25F7D4629F5ABEF00EF395F /* DDHDayPlannerViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHDayPlannerViewTests.m; sourceTree = "<group>"; };
+		F262A0102DA9657800F83A42 /* DDHHistoryChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHHistoryChartView.h; sourceTree = "<group>"; };
+		F262A0112DA9657800F83A42 /* DDHHistoryChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHHistoryChartView.m; sourceTree = "<group>"; };
+		F262A0132DA966C600F83A42 /* DDHHistoryChartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHHistoryChartViewController.h; sourceTree = "<group>"; };
+		F262A0142DA966C600F83A42 /* DDHHistoryChartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDHHistoryChartViewController.m; sourceTree = "<group>"; };
 		F2AE97452A31B83200B0D792 /* DailySpoonsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailySpoonsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AE97472A31B83200B0D792 /* DailySpoonsUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailySpoonsUITests.m; sourceTree = "<group>"; };
 		F2AE97522A31BD0600B0D792 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -510,6 +516,17 @@
 			path = DayPlanner;
 			sourceTree = "<group>";
 		};
+		F262A00F2DA9655A00F83A42 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				F262A0102DA9657800F83A42 /* DDHHistoryChartView.h */,
+				F262A0112DA9657800F83A42 /* DDHHistoryChartView.m */,
+				F262A0132DA966C600F83A42 /* DDHHistoryChartViewController.h */,
+				F262A0142DA966C600F83A42 /* DDHHistoryChartViewController.m */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
 		F2AE97462A31B83200B0D792 /* DailySpoonsUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,6 +548,7 @@
 			isa = PBXGroup;
 			children = (
 				F2C90BFF2D8B172D00525DD0 /* List */,
+				F262A00F2DA9655A00F83A42 /* Chart */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -759,6 +777,7 @@
 				F2469C8B29FE7E9A0023DAD9 /* DDHSpoonsFooterView.m in Sources */,
 				F2CA90D82A2BCD8400B8B47F /* DDHCollectionViewLayoutProvider.m in Sources */,
 				F2573E0F2A3337BF008E5429 /* UICellConfigurationState+ActionCellAdditions.m in Sources */,
+				F262A0152DA966C600F83A42 /* DDHHistoryChartViewController.m in Sources */,
 				F2C90B3C2D84D6CD00525DD0 /* DDHHistoryEntry.m in Sources */,
 				F2469C8129FCE01D0023DAD9 /* DDHCellRegistrationProvider.m in Sources */,
 				F2C90B432D86CB8800525DD0 /* DDHHistoryListView.m in Sources */,
@@ -767,6 +786,7 @@
 				F22737F52A2A4229001B15B6 /* DDHSettingsViewController.m in Sources */,
 				F2469C7429FC3F270023DAD9 /* DDHAppCoordinator.m in Sources */,
 				F2469C5229F717730023DAD9 /* DDHDay.m in Sources */,
+				F262A0122DA9657800F83A42 /* DDHHistoryChartView.m in Sources */,
 				F2469C7A29FC5CCB0023DAD9 /* DDHActionStoreViewController.m in Sources */,
 				F2469C5629F71B470023DAD9 /* NSUserDefaults+Helper.m in Sources */,
 				F2469C5D29F988D30023DAD9 /* DDHActionCell.m in Sources */,
@@ -1005,7 +1025,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DailySpoons/DailySpoons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailySpoons/Info.plist;
@@ -1019,7 +1039,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
@@ -1045,7 +1065,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DailySpoons/DailySpoons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailySpoons/Info.plist;
@@ -1059,7 +1079,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
@@ -1158,7 +1178,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = InfoWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InfoWidgets/Info.plist;
@@ -1170,7 +1190,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons.InfoWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1191,7 +1211,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = InfoWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InfoWidgets/Info.plist;
@@ -1203,7 +1223,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.DailySpoons.InfoWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

@@ -11,8 +11,9 @@
 #import "DDHAction.h"
 #import "DDHSettingsViewController.h"
 #import "DDHHistoryListViewController.h"
+#import "DDHHistoryChartViewController.h"
 
-@interface DDHAppCoordinator () <DDHDayPlannerViewControllerProtocol, DDHActionStoreViewControllerProtocol, DDHActionInputViewControllerProtocol, DDHSettingsViewControllerProtocol>
+@interface DDHAppCoordinator () <DDHDayPlannerViewControllerProtocol, DDHActionStoreViewControllerProtocol, DDHActionInputViewControllerProtocol, DDHSettingsViewControllerProtocol, DDHHistoryListViewControllerProtocol>
 @property (nonatomic, strong) UINavigationController *navigationController;
 @property (nonatomic, strong) DDHDataStore *dataStore;
 @end
@@ -92,7 +93,7 @@
 }
 
 - (void)didSelectHistoryInViewController:(UIViewController *)viewController {
-  DDHHistoryListViewController *next = [[DDHHistoryListViewController alloc] init];
+  DDHHistoryListViewController *next = [[DDHHistoryListViewController alloc] initWithDelegate:self];
 
   UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:next];
   [viewController presentViewController:navigationController animated:YES completion:nil];
@@ -159,4 +160,11 @@
   }
   [dayPlanner showStepsChanged:showSteps];
 }
+
+// MARK: - DDHHistoryListViewControllerProtocol
+- (void)didSelectChart:(UIViewController *)viewController entries:(nonnull NSArray<DDHHistoryEntry *> *)entries {
+  DDHHistoryChartViewController *next = [[DDHHistoryChartViewController alloc] initWithHistoryEntries:entries];
+  [viewController presentViewController:next animated:true completion:nil];
+}
+
 @end

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSInteger plannedSpoons;
 @property (nonatomic) NSInteger completedSpoons;
 @property (nonatomic) NSString *completedActionsString;
+@property (nonatomic) double mood;
 - (instancetype)initUUID:(NSUUID *)uuid date:(NSDate *)date amountOfSpoons:(NSInteger)amountOfSpoons plannedSpoons:(NSInteger)plannedSpoons completedSpoons:(NSInteger)completedSpoons completedActionsString:(NSString *)completedActionsString;
 @end
 
