@@ -164,7 +164,8 @@
 // MARK: - DDHHistoryListViewControllerProtocol
 - (void)didSelectChart:(UIViewController *)viewController entries:(nonnull NSArray<DDHHistoryEntry *> *)entries {
   DDHHistoryChartViewController *next = [[DDHHistoryChartViewController alloc] initWithHistoryEntries:entries];
-  [viewController presentViewController:next animated:true completion:nil];
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:next];
+  [viewController presentViewController:navigationController animated:true completion:nil];
 }
 
 @end

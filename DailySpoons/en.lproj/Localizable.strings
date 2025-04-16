@@ -69,3 +69,11 @@
 "history.classification.slightlyPleasant" = "slightly pleasant";
 "history.classification.pleasant" = "pleasant";
 "history.classification.veryPleasant" = "very pleasant";
+
+"chart.amountOfSpoons" = "Amount Of Spoons";
+"chart.plannedSpoons" = "Planned Spoons";
+"chart.completedSpoons" = "Completed Spoons";
+"chart.today" = "today";
+"chart.stateOfMind.title" = "State Of Mind";
+"chart.stateOfMind.veryPleasant" = "very pleasant";
+"chart.stateOfMind.veryUnpleasant" = "very unpleasant";

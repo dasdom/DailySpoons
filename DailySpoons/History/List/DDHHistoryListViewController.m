@@ -113,7 +113,7 @@ API_AVAILABLE(ios(18.0))
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60] amountOfSpoons:12 plannedSpoons:11 completedSpoons:10 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-2 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:11 completedSpoons:11 completedActionsString:@""],
 //    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-3 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:11 completedActionsString:@""],
-    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-4 * 24 * 60 * 60] amountOfSpoons:13 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
+//    [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-4 * 24 * 60 * 60] amountOfSpoons:13 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-5 * 24 * 60 * 60] amountOfSpoons:13 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-6 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:14 completedSpoons:13 completedActionsString:@""],
     [[DDHHistoryEntry alloc] initUUID:[NSUUID UUID] date:[NSDate dateWithTimeIntervalSinceNow:-7 * 24 * 60 * 60] amountOfSpoons:12 plannedSpoons:12 completedSpoons:12 completedActionsString:@""],
@@ -205,7 +205,7 @@ API_AVAILABLE(ios(18.0))
       if (nil != stateOfMind) {
         entry.mood = stateOfMind.valence;
       } else {
-        entry.mood = CGFLOAT_MIN;
+        entry.mood = -1000;
       }
 #endif
     }

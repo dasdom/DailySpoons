@@ -30,4 +30,16 @@
   self.view = [[DDHHistoryChartView alloc] initWithHistoryEntries:self.historyEntries maxValue:maxValue];
 }
 
+- (void)viewDidLoad {
+  [super viewDidLoad];
+
+  UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
+  self.navigationItem.rightBarButtonItem = closeButton;
+}
+
+// MARK: - Actions
+- (void)close:(UIBarButtonItem *)sender {
+  [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

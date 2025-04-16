@@ -24,7 +24,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
     _dateLabel = [[UILabel alloc] init];
-    _dateLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle1];
+    _dateLabel.font = [UIFont monospacedDigitSystemFontOfSize:30 weight:UIFontWeightMedium];
 
     _amountLabel = [[UILabel alloc] init];
     _amountLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];

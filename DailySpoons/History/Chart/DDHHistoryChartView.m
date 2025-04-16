@@ -34,34 +34,101 @@
 
   [[UIColor redColor] set];
 
-  CGFloat xOffset = 20;
+  CGFloat xOffset = 40;
   CGFloat width = rect.size.width - 2 * xOffset;
-  CGFloat height = 0.6 * rect.size.height;
-  CGFloat yOffset = 100;
+  CGFloat height = 0.5 * rect.size.height;
+  CGFloat yOffset = 40;
 
   NSInteger numberOfElements = 15;
   NSInteger spacing = 8;
   NSCalendar *calendar = [NSCalendar currentCalendar];
   NSDate *now = [NSDate now];
+  NSDate *startOfToday = [calendar startOfDayForDate:now];
   NSInteger maxValue = self.maxValue + 1;
   CGFloat dayWidth = width / numberOfElements - spacing;
   CGFloat entryWidth = dayWidth / 2;
-
-  NSString *todayString = NSLocalizedString(@"chart.today", nil);
-
-  CGFloat x = [self xForDaysInPast:0 width:width dayWidth:dayWidth spacing:spacing] - entryWidth + xOffset;
   CGFloat y = rect.size.height - yOffset;
   UIFont *font = [UIFont systemFontOfSize:10];
+  CGFloat textY = y - 4;
 
-  CGFloat moodY = 0.17 * rect.size.height;
+
+  CGFloat x = [self xForDaysInPast:0 width:width dayWidth:dayWidth spacing:spacing] - entryWidth + xOffset;
+
+  CGFloat moodY = 0.23 * rect.size.height;
   CGFloat moodHeight = 0.1 * rect.size.height;
 
+  // MARK: Axis
+  CGRect xAxisRect = CGRectMake(xOffset, y, width, 1);
+  UIBezierPath *path = [UIBezierPath bezierPathWithRect:xAxisRect];
+
+  [[UIColor labelColor] set];
+  [path fill];
+
+  CGRect yAxisRect = CGRectMake(xOffset, y - height - 40, 1, height + 40);
+  path = [UIBezierPath bezierPathWithRect:yAxisRect];
+
+  [[UIColor labelColor] set];
+  [path fill];
+
+  // MARK: Legend
+  CGRect legendElementRect = CGRectMake(xOffset + 20, y - height - 30, 8, 8);
+  path = [UIBezierPath bezierPathWithRect:legendElementRect];
+
+  [[UIColor systemRedColor] set];
+  [path stroke];
+
+  NSDictionary<NSAttributedStringKey,id> *attributes = @{
+    NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote],
+    NSForegroundColorAttributeName: [UIColor labelColor]
+  };
+
+  NSString *legendText = NSLocalizedString(@"chart.amountOfSpoons", nil);
+  CGSize textSize = [legendText sizeWithAttributes:attributes];
+  [legendText drawAtPoint:CGPointMake(legendElementRect.origin.x + 20, legendElementRect.origin.y-textSize.height/2+4) withAttributes:attributes];
+
+  legendElementRect = CGRectMake(xOffset + 20, y - height - 15, 8, 8);
+  path = [UIBezierPath bezierPathWithRect:legendElementRect];
+
+  [[UIColor systemGreenColor] set];
+  [path fill];
+
+  legendText = NSLocalizedString(@"chart.plannedSpoons", nil);
+  textSize = [legendText sizeWithAttributes:attributes];
+  [legendText drawAtPoint:CGPointMake(legendElementRect.origin.x + 20, legendElementRect.origin.y-textSize.height/2+4) withAttributes:attributes];
+
+  legendElementRect = CGRectMake(xOffset + 20, y - height, 8, 8);
+  path = [UIBezierPath bezierPathWithRect:legendElementRect];
+
+  [[UIColor systemBlueColor] set];
+  [path fill];
+
+  legendText = NSLocalizedString(@"chart.completedSpoons", nil);
+  textSize = [legendText sizeWithAttributes:attributes];
+  [legendText drawAtPoint:CGPointMake(legendElementRect.origin.x + 20, legendElementRect.origin.y-textSize.height/2+4) withAttributes:attributes];
+
+
+  // MARK: Axis labels
+  for (NSInteger i = 5; i < self.maxValue; i+=5) {
+    NSDictionary<NSAttributedStringKey,id> *attributes = @{
+      NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleBody],
+      NSForegroundColorAttributeName: [UIColor labelColor]
+    };
+
+    NSString *labelString = [NSString stringWithFormat:@"%ld", (long)i];
+    CGSize stringSize = [labelString sizeWithAttributes:attributes];
+
+    CGFloat yFive =  y = rect.size.height - (height * i / maxValue) - yOffset;
+    [labelString drawAtPoint:CGPointMake(xOffset - stringSize.width - 4, yFive) withAttributes:attributes];
+  }
+
+  // MARK: Today label
   CGContextRef context = UIGraphicsGetCurrentContext();
   CGContextSaveGState(context);
 
-  CGContextTranslateCTM(context, x-font.pointSize, y);
+  CGContextTranslateCTM(context, x-font.pointSize, textY);
   CGContextRotateCTM(context, -M_PI_2);
 
+  NSString *todayString = NSLocalizedString(@"chart.today", nil);
   [todayString drawAtPoint:CGPointMake(0, 0) withAttributes:
    @{
     NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleBody],
@@ -70,8 +137,10 @@
 
   CGContextRestoreGState(context);
 
+
+  // MARK: StateOfMind
   CGRect goodMoodRect = CGRectMake(xOffset, moodY - moodHeight - 10, width, moodHeight + 10);
-  UIBezierPath *path = [UIBezierPath bezierPathWithRect:goodMoodRect];
+  path = [UIBezierPath bezierPathWithRect:goodMoodRect];
 
   [[[UIColor systemGreenColor] colorWithAlphaComponent:0.4] set];
   [path fill];
@@ -82,12 +151,39 @@
   [[[UIColor systemRedColor] colorWithAlphaComponent:0.4] set];
   [path fill];
 
+  NSString *stateOfMindTitle = NSLocalizedString(@"chart.stateOfMind.title", nil);
+  attributes = @{
+    NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline],
+    NSForegroundColorAttributeName: [UIColor labelColor]
+  };
+  textSize = [stateOfMindTitle sizeWithAttributes:attributes];
+
+  [stateOfMindTitle drawAtPoint:CGPointMake(xOffset + (width- textSize.width)/2, moodY - moodHeight - 14 - textSize.height) withAttributes:attributes];
+
+  legendText =  NSLocalizedString(@"chart.stateOfMind.veryPleasant", nil);
+  attributes = @{
+    NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote],
+    NSForegroundColorAttributeName: [UIColor secondaryLabelColor]
+  };
+  [legendText drawAtPoint:CGPointMake(xOffset + 4, moodY - moodHeight - 10) withAttributes:attributes];
+
+  legendText =  NSLocalizedString(@"chart.stateOfMind.veryUnpleasant", nil);
+  textSize = [stateOfMindTitle sizeWithAttributes:attributes];
+  [legendText drawAtPoint:CGPointMake(xOffset + 4, moodY + moodHeight + 10 - textSize.height) withAttributes:attributes];
+
+
+  // MARK: History entries
   for (DDHHistoryEntry *entry in self.historyEntries) {
 
-    NSInteger numberOfDays = [calendar components:NSCalendarUnitDay fromDate:entry.date toDate:now options:0].day;
+    NSDate *startOfEntryDate = [calendar startOfDayForDate:entry.date];
+
+    NSInteger numberOfDays = [calendar components:NSCalendarUnitDay fromDate:startOfEntryDate toDate:startOfToday options:0].day;
+
+    if (numberOfDays >= numberOfElements) {
+      break;
+    }
 
     CGFloat x = [self xForDaysInPast:numberOfDays width:width dayWidth:dayWidth spacing:spacing] - entryWidth + xOffset;
-    CGFloat textY = y - 4;
 
     // Completed spoons
     CGFloat barHeight = height * entry.completedSpoons / maxValue;
@@ -113,11 +209,11 @@
     barHeight = height * entry.amountOfSpoons / maxValue;
     y = rect.size.height - barHeight - yOffset;
 
-    bar = CGRectMake(x - entryWidth, y, dayWidth, 2);
+    bar = CGRectMake(x - entryWidth, y, dayWidth, barHeight);
     path = [UIBezierPath bezierPathWithRect:bar];
 
-    [[UIColor labelColor] set];
-    [path fill];
+    [[UIColor systemRedColor] set];
+    [path stroke];
 
     NSString *dayString = [self.dateFormatter stringFromDate:entry.date];
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -133,7 +229,7 @@
 
     CGSize dayStringSize = [dayString sizeWithAttributes:attributes];
 
-    CGContextTranslateCTM(context, x+entryWidth-dayWidth+fabs(dayStringSize.height-dayWidth)/2, textY);
+    CGContextTranslateCTM(context, x+entryWidth-dayWidth+(dayWidth-dayStringSize.height)/2, textY);
     CGContextRotateCTM(context, -M_PI_2);
 
     [dayString drawAtPoint:CGPointMake(0, 0) withAttributes:attributes];
@@ -141,16 +237,12 @@
     CGContextRestoreGState(context);
 
     if (entry.mood > -10) {
-      CGRect markerRect = CGRectMake(x+entryWidth-dayWidth+fabs(10-dayWidth)/2, moodY + entry.mood * moodHeight, 10, 10);
+      CGRect markerRect = CGRectMake(x+entryWidth-dayWidth+(dayWidth-10)/2, moodY - entry.mood * moodHeight - 5, 10, 10);
       path = [UIBezierPath bezierPathWithOvalInRect:markerRect];
 
       [[UIColor labelColor] set];
       path.lineWidth = 2;
       [path stroke];
-    }
-
-    if (numberOfDays >= numberOfElements - 1) {
-      break;
     }
   }
 }

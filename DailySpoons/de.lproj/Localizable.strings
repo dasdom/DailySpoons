@@ -68,3 +68,11 @@
 "history.classification.slightlyPleasant" = "etwas angenehm";
 "history.classification.pleasant" = "angenehm";
 "history.classification.veryPleasant" = "sehr angenehm";
+
+"chart.amountOfSpoons" = "Anzahl der Löffel";
+"chart.plannedSpoons" = "Geplante Löffel";
+"chart.completedSpoons" = "Fertige Löffel";
+"chart.today" = "heute";
+"chart.stateOfMind.title" = "Gemütszustand";
+"chart.stateOfMind.veryPleasant" = "sehr angenehm";
+"chart.stateOfMind.veryUnpleasant" = "sehr unangenehm";
